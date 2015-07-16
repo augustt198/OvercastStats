@@ -1,7 +1,7 @@
 package me.ryanw.overcast.impl.object;
 
 import com.google.common.base.Optional;
-import me.ryanw.overcast.impl.api.OvercastPlayer;
+import me.ryanw.overcast.api.OvercastPlayer;
 import me.ryanw.overcast.impl.util.MappingParser;
 import me.ryanw.overcast.impl.util.MojangUtil;
 import org.jsoup.nodes.Document;

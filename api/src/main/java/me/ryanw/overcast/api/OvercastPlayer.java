@@ -1,4 +1,4 @@
-package me.ryanw.overcast.impl.api;
+package me.ryanw.overcast.api;
 
 import com.google.common.base.Optional;
 
