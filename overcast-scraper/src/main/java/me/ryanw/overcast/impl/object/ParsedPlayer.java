@@ -2,6 +2,7 @@ package me.ryanw.overcast.impl.object;
 
 import com.google.common.base.Optional;
 import me.ryanw.overcast.api.OvercastPlayer;
+import me.ryanw.overcast.api.util.Gender;
 import me.ryanw.overcast.impl.util.MappingParser;
 import me.ryanw.overcast.impl.util.MojangUtil;
 import org.jsoup.nodes.Document;
@@ -74,7 +75,7 @@ public class ParsedPlayer implements OvercastPlayer {
     /**
      * Personal Details
      */
-    private Optional<String> gender;
+    private Optional<Gender> gender;
     private Optional<String> location;
     private Optional<String> occupation;
     private Optional<String> interests;
@@ -308,7 +309,7 @@ public class ParsedPlayer implements OvercastPlayer {
     }
 
     @Override
-    public Optional<String> getGender() {
+    public Optional<Gender> getGender() {
         return gender;
     }
 

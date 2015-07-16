@@ -1,6 +1,7 @@
 package me.ryanw.overcast.api;
 
 import com.google.common.base.Optional;
+import me.ryanw.overcast.api.util.Gender;
 
 import java.util.List;
 
@@ -73,7 +74,7 @@ public interface OvercastPlayer {
 
     int getCoresLeaked();
 
-    Optional<String> getGender();
+    Optional<Gender> getGender();
 
     Optional<String> getLocation();
 
