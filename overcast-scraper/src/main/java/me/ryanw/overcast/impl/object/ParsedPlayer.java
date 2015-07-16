@@ -12,7 +12,7 @@ import java.util.List;
 public class ParsedPlayer implements OvercastPlayer {
 
     public ParsedPlayer(Document doc) throws IOException {
-        MappingParser parser = new MappingParser(doc);
+        MappingParser parser = new MappingParser(doc, "player");
 
         this.username = parser.getString("username");
         this.formerUsername = Optional.fromNullable(MojangUtil.getFormerUsername(MojangUtil.getUUID(username)));

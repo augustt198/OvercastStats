@@ -16,11 +16,12 @@ import java.util.regex.Pattern;
 
 public class MappingParser {
 
-    private final String url = "https://raw.githubusercontent.com/ryanw-se/OvercastAPI/master/mappings/mappings.json";
+    private final String url;
     private final Document document;
 
-    public MappingParser(Document document) throws IOException {
+    public MappingParser(Document document, String fileName) throws IOException {
         this.document = document;
+        this.url = "https://raw.githubusercontent.com/ryanw-se/mappings/master/OvercastAPI/" + fileName + ".json";
     }
 
     /**
