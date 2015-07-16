@@ -97,4 +97,6 @@ public interface OvercastPlayer {
     Optional<String> getGithubHandle();
 
     Optional<String> getRedditHandle();
+
+    Optional<OvercastTeam> getTeam();
 }
