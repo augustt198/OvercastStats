@@ -6,21 +6,21 @@ You are welcome to contribute code or even just help out with issues, all contri
 
 # Issue Reporting
 
-When creating an issue, keep the following in mind:
+**When creating an issue, keep the following in mind:**
 
- * Verify that the issue hasn't already been reported, if it has add onto that issue rather than creating a new one.
- * If your reporting a bug found in a project using OvercastAPI, verify that it is indeed an OvercastAPI issue.
- * Only report valid issues, not feature requests or missing features. 
+* Verify that the issue hasn't already been reported, if it has add onto that issue rather than creating a new one.
+* If your reporting a bug found in a project using OvercastAPI, verify that it is indeed an OvercastAPI issue.
+* Only report valid issues, not feature requests or missing features. 
 
- Here are some things to consider when creating your actual issue report:
+**Here are some things to consider when creating your actual issue report:**
 
- * Provide a quick demonstration of the issue, whether it be a quick video or screenshots with steps to replicate.
- * Always build the latest version of the API and verify that the issue still persists before creating a new issue.
- * Write your issue in English, if you aren't good at English then you can use a tool such as Google Translate.
+* Provide a quick demonstration of the issue, whether it be a quick video or screenshots with steps to replicate.
+* Always build the latest version of the API and verify that the issue still persists before creating a new issue.
+* Write your issue in English, if you aren't good at English then you can use a tool such as Google Translate.
 
 # Contributing
 
-When contributing to the project, please go through the following checklist to ensure a quality contribution:
+**When contributing to the project, please go through the following checklist to ensure a quality contribution:**
 
 * Use a formal commit message. Commit messages should be in the present tense and prefixed with either ```api:``` or ```impl:``` depending on what you are changing. If you are changing the API, you would use the API prefix, same for impl. Because of this tag, make sure that your actual commit message is in all lower case. 
 * When changing both the api and impl at the same time, create two different pull requests with separate commits. Do not group changes in both the api and impl in the same commit or pull request.
