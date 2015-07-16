@@ -2,6 +2,7 @@ package me.ryanw.overcast.impl.object;
 
 import com.google.common.base.Optional;
 import me.ryanw.overcast.api.OvercastPlayer;
+import me.ryanw.overcast.api.OvercastTeam;
 import me.ryanw.overcast.api.util.Gender;
 import me.ryanw.overcast.impl.util.MappingParser;
 import me.ryanw.overcast.impl.util.MojangUtil;
@@ -35,30 +36,30 @@ public class ParsedPlayer implements OvercastPlayer {
      */
     private int globalKills;
     private int globalDeaths;
-    private int globalKdRatio;
-    private int globalKkRatio;
-    private int globalDaysPlayed;
+    private double globalKdRatio;
+    private double globalKkRatio;
+    private double globalDaysPlayed;
 
     private int projectAresKills;
     private int projectAresDeaths;
-    private int projectAresKd;
-    private int projectAresKk;
-    private int projectAresDaysPlayed;
-    private int projectAresDayObserved;
+    private double projectAresKd;
+    private double projectAresKk;
+    private double projectAresDaysPlayed;
+    private double projectAresDayObserved;
 
     private int blitzKills;
     private int blitzDeaths;
-    private int blitzKd;
-    private int blitzKk;
-    private int blitzDaysPlayed;
-    private int blitzDaysObserved;
+    private double blitzKd;
+    private double blitzKk;
+    private double blitzDaysPlayed;
+    private double blitzDaysObserved;
 
     private int ghostSquadronKills;
     private int ghostSquadronDeaths;
-    private int ghostSquadronKd;
-    private int ghostSquadronKk;
-    private int ghostSquadronDaysPlayed;
-    private int ghostSquadronDaysObserved;
+    private double ghostSquadronKd;
+    private double ghostSquadronKk;
+    private double ghostSquadronDaysPlayed;
+    private double ghostSquadronDaysObserved;
 
     private int serverJoins;
     private int raindrops;
@@ -169,17 +170,17 @@ public class ParsedPlayer implements OvercastPlayer {
     }
 
     @Override
-    public int getGlobalKdRatio() {
+    public double getGlobalKdRatio() {
         return globalKdRatio;
     }
 
     @Override
-    public int getGlobalKkRatio() {
+    public double getGlobalKkRatio() {
         return globalKkRatio;
     }
 
     @Override
-    public int getGlobalDaysPlayed() {
+    public double getGlobalDaysPlayed() {
         return globalDaysPlayed;
     }
 
@@ -194,22 +195,22 @@ public class ParsedPlayer implements OvercastPlayer {
     }
 
     @Override
-    public int getProjectAresKd() {
+    public double getProjectAresKd() {
         return projectAresKd;
     }
 
     @Override
-    public int getProjectAresKk() {
+    public double getProjectAresKk() {
         return projectAresKk;
     }
 
     @Override
-    public int getProjectAresDaysPlayed() {
+    public double getProjectAresDaysPlayed() {
         return projectAresDaysPlayed;
     }
 
     @Override
-    public int getProjectAresDayObserved() {
+    public double getProjectAresDayObserved() {
         return projectAresDayObserved;
     }
 
@@ -224,22 +225,22 @@ public class ParsedPlayer implements OvercastPlayer {
     }
 
     @Override
-    public int getBlitzKd() {
+    public double getBlitzKd() {
         return blitzKd;
     }
 
     @Override
-    public int getBlitzKk() {
+    public double getBlitzKk() {
         return blitzKk;
     }
 
     @Override
-    public int getBlitzDaysPlayed() {
+    public double getBlitzDaysPlayed() {
         return blitzDaysPlayed;
     }
 
     @Override
-    public int getBlitzDaysObserved() {
+    public double getBlitzDaysObserved() {
         return blitzDaysObserved;
     }
 
@@ -254,22 +255,22 @@ public class ParsedPlayer implements OvercastPlayer {
     }
 
     @Override
-    public int getGhostSquadronKd() {
+    public double getGhostSquadronKd() {
         return ghostSquadronKd;
     }
 
     @Override
-    public int getGhostSquadronKk() {
+    public double getGhostSquadronKk() {
         return ghostSquadronKk;
     }
 
     @Override
-    public int getGhostSquadronDaysPlayed() {
+    public double getGhostSquadronDaysPlayed() {
         return ghostSquadronDaysPlayed;
     }
 
     @Override
-    public int getGhostSquadronDaysObserved() {
+    public double getGhostSquadronDaysObserved() {
         return ghostSquadronDaysObserved;
     }
 
@@ -366,5 +367,11 @@ public class ParsedPlayer implements OvercastPlayer {
     @Override
     public Optional<String> getRedditHandle() {
         return redditHandle;
+    }
+
+    @Override
+    public Optional<OvercastTeam> getTeam() {
+        //TODO: implement
+        return Optional.absent();
     }
 }

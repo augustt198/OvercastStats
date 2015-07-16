@@ -18,47 +18,47 @@ public interface OvercastPlayer {
 
     int getGlobalDeaths();
 
-    int getGlobalKdRatio();
+    double getGlobalKdRatio();
 
-    int getGlobalKkRatio();
+    double getGlobalKkRatio();
 
-    int getGlobalDaysPlayed();
+    double getGlobalDaysPlayed();
 
     int getProjectAresKills();
 
     int getProjectAresDeaths();
 
-    int getProjectAresKd();
+    double getProjectAresKd();
 
-    int getProjectAresKk();
+    double getProjectAresKk();
 
-    int getProjectAresDaysPlayed();
+    double getProjectAresDaysPlayed();
 
-    int getProjectAresDayObserved();
+    double getProjectAresDayObserved();
 
     int getBlitzKills();
 
     int getBlitzDeaths();
 
-    int getBlitzKd();
+    double getBlitzKd();
 
-    int getBlitzKk();
+    double getBlitzKk();
 
-    int getBlitzDaysPlayed();
+    double getBlitzDaysPlayed();
 
-    int getBlitzDaysObserved();
+    double getBlitzDaysObserved();
 
     int getGhostSquadronKills();
 
     int getGhostSquadronDeaths();
 
-    int getGhostSquadronKd();
+    double getGhostSquadronKd();
 
-    int getGhostSquadronKk();
+    double getGhostSquadronKk();
 
-    int getGhostSquadronDaysPlayed();
+    double getGhostSquadronDaysPlayed();
 
-    int getGhostSquadronDaysObserved();
+    double getGhostSquadronDaysObserved();
 
     int getServerJoins();
 
