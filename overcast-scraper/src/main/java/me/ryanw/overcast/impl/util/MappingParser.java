@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Node;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -129,7 +130,7 @@ public class MappingParser {
                     return null;
                 }
 
-                String payload = document.select(mappingsEntry.selector).text();
+                String payload = document.select(mappingsEntry.selector).first().ownText();
                 String result = payload;
 
                 if (mappingsEntry.filter != null) {
