@@ -21,7 +21,39 @@ public class ParsedPlayer implements OvercastPlayer {
         this.globalKills = parser.getInteger("globalKills");
         this.globalDeaths = parser.getInteger("globalDeaths");
 
-        //this.globalKdRatio = parser.getInteger("globalKdRatio");
+        this.globalKdRatio = parser.getDouble("globalKdRatio");
+        this.globalKkRatio = parser.getDouble("globalKkRatio");
+        this.serverJoins = parser.getInteger("serverJoins");
+        this.globalDaysPlayed = parser.getDouble("globalDaysPlayed");
+        this.raindrops = parser.getInteger("raindrops");
+
+        this.forumPosts = parser.getInteger("forumPosts");
+        this.forumTopics = parser.getInteger("forumTopics");
+
+        this.projectAresKills = parser.getInteger("projectAresKills");
+        this.projectAresDeaths = parser.getInteger("projectAresDeaths");
+        this.projectAresKdRatio = parser.getDouble("projectAresKdRatio");
+        this.projectAresKkRatio = parser.getDouble("projectAresKkRatio");
+        this.projectAresDaysPlayed = parser.getDouble("projectAresDaysPlayed");
+        this.projectAresDaysObserved = parser.getDouble("projectAresDaysObserved");
+
+        this.blitzKills = parser.getInteger("blitzKills");
+        this.blitzDeaths = parser.getInteger("blitzDeaths");
+        this.blitzKdRatio = parser.getDouble("blitzKdRatio");
+        this.blitzKkRatio = parser.getDouble("blitzKkRatio");
+        this.blitzDaysPlayed = parser.getDouble("blitzDaysPlayed");
+        this.blitzDaysObserved = parser.getDouble("blitzDaysObserved");
+
+        this.ghostSquadronKills = parser.getInteger("ghostSquadronKills");
+        this.ghostSquadronDeaths = parser.getInteger("ghostSquadronDeaths");
+        this.ghostSquadronKdRatio = parser.getDouble("ghostSquadronKdRatio");
+        this.ghostSquadronKkRatio = parser.getDouble("ghostSquadronKkRatio");
+        this.ghostSquadronDaysPlayed = parser.getDouble("ghostSquadronDaysPlayed");
+        this.ghostSquadronDaysObserved = parser.getDouble("ghostSquadronDaysObserved");
+
+        this.monumentsDestroyed = parser.getInteger("monumentsDestroyed");
+        this.woolsPlaced = parser.getInteger("woolsPlaced");
+        this.coresLeaked = parser.getInteger("coresLeaked");
     }
 
     /**
@@ -42,22 +74,22 @@ public class ParsedPlayer implements OvercastPlayer {
 
     private int projectAresKills;
     private int projectAresDeaths;
-    private double projectAresKd;
-    private double projectAresKk;
+    private double projectAresKdRatio;
+    private double projectAresKkRatio;
     private double projectAresDaysPlayed;
-    private double projectAresDayObserved;
+    private double projectAresDaysObserved;
 
     private int blitzKills;
     private int blitzDeaths;
-    private double blitzKd;
-    private double blitzKk;
+    private double blitzKdRatio;
+    private double blitzKkRatio;
     private double blitzDaysPlayed;
     private double blitzDaysObserved;
 
     private int ghostSquadronKills;
     private int ghostSquadronDeaths;
-    private double ghostSquadronKd;
-    private double ghostSquadronKk;
+    private double ghostSquadronKdRatio;
+    private double ghostSquadronKkRatio;
     private double ghostSquadronDaysPlayed;
     private double ghostSquadronDaysObserved;
 
@@ -106,20 +138,20 @@ public class ParsedPlayer implements OvercastPlayer {
                 ", globalDaysPlayed=" + globalDaysPlayed +
                 ", projectAresKills=" + projectAresKills +
                 ", projectAresDeaths=" + projectAresDeaths +
-                ", projectAresKd=" + projectAresKd +
-                ", projectAresKk=" + projectAresKk +
+                ", projectAresKd=" + projectAresKdRatio +
+                ", projectAresKk=" + projectAresKkRatio +
                 ", projectAresDaysPlayed=" + projectAresDaysPlayed +
-                ", projectAresDayObserved=" + projectAresDayObserved +
+                ", projectAresDayObserved=" + projectAresDaysObserved +
                 ", blitzKills=" + blitzKills +
                 ", blitzDeaths=" + blitzDeaths +
-                ", blitzKd=" + blitzKd +
-                ", blitzKk=" + blitzKk +
+                ", blitzKd=" + blitzKdRatio +
+                ", blitzKk=" + blitzKkRatio +
                 ", blitzDaysPlayed=" + blitzDaysPlayed +
                 ", blitzDaysObserved=" + blitzDaysObserved +
                 ", ghostSquadronKills=" + ghostSquadronKills +
                 ", ghostSquadronDeaths=" + ghostSquadronDeaths +
-                ", ghostSquadronKd=" + ghostSquadronKd +
-                ", ghostSquadronKk=" + ghostSquadronKk +
+                ", ghostSquadronKd=" + ghostSquadronKdRatio +
+                ", ghostSquadronKk=" + ghostSquadronKkRatio +
                 ", ghostSquadronDaysPlayed=" + ghostSquadronDaysPlayed +
                 ", ghostSquadronDaysObserved=" + ghostSquadronDaysObserved +
                 ", serverJoins=" + serverJoins +
@@ -195,13 +227,13 @@ public class ParsedPlayer implements OvercastPlayer {
     }
 
     @Override
-    public double getProjectAresKd() {
-        return projectAresKd;
+    public double getProjectAresKdRatio() {
+        return projectAresKdRatio;
     }
 
     @Override
-    public double getProjectAresKk() {
-        return projectAresKk;
+    public double getProjectAresKkRatio() {
+        return projectAresKkRatio;
     }
 
     @Override
@@ -210,8 +242,8 @@ public class ParsedPlayer implements OvercastPlayer {
     }
 
     @Override
-    public double getProjectAresDayObserved() {
-        return projectAresDayObserved;
+    public double getProjectAresDaysObserved() {
+        return projectAresDaysObserved;
     }
 
     @Override
@@ -225,13 +257,13 @@ public class ParsedPlayer implements OvercastPlayer {
     }
 
     @Override
-    public double getBlitzKd() {
-        return blitzKd;
+    public double getBlitzKdRatio() {
+        return blitzKdRatio;
     }
 
     @Override
-    public double getBlitzKk() {
-        return blitzKk;
+    public double getBlitzKkRatio() {
+        return blitzKkRatio;
     }
 
     @Override
@@ -255,13 +287,13 @@ public class ParsedPlayer implements OvercastPlayer {
     }
 
     @Override
-    public double getGhostSquadronKd() {
-        return ghostSquadronKd;
+    public double getGhostSquadronKdRatio() {
+        return ghostSquadronKdRatio;
     }
 
     @Override
-    public double getGhostSquadronKk() {
-        return ghostSquadronKk;
+    public double getGhostSquadronKkRatio() {
+        return ghostSquadronKkRatio;
     }
 
     @Override

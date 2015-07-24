@@ -28,21 +28,21 @@ public interface OvercastPlayer {
 
     int getProjectAresDeaths();
 
-    double getProjectAresKd();
+    double getProjectAresKdRatio();
 
-    double getProjectAresKk();
+    double getProjectAresKkRatio();
 
     double getProjectAresDaysPlayed();
 
-    double getProjectAresDayObserved();
+    double getProjectAresDaysObserved();
 
     int getBlitzKills();
 
     int getBlitzDeaths();
 
-    double getBlitzKd();
+    double getBlitzKdRatio();
 
-    double getBlitzKk();
+    double getBlitzKkRatio();
 
     double getBlitzDaysPlayed();
 
@@ -52,9 +52,9 @@ public interface OvercastPlayer {
 
     int getGhostSquadronDeaths();
 
-    double getGhostSquadronKd();
+    double getGhostSquadronKdRatio();
 
-    double getGhostSquadronKk();
+    double getGhostSquadronKkRatio();
 
     double getGhostSquadronDaysPlayed();
 

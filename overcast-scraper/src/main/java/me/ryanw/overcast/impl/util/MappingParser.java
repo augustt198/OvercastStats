@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import me.ryanw.overcast.impl.MappingEntry;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Node;
 
@@ -22,7 +23,7 @@ public class MappingParser {
 
     public MappingParser(Document document, String fileName) throws IOException {
         this.document = document;
-        this.url = "https://raw.githubusercontent.com/ryanw-se/mappings/master/OvercastAPI/" + fileName + ".json";
+        this.url = "https://bitbucket.org/ryanw-se/mappings/raw/e815adf23ea581d9fe75036418310438be0b9b05/OvercastAPI/" + fileName + ".json";
     }
 
     /**
@@ -111,8 +112,6 @@ public class MappingParser {
      * @return formatted result selected in the html file by Jsoup using the selector
      */
     public String getEntry(String id) {
-
-        List<String> matches = new ArrayList<String>();
         JsonArray mappingArray;
 
         try {
@@ -122,43 +121,36 @@ public class MappingParser {
         }
 
         for (JsonElement mapping : mappingArray) {
-            MappingsEntry mappingsEntry = new Gson().fromJson(mapping, MappingsEntry.class);
+            MappingEntry mappingsEntry = new Gson().fromJson(mapping, MappingEntry.class);
 
-            if (mappingsEntry.id.equals(id)) {
+            // Verifies that the entry ID matches the one we want to get.
+            if (mappingsEntry.getId().equals(id)) {
 
-                if (mappingsEntry.selector == null) {
-                    return null;
+                // Gets the target content inside of the element.
+                String payload = document.select(mappingsEntry.getSelector()).get(mappingsEntry.getTarget()).ownText();
+
+                // If it exists get the target from the specified attribute instead.
+                if (mappingsEntry.getAttribute() != null) {
+                    payload = document.select(mappingsEntry.getSelector()).get(mappingsEntry.getTarget()).attr(mappingsEntry.getAttribute());
                 }
 
-                String payload = document.select(mappingsEntry.selector).first().ownText();
-                String result = payload;
-
-                if (mappingsEntry.filter != null) {
-                    Pattern regex = Pattern.compile(mappingsEntry.filter);
+                // It there is a regex filter tag, filter the content and set the result to return.
+                if (mappingsEntry.getFilter() != null) {
+                    List<String> matches = new ArrayList<String>();
+                    Pattern regex = Pattern.compile(mappingsEntry.getFilter());
                     Matcher matcher = regex.matcher(payload);
 
                     while (matcher.find()) {
                         matches.add(matcher.group().trim());
                     }
 
-                    StringBuilder builder = new StringBuilder(matches.size());
-                    for (String string : matches) builder.append(string);
-                    result = builder.toString().trim();
+                    StringBuilder matchBuilder = new StringBuilder(matches.size());
+                    for (String match : matches) matchBuilder.append(match);
+                    payload = matchBuilder.toString().trim();
                 }
-
-                return result;
+                return payload;
             }
         }
-
         return null;
-    }
-
-    /**
-     * Represents one given entry in an array of mapping entries
-     */
-    private class MappingsEntry {
-        private String id;
-        private String selector;
-        private String filter;
     }
 }
