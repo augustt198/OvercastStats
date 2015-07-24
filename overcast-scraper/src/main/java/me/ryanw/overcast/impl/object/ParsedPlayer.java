@@ -13,7 +13,10 @@ import java.util.List;
 
 public class ParsedPlayer implements OvercastPlayer {
 
+    public Document doc;
+
     public ParsedPlayer(Document doc) throws IOException {
+        this.doc = doc;
         MappingParser parser = new MappingParser(doc, "player");
 
         this.username = parser.getString("username");
@@ -54,6 +57,8 @@ public class ParsedPlayer implements OvercastPlayer {
         this.monumentsDestroyed = parser.getInteger("monumentsDestroyed");
         this.woolsPlaced = parser.getInteger("woolsPlaced");
         this.coresLeaked = parser.getInteger("coresLeaked");
+
+        //this.friends = OvercastAPI.getPlayers(parser.getContentList("friends"));
     }
 
     /**

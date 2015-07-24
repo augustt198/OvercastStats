@@ -1,4 +1,4 @@
-package me.ryanw.overcast.impl;
+package me.ryanw.overcast.impl.object;
 
 public class MappingEntry {
 
@@ -6,7 +6,7 @@ public class MappingEntry {
     private String selector;
     private String filter;
     private String attribute;
-    private int target;
+    private Integer target;
 
     public String getId() {
         return id;
@@ -24,7 +24,7 @@ public class MappingEntry {
         return attribute;
     }
 
-    public int getTarget() {
+    public Integer getTarget() {
         return target;
     }
 }
