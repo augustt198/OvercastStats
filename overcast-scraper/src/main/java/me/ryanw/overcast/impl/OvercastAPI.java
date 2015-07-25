@@ -1,5 +1,6 @@
 package me.ryanw.overcast.impl;
 
+import me.ryanw.overcast.api.OvercastPlayer;
 import me.ryanw.overcast.impl.object.ParsedPlayer;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -10,14 +11,14 @@ import java.util.List;
 
 public class OvercastAPI {
 
-    public static ParsedPlayer getPlayer(String username) throws IOException {
+    public static OvercastPlayer getPlayer(String username) throws IOException {
         Connection.Response response = Jsoup.connect("https://oc.tc/users/" + username).method(Connection.Method.GET).execute();
         if (response.statusCode() != 200) return null;
         return new ParsedPlayer(response.parse());
     }
 
-    public static List<ParsedPlayer> getPlayers(List<String> usernames) throws IOException {
-        List<ParsedPlayer> playerList = new ArrayList<ParsedPlayer>();
+    public static List<OvercastPlayer> getPlayers(List<String> usernames) throws IOException {
+        List<OvercastPlayer> playerList = new ArrayList<OvercastPlayer>();
         for (String username : usernames) {
             Connection.Response response = Jsoup.connect("https://oc.tc/users/" + username).method(Connection.Method.GET).execute();
             if (response.statusCode() != 200) break;

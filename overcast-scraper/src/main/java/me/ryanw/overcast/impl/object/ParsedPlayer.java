@@ -4,7 +4,7 @@ import com.google.common.base.Optional;
 import me.ryanw.overcast.api.OvercastPlayer;
 import me.ryanw.overcast.api.OvercastTeam;
 import me.ryanw.overcast.api.util.Gender;
-import me.ryanw.overcast.impl.util.MappingParser;
+import me.ryanw.overcast.impl.mapping.MappingParser;
 import me.ryanw.overcast.impl.util.MojangUtil;
 import org.jsoup.nodes.Document;
 
@@ -13,10 +13,7 @@ import java.util.List;
 
 public class ParsedPlayer implements OvercastPlayer {
 
-    public Document doc;
-
     public ParsedPlayer(Document doc) throws IOException {
-        this.doc = doc;
         MappingParser parser = new MappingParser(doc, "player");
 
         this.username = parser.getString("username");

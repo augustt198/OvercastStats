@@ -1,10 +1,9 @@
-package me.ryanw.overcast.impl.util;
+package me.ryanw.overcast.impl.mapping;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import me.ryanw.overcast.impl.object.MappingEntry;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
@@ -17,13 +16,12 @@ import java.util.regex.Pattern;
 
 public class MappingParser {
 
-    private final String url;
     private final Document document;
     private final JsonArray mappingArray;
 
     public MappingParser(Document document, String fileName) throws IOException {
         this.document = document;
-        this.url = "https://bitbucket.org/ryanw-se/mappings/raw/master/OvercastAPI/" + fileName + ".json";
+        String url = "https://bitbucket.org/ryanw-se/mappings/raw/master/OvercastAPI/" + fileName + ".json";
 
         try {
             mappingArray = new JsonParser().parse(new InputStreamReader(new URL(url).openStream())).getAsJsonArray();

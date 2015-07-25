@@ -7,7 +7,7 @@ public interface OvercastTeam {
 
     String getName();
 
-    Collection<TeamPlayer> getMemebers();
+    Collection<TeamPlayer> getMembers();
 
     int getWools();
 

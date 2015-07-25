@@ -1,4 +1,4 @@
-package me.ryanw.overcast.impl.object;
+package me.ryanw.overcast.impl.mapping;
 
 public class MappingEntry {
 
