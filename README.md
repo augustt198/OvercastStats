@@ -1,4 +1,4 @@
-# OvercastAPI [![Build Status](https://travis-ci.org/ryanw-se/OvercastAPI.svg)](https://travis-ci.org/ryanw-se/OvercastAPI)
+# OvercastAPI [![travis](https://img.shields.io/travis/ryanw-se/OvercastAPI/master.svg?style=flat-square)](https://travis-ci.org/ryanw-se/OvercastAPI/)
 
 The goal of this project is to provide a solid API for the Overcast Network website, written in Java. 
 
