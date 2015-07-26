@@ -12,7 +12,7 @@ public interface OvercastPlayer {
 
     Optional<String> getFormerUsername();
 
-    List<OvercastPlayer> getFriends();
+    List<OvercastFriend> getFriends();
 
     int getGlobalKills();
 

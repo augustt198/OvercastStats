@@ -1,5 +1,6 @@
 package me.ryanw.overcast.impl;
 
+import me.ryanw.overcast.api.OvercastFriend;
 import me.ryanw.overcast.api.OvercastPlayer;
 import me.ryanw.overcast.impl.object.ParsedPlayer;
 import org.jsoup.Connection;

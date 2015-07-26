@@ -1,10 +1,12 @@
 package me.ryanw.overcast.impl.object;
 
 import com.google.common.base.Optional;
+import me.ryanw.overcast.api.OvercastFriend;
 import me.ryanw.overcast.api.OvercastPlayer;
 import me.ryanw.overcast.api.OvercastTeam;
 import me.ryanw.overcast.api.util.Gender;
 import me.ryanw.overcast.impl.mapping.MappingParser;
+import me.ryanw.overcast.impl.util.HelperUtil;
 import me.ryanw.overcast.impl.util.MojangUtil;
 import org.jsoup.nodes.Document;
 
@@ -55,7 +57,7 @@ public class ParsedPlayer implements OvercastPlayer {
         this.woolsPlaced = parser.getInteger("woolsPlaced");
         this.coresLeaked = parser.getInteger("coresLeaked");
 
-        //this.friends = OvercastAPI.getPlayers(parser.getContentList("friends"));
+        this.friends = HelperUtil.buildFriendObjects(parser.getContentList("friends"));
     }
 
     /**
@@ -63,7 +65,7 @@ public class ParsedPlayer implements OvercastPlayer {
      */
     private String username;
     private Optional<String> formerUsername;
-    private List<OvercastPlayer> friends;
+    private List<OvercastFriend> friends;
 
     /**
      * Stat Details
@@ -132,7 +134,7 @@ public class ParsedPlayer implements OvercastPlayer {
         return "Player{" +
                 "username='" + username + '\'' +
                 ", formerUsername='" + formerUsername.orNull() + '\'' +
-                ", friends=" + friends +
+                ", friends=" + friends.size() +
                 ", globalKills=" + globalKills +
                 ", globalDeaths=" + globalDeaths +
                 ", globalKdRatio=" + globalKdRatio +
@@ -189,7 +191,7 @@ public class ParsedPlayer implements OvercastPlayer {
     }
 
     @Override
-    public List<OvercastPlayer> getFriends() {
+    public List<OvercastFriend> getFriends() {
         return friends;
     }
 
