@@ -1,4 +1,4 @@
-# OvercastAPI [![license] (https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)] (https://github.com/ryanw-se/OvercastAPI/blob/master/LICENSE) [![travis](https://img.shields.io/travis/ryanw-se/OvercastAPI/master.svg?style=flat-square)](https://travis-ci.org/ryanw-se/OvercastAPI/)
+# OvercastAPI [![license] (http://img.shields.io/:license-Mozilla Public License v2-blue.svg?style=flat-square)] (https://github.com/ryanw-se/OvercastAPI/blob/master/LICENSE) [![travis](https://img.shields.io/travis/ryanw-se/OvercastAPI/master.svg?style=flat-square)](https://travis-ci.org/ryanw-se/OvercastAPI/)
 The goal of this project is to provide a solid API for the Overcast Network website, written in Java. 
 
 You are welcome to contribute code or even just help out with issues, all contributions help further the project and are appreciated equally.
