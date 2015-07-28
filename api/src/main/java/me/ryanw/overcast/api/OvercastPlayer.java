@@ -24,6 +24,8 @@ public interface OvercastPlayer {
 
     double getGlobalDaysPlayed();
 
+    double getGlobalDaysObserved();
+
     int getProjectAresKills();
 
     int getProjectAresDeaths();

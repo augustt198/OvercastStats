@@ -17,46 +17,39 @@ public class ParsedPlayer implements OvercastPlayer {
 
     public ParsedPlayer(Document doc) throws IOException {
         MappingParser parser = new MappingParser(doc, "player");
-
         this.username = parser.getString("username");
         this.formerUsername = Optional.fromNullable(MojangUtil.getFormerUsername(MojangUtil.getUUID(username)));
         this.globalKills = parser.getInteger("globalKills");
         this.globalDeaths = parser.getInteger("globalDeaths");
-
         this.globalKdRatio = parser.getDouble("globalKdRatio");
         this.globalKkRatio = parser.getDouble("globalKkRatio");
         this.serverJoins = parser.getInteger("serverJoins");
         this.globalDaysPlayed = parser.getDouble("globalDaysPlayed");
         this.raindrops = parser.getInteger("raindrops");
-
         this.forumPosts = parser.getInteger("forumPosts");
         this.forumTopics = parser.getInteger("forumTopics");
-
         this.projectAresKills = parser.getInteger("projectAresKills");
         this.projectAresDeaths = parser.getInteger("projectAresDeaths");
         this.projectAresKdRatio = parser.getDouble("projectAresKdRatio");
         this.projectAresKkRatio = parser.getDouble("projectAresKkRatio");
         this.projectAresDaysPlayed = parser.getDouble("projectAresDaysPlayed");
         this.projectAresDaysObserved = parser.getDouble("projectAresDaysObserved");
-
         this.blitzKills = parser.getInteger("blitzKills");
         this.blitzDeaths = parser.getInteger("blitzDeaths");
         this.blitzKdRatio = parser.getDouble("blitzKdRatio");
         this.blitzKkRatio = parser.getDouble("blitzKkRatio");
         this.blitzDaysPlayed = parser.getDouble("blitzDaysPlayed");
         this.blitzDaysObserved = parser.getDouble("blitzDaysObserved");
-
         this.ghostSquadronKills = parser.getInteger("ghostSquadronKills");
         this.ghostSquadronDeaths = parser.getInteger("ghostSquadronDeaths");
         this.ghostSquadronKdRatio = parser.getDouble("ghostSquadronKdRatio");
         this.ghostSquadronKkRatio = parser.getDouble("ghostSquadronKkRatio");
         this.ghostSquadronDaysPlayed = parser.getDouble("ghostSquadronDaysPlayed");
         this.ghostSquadronDaysObserved = parser.getDouble("ghostSquadronDaysObserved");
-
+        this.globalDaysObserved = projectAresDaysObserved + blitzDaysObserved + ghostSquadronDaysObserved;
         this.monumentsDestroyed = parser.getInteger("monumentsDestroyed");
         this.woolsPlaced = parser.getInteger("woolsPlaced");
         this.coresLeaked = parser.getInteger("coresLeaked");
-
         this.friends = HelperUtil.buildFriendObjects(parser.getContentList("friends"));
     }
 
@@ -75,6 +68,7 @@ public class ParsedPlayer implements OvercastPlayer {
     private double globalKdRatio;
     private double globalKkRatio;
     private double globalDaysPlayed;
+    private double globalDaysObserved;
 
     private int projectAresKills;
     private int projectAresDeaths;
@@ -140,6 +134,7 @@ public class ParsedPlayer implements OvercastPlayer {
                 ", globalKdRatio=" + globalKdRatio +
                 ", globalKkRatio=" + globalKkRatio +
                 ", globalDaysPlayed=" + globalDaysPlayed +
+                ", globalDaysObserved=" + globalDaysObserved +
                 ", projectAresKills=" + projectAresKills +
                 ", projectAresDeaths=" + projectAresDeaths +
                 ", projectAresKd=" + projectAresKdRatio +
@@ -218,6 +213,11 @@ public class ParsedPlayer implements OvercastPlayer {
     @Override
     public double getGlobalDaysPlayed() {
         return globalDaysPlayed;
+    }
+
+    @Override
+    public double getGlobalDaysObserved() {
+        return globalDaysObserved;
     }
 
     @Override
