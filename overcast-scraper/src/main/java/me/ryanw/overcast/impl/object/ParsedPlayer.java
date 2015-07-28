@@ -6,6 +6,7 @@ import me.ryanw.overcast.api.OvercastPlayer;
 import me.ryanw.overcast.api.OvercastTeam;
 import me.ryanw.overcast.api.util.Gender;
 import me.ryanw.overcast.impl.mapping.MappingParser;
+import me.ryanw.overcast.impl.mapping.MappingEnum;
 import me.ryanw.overcast.impl.util.HelperUtil;
 import me.ryanw.overcast.impl.util.MojangUtil;
 import org.jsoup.nodes.Document;
@@ -17,40 +18,46 @@ public class ParsedPlayer implements OvercastPlayer {
 
     public ParsedPlayer(Document doc) throws IOException {
         MappingParser parser = new MappingParser(doc, "player");
-        this.username = parser.getString("username");
+        this.username = parser.getString(MappingEnum.USERNAME);
         this.formerUsername = Optional.fromNullable(MojangUtil.getFormerUsername(MojangUtil.getUUID(username)));
-        this.globalKills = parser.getInteger("globalKills");
-        this.globalDeaths = parser.getInteger("globalDeaths");
-        this.globalKdRatio = parser.getDouble("globalKdRatio");
-        this.globalKkRatio = parser.getDouble("globalKkRatio");
-        this.serverJoins = parser.getInteger("serverJoins");
-        this.globalDaysPlayed = parser.getDouble("globalDaysPlayed");
-        this.raindrops = parser.getInteger("raindrops");
-        this.forumPosts = parser.getInteger("forumPosts");
-        this.forumTopics = parser.getInteger("forumTopics");
-        this.projectAresKills = parser.getInteger("projectAresKills");
-        this.projectAresDeaths = parser.getInteger("projectAresDeaths");
-        this.projectAresKdRatio = parser.getDouble("projectAresKdRatio");
-        this.projectAresKkRatio = parser.getDouble("projectAresKkRatio");
-        this.projectAresDaysPlayed = parser.getDouble("projectAresDaysPlayed");
-        this.projectAresDaysObserved = parser.getDouble("projectAresDaysObserved");
-        this.blitzKills = parser.getInteger("blitzKills");
-        this.blitzDeaths = parser.getInteger("blitzDeaths");
-        this.blitzKdRatio = parser.getDouble("blitzKdRatio");
-        this.blitzKkRatio = parser.getDouble("blitzKkRatio");
-        this.blitzDaysPlayed = parser.getDouble("blitzDaysPlayed");
-        this.blitzDaysObserved = parser.getDouble("blitzDaysObserved");
-        this.ghostSquadronKills = parser.getInteger("ghostSquadronKills");
-        this.ghostSquadronDeaths = parser.getInteger("ghostSquadronDeaths");
-        this.ghostSquadronKdRatio = parser.getDouble("ghostSquadronKdRatio");
-        this.ghostSquadronKkRatio = parser.getDouble("ghostSquadronKkRatio");
-        this.ghostSquadronDaysPlayed = parser.getDouble("ghostSquadronDaysPlayed");
-        this.ghostSquadronDaysObserved = parser.getDouble("ghostSquadronDaysObserved");
+
+        this.globalKills = parser.getInteger(MappingEnum.GLOBAL_KILLS);
+        this.globalDeaths = parser.getInteger(MappingEnum.GLOBAL_DEATHS);
+        this.globalKdRatio = parser.getDouble(MappingEnum.GLOBAL_KD_RATIO);
+        this.globalKkRatio = parser.getDouble(MappingEnum.GLOBAL_KK_RATIO);
+        this.globalDaysPlayed = parser.getDouble(MappingEnum.GLOBAL_DAYS_PLAYED);
+
+        this.raindrops = parser.getInteger(MappingEnum.RAINDROPS);
+        this.forumPosts = parser.getInteger(MappingEnum.FORUM_POSTS);
+        this.forumTopics = parser.getInteger(MappingEnum.FORUM_TOPICS);
+        this.serverJoins = parser.getInteger(MappingEnum.SERVER_JOINS);
+
+        this.projectAresKills = parser.getInteger(MappingEnum.PROJECT_ARES_KILLS);
+        this.projectAresDeaths = parser.getInteger(MappingEnum.PROJECT_ARES_DEATHS);
+        this.projectAresKdRatio = parser.getDouble(MappingEnum.PROJECT_ARES_KD_RATIO);
+        this.projectAresKkRatio = parser.getDouble(MappingEnum.PROJECT_ARES_KK_RATIO);
+        this.projectAresDaysPlayed = parser.getDouble(MappingEnum.PROJECT_ARES_DAYS_PLAYED);
+        this.projectAresDaysObserved = parser.getDouble(MappingEnum.PROJECT_ARES_DAYS_OBSERVED);
+
+        this.blitzKills = parser.getInteger(MappingEnum.BLITZ_KILLS);
+        this.blitzDeaths = parser.getInteger(MappingEnum.BLITZ_DEATHS);
+        this.blitzKdRatio = parser.getDouble(MappingEnum.BLITZ_KD_RATIO);
+        this.blitzKkRatio = parser.getDouble(MappingEnum.BLITZ_KK_RATIO);
+        this.blitzDaysPlayed = parser.getDouble(MappingEnum.BLITZ_DAYS_PLAYED);
+        this.blitzDaysObserved = parser.getDouble(MappingEnum.BLITZ_DAYS_OBSERVED);
+
+        this.ghostSquadronKills = parser.getInteger(MappingEnum.GHOST_SQUADRON_KILLS);
+        this.ghostSquadronDeaths = parser.getInteger(MappingEnum.GHOST_SQUADRON_DEATHS);
+        this.ghostSquadronKdRatio = parser.getDouble(MappingEnum.GHOST_SQUADRON_KD_RATIO);
+        this.ghostSquadronKkRatio = parser.getDouble(MappingEnum.GHOST_SQUADRON_KK_RATIO);
+        this.ghostSquadronDaysPlayed = parser.getDouble(MappingEnum.GHOST_SQUADRON_DAYS_PLAYED);
+        this.ghostSquadronDaysObserved = parser.getDouble(MappingEnum.GHOST_SQUADRON_DAYS_OBSERVED);
         this.globalDaysObserved = projectAresDaysObserved + blitzDaysObserved + ghostSquadronDaysObserved;
-        this.monumentsDestroyed = parser.getInteger("monumentsDestroyed");
-        this.woolsPlaced = parser.getInteger("woolsPlaced");
-        this.coresLeaked = parser.getInteger("coresLeaked");
-        this.friends = HelperUtil.buildFriendObjects(parser.getContentList("friends"));
+
+        this.monumentsDestroyed = parser.getInteger(MappingEnum.MONUMENTS_DESTROYED);
+        this.woolsPlaced = parser.getInteger(MappingEnum.WOOLS_PLACED);
+        this.coresLeaked = parser.getInteger(MappingEnum.CORES_LEAKED);
+        this.friends = HelperUtil.buildFriendObjects(parser.getStringList(MappingEnum.FRIENDS));
     }
 
     /**

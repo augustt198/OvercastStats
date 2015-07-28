@@ -31,97 +31,97 @@ public class MappingParser {
     }
 
     /**
-     * Sends a call to {@link #getContent(String)} and returns the result.
-     * @param id The id of the mapping entry we want to read from.
-     * @return Filtered byte result of a {@link #getContent(String)}
+     * Sends a call to {@link #getContent(MappingEnum)} and returns the result.
+     * @param mappingEnum The id of the mapping entry we want to read from.
+     * @return Filtered byte result of a {@link #getContent(MappingEnum)}
      */
-    public byte getByte(String id) {
-        return Byte.parseByte(getContent(id));
+    public byte getByte(MappingEnum mappingEnum) {
+        return Byte.parseByte(getContent(mappingEnum));
     }
 
     /**
-     * Sends a call to {@link #getContent(String)} and returns the result.
-     * @param id The id of the mapping entry we want to read from.
-     * @return Short result of a {@link #getContent(String)}
+     * Sends a call to {@link #getContent(MappingEnum)} and returns the result.
+     * @param mappingEnum The id of the mapping entry we want to read from.
+     * @return Short result of a {@link #getContent(MappingEnum)}
      */
-    public short getShort(String id) {
-        return Short.parseShort(getContent(id));
+    public short getShort(MappingEnum mappingEnum) {
+        return Short.parseShort(getContent(mappingEnum));
     }
 
     /**
-     * Sends a call to {@link #getContent(String)} and returns the result.
-     * @param id The id of the mapping entry we want to read from.
-     * @return Long result of a {@link #getContent(String)}
+     * Sends a call to {@link #getContent(MappingEnum)} and returns the result.
+     * @param mappingEnum The id of the mapping entry we want to read from.
+     * @return Long result of a {@link #getContent(MappingEnum)}
      */
-    public long getLong(String id) {
-        return Long.parseLong(getContent(id));
+    public long getLong(MappingEnum mappingEnum) {
+        return Long.parseLong(getContent(mappingEnum));
     }
 
     /**
-     * Sends a call to {@link #getContent(String)} and returns the result.
-     * @param id The id of the mapping entry we want to read from.
-     * @return Float result of a {@link #getContent(String)}
+     * Sends a call to {@link #getContent(MappingEnum)} and returns the result.
+     * @param mappingEnum The id of the mapping entry we want to read from.
+     * @return Float result of a {@link #getContent(MappingEnum)}
      */
-    public float getFloat(String id) {
-        return Float.parseFloat(getContent(id));
+    public float getFloat(MappingEnum mappingEnum) {
+        return Float.parseFloat(getContent(mappingEnum));
     }
 
     /**
-     * Sends a call to {@link #getContent(String)} and returns the result.
-     * @param id The id of the mapping entry we want to read from.
-     * @return Double result of a {@link #getContent(String)}
+     * Sends a call to {@link #getContent(MappingEnum)} and returns the result.
+     * @param mappingEnum The id of the mapping entry we want to read from.
+     * @return Double result of a {@link #getContent(MappingEnum)}
      */
-    public double getDouble(String id) {
-        return Double.parseDouble(getContent(id));
+    public double getDouble(MappingEnum mappingEnum) {
+        return Double.parseDouble(getContent(mappingEnum));
     }
 
     /**
-     * Sends a call to {@link #getContent(String)} and returns the result.
-     * @param id The id of the mapping entry we want to read from.
-     * @return Boolean result of a {@link #getContent(String)}
+     * Sends a call to {@link #getContent(MappingEnum)} and returns the result.
+     * @param mappingEnum The id of the mapping entry we want to read from.
+     * @return Boolean result of a {@link #getContent(MappingEnum)}
      */
-    public boolean getBoolean(String id) {
-        return Boolean.parseBoolean(getContent(id));
+    public boolean getBoolean(MappingEnum mappingEnum) {
+        return Boolean.parseBoolean(getContent(mappingEnum));
     }
 
     /**
-     * Sends a call to {@link #getContent(String)} and returns the result.
-     * @param id The id of the mapping entry we want to read from.
-     * @return Integer result of a {@link #getContent(String)}
+     * Sends a call to {@link #getContent(MappingEnum)} and returns the result.
+     * @param mappingEnum The id of the mapping entry we want to read from.
+     * @return Integer result of a {@link #getContent(MappingEnum)}
      */
-    public int getInteger(String id) {
-        return Integer.parseInt(getContent(id));
+    public int getInteger(MappingEnum mappingEnum) {
+        return Integer.parseInt(getContent(mappingEnum));
     }
 
     /**
-     * Sends a call to {@link #getContent(String)} and returns the result, alternative call.
-     * @param id The id of the mapping entry we want to read from.
-     * @return String result of a {@link #getContent(String)}
+     * Sends a call to {@link #getContent(MappingEnum)} and returns the result, alternative call.
+     * @param mappingEnum The id of the mapping entry we want to read from.
+     * @return String result of a {@link #getContent(MappingEnum)}
      */
-    public String getString(String id) {
-        return getContent(id);
+    public String getString(MappingEnum mappingEnum) {
+        return getContent(mappingEnum);
     }
 
     /**
-     * Sends a call to {@link #getContent(String)} and returns the result, alternative call.
-     * @param id The id of the mapping entry we want to read from.
-     * @return String list result of a {@link #getContentList(String)}
+     * Sends a call to {@link #getContent(MappingEnum)} and returns the result, alternative call.
+     * @param mappingEnum The id of the mapping entry we want to read from.
+     * @return String list result of a {@link #getContentList(MappingEnum)}
      */
-    public List<String> getStringList(String id) {
-        return getContentList(id);
+    public List<String> getStringList(MappingEnum mappingEnum) {
+        return getContentList(mappingEnum);
     }
 
     /**
      * Gets an entry from the mapping file, passes it through Jsoup and returns the result as a String.
-     * @param id The id of the mapping entry we want to read from.
+     * @param mappingEnum The id of the mapping entry we want to read from.
      * @return Formatted result compiled by Jsoup using the selector tag.
      */
-    public String getContent(String id) {
+    private String getContent(MappingEnum mappingEnum) {
         for (JsonElement mapping : mappingArray) {
             MappingEntry mappingsEntry = new Gson().fromJson(mapping, MappingEntry.class);
 
             // Verifies that the entry ID matches the one we want to get.
-            if (mappingsEntry.getId().equals(id)) {
+            if (mappingsEntry.getId().equals(mappingEnum.getEntryName())) {
 
                 // Make sure that people aren't using getContent() to get list results
                 if (mappingsEntry.getTarget() == null) return null;
@@ -157,16 +157,16 @@ public class MappingParser {
     /**
      * Gets an entry from the mapping file, passes it through Jsoup and iterates through all of the results and creates
      * a list of results that will be returned at the end of iteration.
-     * @param id The id of the mapping entry we want to read from.
+     * @param mappingEnum The id of the mapping entry we want to read from.
      * @return Formatted list of results compiled by Jsoup using the selector tag.
      */
-    public List<String> getContentList(String id) {
+    private List<String> getContentList(MappingEnum mappingEnum) {
         for (JsonElement mapping : mappingArray) {
             MappingEntry mappingEntry = new Gson().fromJson(mapping, MappingEntry.class);
             List<String> resultList = new ArrayList<String>();
 
             // Verifies that the entry ID matches the one we want to get.
-            if (mappingEntry.getId().equals(id)) {
+            if (mappingEntry.getId().equals(mappingEnum.getEntryName())) {
 
                 // Verifies that the requested entry is actually a list one.
                 if (mappingEntry.getTarget() != null) return null;
