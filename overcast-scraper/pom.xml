@@ -15,7 +15,7 @@
         <dependency>
             <groupId>me.ryanw.overcast</groupId>
             <artifactId>overcast-api</artifactId>
-            <version>${version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jsoup</groupId>
