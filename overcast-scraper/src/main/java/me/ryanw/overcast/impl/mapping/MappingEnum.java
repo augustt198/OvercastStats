@@ -14,7 +14,9 @@ public enum MappingEnum {
     GHOST_SQUADRON_DAYS_PLAYED("ghostSquadronDaysPlayed"), GHOST_SQUADRON_DAYS_OBSERVED("ghostSquadronDaysObserved"),
     SERVER_JOINS("serverJoins"), RAINDROPS("raindrops"), FORUM_POSTS("forumPosts"), FORUM_TOPICS("forumTopics"),
     MONUMENTS_DESTROYED("monumentsDestroyed"), WOOLS_PLACED("woolsPlaced"), CORES_LEAKED("coresLeaked"), PROFILE_INFO("profileInfo"),
-    GENDER("gender"), LOCATION("location"), OCCUPATION("occupation"), INTERESTS("interests"), BIOGRAPHY("biography");
+    GENDER("gender"), LOCATION("location"), OCCUPATION("occupation"), INTERESTS("interests"), BIOGRAPHY("biography"),
+    PROFILE_LINKS("profileLinks"), SKYPE_HANDLE("skypeHandle"), TWITTER_HANDLE("twitterHandle"), FACEBOOK_HANDLE("facebookHandle"),
+    STEAM_HANDLE("steamHandle"), TWITCH_HANDLE("twitchHandle"), GITHUB_HANDLE("githubHandle"), REDDIT_HANDLE("redditHandle");
 
     private String entryName;
 

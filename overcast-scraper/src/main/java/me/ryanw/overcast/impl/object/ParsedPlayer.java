@@ -19,10 +19,12 @@ public class ParsedPlayer implements OvercastPlayer {
 
     public ParsedPlayer(Document doc) throws IOException {
         MappingParser parser = new MappingParser(doc, "player");
+        Map<MappingEnum, String> personalDetails = parser.getMap(MappingEnum.PROFILE_INFO);
+        Map<MappingEnum, String> personalLinks = parser.getMap(MappingEnum.PROFILE_LINKS);
+
         this.username = parser.getString(MappingEnum.USERNAME);
         this.formerUsername = Optional.fromNullable(MojangUtil.getFormerUsername(MojangUtil.getUUID(username)));
 
-        Map<MappingEnum, String> personalDetails = parser.getMap(MappingEnum.PROFILE_INFO);
         this.gender = HelperUtil.determineGender(personalDetails.get(MappingEnum.GENDER));
         this.location = Optional.fromNullable(personalDetails.get(MappingEnum.LOCATION));
         this.occupation = Optional.fromNullable(personalDetails.get(MappingEnum.OCCUPATION));
@@ -66,6 +68,14 @@ public class ParsedPlayer implements OvercastPlayer {
         this.woolsPlaced = parser.getInteger(MappingEnum.WOOLS_PLACED);
         this.coresLeaked = parser.getInteger(MappingEnum.CORES_LEAKED);
         this.friends = HelperUtil.buildFriendObjects(parser.getList(MappingEnum.FRIENDS));
+
+        this.skypeHandle = Optional.fromNullable(personalLinks.get(MappingEnum.SKYPE_HANDLE));
+        this.steamHandle = Optional.fromNullable(personalLinks.get(MappingEnum.STEAM_HANDLE));
+        this.twitterHandle = Optional.fromNullable(personalLinks.get(MappingEnum.TWITTER_HANDLE));
+        this.twitchHandle = Optional.fromNullable(personalLinks.get(MappingEnum.TWITCH_HANDLE));
+        this.facebookHandle = Optional.fromNullable(personalLinks.get(MappingEnum.FACEBOOK_HANDLE));
+        this.githubHandle = Optional.fromNullable(personalLinks.get(MappingEnum.GITHUB_HANDLE));
+        this.redditHandle = Optional.fromNullable(personalLinks.get(MappingEnum.REDDIT_HANDLE));
     }
 
     /**
@@ -180,13 +190,13 @@ public class ParsedPlayer implements OvercastPlayer {
                 ", occupation=" + occupation.orNull() +
                 ", interests=" + interests.orNull() +
                 ", biography=" + biography.orNull() +
-                ", skypeHandle=" + skypeHandle +
-                ", steamHandle=" + steamHandle +
-                ", twitterHandle=" + twitterHandle +
-                ", twitchHandle=" + twitchHandle +
-                ", facebookHandle=" + facebookHandle +
-                ", githubHandle=" + githubHandle +
-                ", redditHandle=" + redditHandle +
+                ", skypeHandle=" + skypeHandle.orNull() +
+                ", steamHandle=" + steamHandle.orNull() +
+                ", twitterHandle=" + twitterHandle.orNull() +
+                ", twitchHandle=" + twitchHandle.orNull() +
+                ", facebookHandle=" + facebookHandle.orNull() +
+                ", githubHandle=" + githubHandle.orNull() +
+                ", redditHandle=" + redditHandle.orNull() +
                 '}';
     }
 
