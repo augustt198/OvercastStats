@@ -5,14 +5,15 @@ import me.ryanw.overcast.api.OvercastFriend;
 import me.ryanw.overcast.api.OvercastPlayer;
 import me.ryanw.overcast.api.OvercastTeam;
 import me.ryanw.overcast.api.util.Gender;
-import me.ryanw.overcast.impl.mapping.MappingParser;
 import me.ryanw.overcast.impl.mapping.MappingEnum;
+import me.ryanw.overcast.impl.mapping.MappingParser;
 import me.ryanw.overcast.impl.util.HelperUtil;
 import me.ryanw.overcast.impl.util.MojangUtil;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public class ParsedPlayer implements OvercastPlayer {
 
@@ -20,6 +21,13 @@ public class ParsedPlayer implements OvercastPlayer {
         MappingParser parser = new MappingParser(doc, "player");
         this.username = parser.getString(MappingEnum.USERNAME);
         this.formerUsername = Optional.fromNullable(MojangUtil.getFormerUsername(MojangUtil.getUUID(username)));
+
+        Map<MappingEnum, String> personalDetails = parser.getMap(MappingEnum.PROFILE_INFO);
+        this.gender = HelperUtil.determineGender(personalDetails.get(MappingEnum.GENDER));
+        this.location = Optional.fromNullable(personalDetails.get(MappingEnum.LOCATION));
+        this.occupation = Optional.fromNullable(personalDetails.get(MappingEnum.OCCUPATION));
+        this.interests = Optional.fromNullable(personalDetails.get(MappingEnum.INTERESTS));
+        this.biography = Optional.fromNullable(personalDetails.get(MappingEnum.BIOGRAPHY));
 
         this.globalKills = parser.getInteger(MappingEnum.GLOBAL_KILLS);
         this.globalDeaths = parser.getInteger(MappingEnum.GLOBAL_DEATHS);
@@ -57,7 +65,7 @@ public class ParsedPlayer implements OvercastPlayer {
         this.monumentsDestroyed = parser.getInteger(MappingEnum.MONUMENTS_DESTROYED);
         this.woolsPlaced = parser.getInteger(MappingEnum.WOOLS_PLACED);
         this.coresLeaked = parser.getInteger(MappingEnum.CORES_LEAKED);
-        this.friends = HelperUtil.buildFriendObjects(parser.getStringList(MappingEnum.FRIENDS));
+        this.friends = HelperUtil.buildFriendObjects(parser.getList(MappingEnum.FRIENDS));
     }
 
     /**
@@ -113,7 +121,7 @@ public class ParsedPlayer implements OvercastPlayer {
     /**
      * Personal Details
      */
-    private Optional<Gender> gender;
+    private Gender gender;
     private Optional<String> location;
     private Optional<String> occupation;
     private Optional<String> interests;
@@ -168,10 +176,10 @@ public class ParsedPlayer implements OvercastPlayer {
                 ", woolsPlaced=" + woolsPlaced +
                 ", coresLeaked=" + coresLeaked +
                 ", gender=" + gender +
-                ", location=" + location +
-                ", occupation=" + occupation +
-                ", interests=" + interests +
-                ", biography=" + biography +
+                ", location=" + location.orNull() +
+                ", occupation=" + occupation.orNull() +
+                ", interests=" + interests.orNull() +
+                ", biography=" + biography.orNull() +
                 ", skypeHandle=" + skypeHandle +
                 ", steamHandle=" + steamHandle +
                 ", twitterHandle=" + twitterHandle +
@@ -353,7 +361,7 @@ public class ParsedPlayer implements OvercastPlayer {
     }
 
     @Override
-    public Optional<Gender> getGender() {
+    public Gender getGender() {
         return gender;
     }
 

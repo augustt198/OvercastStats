@@ -13,7 +13,8 @@ public enum MappingEnum {
     GHOST_SQUADRON_KD_RATIO("ghostSquadronKdRatio"), GHOST_SQUADRON_KK_RATIO("ghostSquadronKkRatio"),
     GHOST_SQUADRON_DAYS_PLAYED("ghostSquadronDaysPlayed"), GHOST_SQUADRON_DAYS_OBSERVED("ghostSquadronDaysObserved"),
     SERVER_JOINS("serverJoins"), RAINDROPS("raindrops"), FORUM_POSTS("forumPosts"), FORUM_TOPICS("forumTopics"),
-    MONUMENTS_DESTROYED("monumentsDestroyed"), WOOLS_PLACED("woolsPlaced"), CORES_LEAKED("coresLeaked");
+    MONUMENTS_DESTROYED("monumentsDestroyed"), WOOLS_PLACED("woolsPlaced"), CORES_LEAKED("coresLeaked"), PROFILE_INFO("profileInfo"),
+    GENDER("gender"), LOCATION("location"), OCCUPATION("occupation"), INTERESTS("interests"), BIOGRAPHY("biography");
 
     private String entryName;
 

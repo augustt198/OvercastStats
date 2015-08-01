@@ -9,6 +9,9 @@ public enum Gender {
     /**
      * Represents the female gender
      */
-    FEMALE()
-
+    FEMALE(),
+    /**
+     * Represents unknown gender
+     */
+    UNKNOWN()
 }

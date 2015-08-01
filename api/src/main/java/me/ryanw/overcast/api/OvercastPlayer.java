@@ -76,7 +76,7 @@ public interface OvercastPlayer {
 
     int getCoresLeaked();
 
-    Optional<Gender> getGender();
+    Gender getGender();
 
     Optional<String> getLocation();
 

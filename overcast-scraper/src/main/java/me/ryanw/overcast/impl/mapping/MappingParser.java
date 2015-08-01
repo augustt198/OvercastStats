@@ -4,13 +4,18 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import me.ryanw.overcast.impl.util.HelperUtil;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,84 +36,75 @@ public class MappingParser {
     }
 
     /**
-     * Sends a call to {@link #getContent(MappingEnum)} and returns the result.
+     * Sends a call to {@link #get(MappingEnum)} and returns the result.
      * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Filtered byte result of a {@link #getContent(MappingEnum)}
+     * @return Filtered byte result of a {@link #get(MappingEnum)}
      */
     public byte getByte(MappingEnum mappingEnum) {
-        return Byte.parseByte(getContent(mappingEnum));
+        return Byte.parseByte(get(mappingEnum));
     }
 
     /**
-     * Sends a call to {@link #getContent(MappingEnum)} and returns the result.
+     * Sends a call to {@link #get(MappingEnum)} and returns the result.
      * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Short result of a {@link #getContent(MappingEnum)}
+     * @return Short result of a {@link #get(MappingEnum)}
      */
     public short getShort(MappingEnum mappingEnum) {
-        return Short.parseShort(getContent(mappingEnum));
+        return Short.parseShort(get(mappingEnum));
     }
 
     /**
-     * Sends a call to {@link #getContent(MappingEnum)} and returns the result.
+     * Sends a call to {@link #get(MappingEnum)} and returns the result.
      * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Long result of a {@link #getContent(MappingEnum)}
+     * @return Long result of a {@link #get(MappingEnum)}
      */
     public long getLong(MappingEnum mappingEnum) {
-        return Long.parseLong(getContent(mappingEnum));
+        return Long.parseLong(get(mappingEnum));
     }
 
     /**
-     * Sends a call to {@link #getContent(MappingEnum)} and returns the result.
+     * Sends a call to {@link #get(MappingEnum)} and returns the result.
      * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Float result of a {@link #getContent(MappingEnum)}
+     * @return Float result of a {@link #get(MappingEnum)}
      */
     public float getFloat(MappingEnum mappingEnum) {
-        return Float.parseFloat(getContent(mappingEnum));
+        return Float.parseFloat(get(mappingEnum));
     }
 
     /**
-     * Sends a call to {@link #getContent(MappingEnum)} and returns the result.
+     * Sends a call to {@link #get(MappingEnum)} and returns the result.
      * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Double result of a {@link #getContent(MappingEnum)}
+     * @return Double result of a {@link #get(MappingEnum)}
      */
     public double getDouble(MappingEnum mappingEnum) {
-        return Double.parseDouble(getContent(mappingEnum));
+        return Double.parseDouble(get(mappingEnum));
     }
 
     /**
-     * Sends a call to {@link #getContent(MappingEnum)} and returns the result.
+     * Sends a call to {@link #get(MappingEnum)} and returns the result.
      * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Boolean result of a {@link #getContent(MappingEnum)}
+     * @return Boolean result of a {@link #get(MappingEnum)}
      */
     public boolean getBoolean(MappingEnum mappingEnum) {
-        return Boolean.parseBoolean(getContent(mappingEnum));
+        return Boolean.parseBoolean(get(mappingEnum));
     }
 
     /**
-     * Sends a call to {@link #getContent(MappingEnum)} and returns the result.
+     * Sends a call to {@link #get(MappingEnum)} and returns the result.
      * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Integer result of a {@link #getContent(MappingEnum)}
+     * @return Integer result of a {@link #get(MappingEnum)}
      */
     public int getInteger(MappingEnum mappingEnum) {
-        return Integer.parseInt(getContent(mappingEnum));
+        return Integer.parseInt(get(mappingEnum));
     }
 
     /**
-     * Sends a call to {@link #getContent(MappingEnum)} and returns the result, alternative call.
+     * Sends a call to {@link #get(MappingEnum)} and returns the result.
      * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return String result of a {@link #getContent(MappingEnum)}
+     * @return String result of a {@link #get(MappingEnum)}
      */
     public String getString(MappingEnum mappingEnum) {
-        return getContent(mappingEnum);
-    }
-
-    /**
-     * Sends a call to {@link #getContent(MappingEnum)} and returns the result, alternative call.
-     * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return String list result of a {@link #getContentList(MappingEnum)}
-     */
-    public List<String> getStringList(MappingEnum mappingEnum) {
-        return getContentList(mappingEnum);
+        return get(mappingEnum);
     }
 
     /**
@@ -116,7 +112,7 @@ public class MappingParser {
      * @param mappingEnum The id of the mapping entry we want to read from.
      * @return Formatted result compiled by Jsoup using the selector tag.
      */
-    private String getContent(MappingEnum mappingEnum) {
+    private String get(MappingEnum mappingEnum) {
         for (JsonElement mapping : mappingArray) {
             MappingEntry mappingsEntry = new Gson().fromJson(mapping, MappingEntry.class);
 
@@ -158,9 +154,9 @@ public class MappingParser {
      * Gets an entry from the mapping file, passes it through Jsoup and iterates through all of the results and creates
      * a list of results that will be returned at the end of iteration.
      * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Formatted list of results compiled by Jsoup using the selector tag.
+     * @return Formatted list of results.
      */
-    private List<String> getContentList(MappingEnum mappingEnum) {
+    public List<String> getList(MappingEnum mappingEnum) {
         for (JsonElement mapping : mappingArray) {
             MappingEntry mappingEntry = new Gson().fromJson(mapping, MappingEntry.class);
             List<String> resultList = new ArrayList<String>();
@@ -168,7 +164,7 @@ public class MappingParser {
             // Verifies that the entry ID matches the one we want to get.
             if (mappingEntry.getId().equals(mappingEnum.getEntryName())) {
 
-                // Verifies that the requested entry is actually a list one.
+                // Verifies that the requested entry is either a list or map result.
                 if (mappingEntry.getTarget() != null) return null;
                 int listSize = document.select(mappingEntry.getSelector()).size();
 
@@ -200,6 +196,89 @@ public class MappingParser {
                     resultList.add(payload);
                 }
                 return resultList;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets an entry from the mapping file, passes it through Jsou and iterates through all of the results using the selector
+     * tag to find the identifier element, then using that element to get the target elmement and putting the name and result
+     * in a map of results that will be returned at the end of iteration.
+     * @param mappingEnum The id of the mapping entry we want to read from.
+     * @return Formatted map of results.
+     */
+    public Map<MappingEnum, String> getMap(MappingEnum mappingEnum) {
+        for (JsonElement mapping : mappingArray) {
+            MappingEntry mappingEntry = new Gson().fromJson(mapping, MappingEntry.class);
+            Map<MappingEnum, String> resultMap = new HashMap<MappingEnum, String>();
+
+            // Verifies that the entry ID matches the one we want to get.
+            if (mappingEntry.getId().equalsIgnoreCase(mappingEnum.getEntryName())) {
+
+                // Verifies that the requested entry is either a list or map result.
+                if (mappingEntry.getTarget() != null) return null;
+                Elements targetElements = document.select(mappingEntry.getSelector());
+
+                for (Element targetElement : targetElements) {
+
+                    // Gets the element we are using to identify the target element.
+                    String identifier = targetElement.ownText().toLowerCase();
+
+                    // If it exists, get the information inside of the attribute of the element we are using to identify sub-elements with.
+                    if (mappingEntry.getAttribute() != null) {
+                        identifier = targetElement.attr(mappingEntry.getAttribute()).toLowerCase();
+                    }
+
+                    // If it exists, get the filter tag and filter the identifier element before checking conditions.
+                    if (mappingEntry.getFilter() != null) {
+                        List<String> matches = new ArrayList<String>();
+                        Pattern regex = Pattern.compile(mappingEntry.getFilter());
+                        Matcher matcher = regex.matcher(identifier);
+
+                        while (matcher.find()) {
+                            matches.add(matcher.group().trim());
+                        }
+
+                        StringBuilder matchBuilder = new StringBuilder(matches.size());
+                        for (String match : matches) matchBuilder.append(match);
+                        identifier = matchBuilder.toString().trim();
+                    }
+
+                    /**
+                     * We've gotten the identifier element, we've cleaned it up by filtering it and getting the attribute if it exists.
+                     * Now lets get the target element, which is the first element by the specified id after the identifier element. Then,
+                     * run the same logic as before (filter, attribute) just this time with the result. Put the result in a map and once
+                     * done building the map, return it as the result.
+                     */
+                    for (MappingEntry.Conditions condition : mappingEntry.getConditions()) {
+                        if (identifier.equalsIgnoreCase(condition.getContains())) {
+                            MappingEnum entryKey = HelperUtil.getEnumById(condition.getName());
+                            String entryValue = targetElement.siblingElements().select(mappingEntry.getTargetElement()).first().ownText();
+
+                            if (condition.getAttribute() != null) {
+                                entryValue = targetElement.siblingElements().select(mappingEntry.getTargetElement()).attr(condition.getAttribute());
+                            }
+
+                            if (condition.getFilter() != null) {
+                                List<String> matches = new ArrayList<String>();
+                                Pattern regex = Pattern.compile(condition.getFilter());
+                                Matcher matcher = regex.matcher(entryValue);
+
+                                while (matcher.find()) {
+                                    matches.add(matcher.group().trim());
+                                }
+
+                                StringBuilder matchBuilder = new StringBuilder(matches.size());
+                                for (String match : matches) matchBuilder.append(match);
+                                entryValue = matchBuilder.toString().trim();
+                            }
+
+                            resultMap.put(entryKey, entryValue);
+                        }
+                    }
+                }
+                return resultMap;
             }
         }
         return null;
