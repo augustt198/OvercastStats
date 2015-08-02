@@ -15,8 +15,14 @@ public class OvercastAPI {
     private static int connectionTimeout = 3000;
 
     public static OvercastPlayer getPlayer(String username) throws IOException {
-        Connection.Response response = Jsoup.connect("https://oc.tc/users/" + username)
-                .method(Connection.Method.GET).userAgent(userAgent).timeout(connectionTimeout).execute();
+        String url = "https://oc.tc/users/" + username;
+        Connection.Response response = Jsoup.connect(url).method(Connection.Method.GET).userAgent(userAgent).timeout(connectionTimeout).execute();
+        if (response.statusCode() != 200) return null;
+        return new ParsedPlayer(response.parse());
+    }
+
+    public static OvercastPlayer getPlayerByUrl(String url) throws IOException {
+        Connection.Response response = Jsoup.connect(url).method(Connection.Method.GET).userAgent(userAgent).timeout(connectionTimeout).execute();
         if (response.statusCode() != 200) return null;
         return new ParsedPlayer(response.parse());
     }
@@ -24,8 +30,18 @@ public class OvercastAPI {
     public static List<OvercastPlayer> getPlayers(List<String> usernames) throws IOException {
         List<OvercastPlayer> playerList = new ArrayList<OvercastPlayer>();
         for (String username : usernames) {
-            Connection.Response response = Jsoup.connect("https://oc.tc/users/" + username)
-                    .method(Connection.Method.GET).userAgent(userAgent).timeout(connectionTimeout).execute();
+            String url = "https://oc.tc/users/" + username;
+            Connection.Response response = Jsoup.connect(url).method(Connection.Method.GET).userAgent(userAgent).timeout(connectionTimeout).execute();
+            if (response.statusCode() != 200) break;
+            playerList.add(new ParsedPlayer(response.parse()));
+        }
+        return playerList;
+    }
+
+    public static List<OvercastPlayer> getPlayersByUrl(List<String> urls) throws IOException {
+        List<OvercastPlayer> playerList = new ArrayList<OvercastPlayer>();
+        for (String url : urls) {
+            Connection.Response response = Jsoup.connect(url).method(Connection.Method.GET).userAgent(userAgent).timeout(connectionTimeout).execute();
             if (response.statusCode() != 200) break;
             playerList.add(new ParsedPlayer(response.parse()));
         }
