@@ -31,7 +31,7 @@ public class MappingParser {
         try {
             mappingArray = new JsonParser().parse(new InputStreamReader(new URL(url).openStream())).getAsJsonArray();
         } catch (IOException e) {
-            throw new NullPointerException("Cannot fetch the latest mapping file from Github: " + e.getMessage());
+            throw new NullPointerException("Cannot fetch the latest mapping file from BitBucket: " + e.getMessage());
         }
     }
 

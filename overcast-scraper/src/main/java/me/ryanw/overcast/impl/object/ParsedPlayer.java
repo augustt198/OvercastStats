@@ -12,6 +12,7 @@ import me.ryanw.overcast.impl.util.MojangUtil;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -62,7 +63,8 @@ public class ParsedPlayer implements OvercastPlayer {
         this.ghostSquadronKkRatio = parser.getDouble(MappingEnum.GHOST_SQUADRON_KK_RATIO);
         this.ghostSquadronDaysPlayed = parser.getDouble(MappingEnum.GHOST_SQUADRON_DAYS_PLAYED);
         this.ghostSquadronDaysObserved = parser.getDouble(MappingEnum.GHOST_SQUADRON_DAYS_OBSERVED);
-        this.globalDaysObserved = projectAresDaysObserved + blitzDaysObserved + ghostSquadronDaysObserved;
+        double globalDaysObservedRaw = projectAresDaysObserved + blitzDaysObserved + ghostSquadronDaysObserved;
+        this.globalDaysObserved = Double.valueOf(new DecimalFormat("#.##").format(globalDaysObservedRaw));
 
         this.monumentsDestroyed = parser.getInteger(MappingEnum.MONUMENTS_DESTROYED);
         this.woolsPlaced = parser.getInteger(MappingEnum.WOOLS_PLACED);
