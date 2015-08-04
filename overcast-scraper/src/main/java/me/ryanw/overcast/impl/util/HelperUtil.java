@@ -29,9 +29,9 @@ public class HelperUtil {
      * @return Gender enum to the coresponding string representation of the gender.
      */
     public static Gender determineGender(String gender) {
-        String upperCaseGender = gender.toUpperCase();
-        if (upperCaseGender.equals(Gender.MALE.name())) return Gender.MALE;
-        if (upperCaseGender.equals(Gender.FEMALE.name())) return Gender.FEMALE;
+        if (gender == null) return Gender.UNKNOWN;
+        if (gender.equalsIgnoreCase(Gender.MALE.name())) return Gender.MALE;
+        if (gender.equalsIgnoreCase(Gender.FEMALE.name())) return Gender.FEMALE;
         return Gender.UNKNOWN;
     }
 
