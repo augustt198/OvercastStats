@@ -36,75 +36,66 @@ public class MappingParser {
     }
 
     /**
-     * Sends a call to {@link #get(MappingEnum)} and returns the result.
+     * Sends a call to {@link #getString(MappingEnum)} (MappingEnum)} and returns the result.
      * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Filtered byte result of a {@link #get(MappingEnum)}
+     * @return Filtered byte result of a {@link #getString(MappingEnum)} (MappingEnum)}
      */
     public byte getByte(MappingEnum mappingEnum) {
-        return Byte.parseByte(get(mappingEnum));
+        return Byte.parseByte(getString(mappingEnum));
     }
 
     /**
-     * Sends a call to {@link #get(MappingEnum)} and returns the result.
+     * Sends a call to {@link #getString(MappingEnum)} (MappingEnum)} and returns the result.
      * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Short result of a {@link #get(MappingEnum)}
+     * @return Short result of a {@link #getString(MappingEnum)} (MappingEnum)}
      */
     public short getShort(MappingEnum mappingEnum) {
-        return Short.parseShort(get(mappingEnum));
+        return Short.parseShort(getString(mappingEnum));
     }
 
     /**
-     * Sends a call to {@link #get(MappingEnum)} and returns the result.
+     * Sends a call to {@link #getString(MappingEnum)} (MappingEnum)} and returns the result.
      * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Long result of a {@link #get(MappingEnum)}
+     * @return Long result of a {@link #getString(MappingEnum)} (MappingEnum)}
      */
     public long getLong(MappingEnum mappingEnum) {
-        return Long.parseLong(get(mappingEnum));
+        return Long.parseLong(getString(mappingEnum));
     }
 
     /**
-     * Sends a call to {@link #get(MappingEnum)} and returns the result.
+     * Sends a call to {@link #getString(MappingEnum)} (MappingEnum)} and returns the result.
      * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Float result of a {@link #get(MappingEnum)}
+     * @return Float result of a {@link #getString(MappingEnum)} (MappingEnum)}
      */
     public float getFloat(MappingEnum mappingEnum) {
-        return Float.parseFloat(get(mappingEnum));
+        return Float.parseFloat(getString(mappingEnum));
     }
 
     /**
-     * Sends a call to {@link #get(MappingEnum)} and returns the result.
+     * Sends a call to {@link #getString(MappingEnum)} (MappingEnum)} and returns the result.
      * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Double result of a {@link #get(MappingEnum)}
+     * @return Double result of a {@link #getString(MappingEnum)} (MappingEnum)}
      */
     public double getDouble(MappingEnum mappingEnum) {
-        return Double.parseDouble(get(mappingEnum));
+        return Double.parseDouble(getString(mappingEnum));
     }
 
     /**
-     * Sends a call to {@link #get(MappingEnum)} and returns the result.
+     * Sends a call to {@link #getString(MappingEnum)} (MappingEnum)} and returns the result.
      * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Boolean result of a {@link #get(MappingEnum)}
+     * @return Boolean result of a {@link #getString(MappingEnum)} (MappingEnum)}
      */
     public boolean getBoolean(MappingEnum mappingEnum) {
-        return Boolean.parseBoolean(get(mappingEnum));
+        return Boolean.parseBoolean(getString(mappingEnum));
     }
 
     /**
-     * Sends a call to {@link #get(MappingEnum)} and returns the result.
+     * Sends a call to {@link #getString(MappingEnum)} and returns the result.
      * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Integer result of a {@link #get(MappingEnum)}
+     * @return Integer result of a {@link #getString(MappingEnum)}
      */
     public int getInteger(MappingEnum mappingEnum) {
-        return Integer.parseInt(get(mappingEnum));
-    }
-
-    /**
-     * Sends a call to {@link #get(MappingEnum)} and returns the result.
-     * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return String result of a {@link #get(MappingEnum)}
-     */
-    public String getString(MappingEnum mappingEnum) {
-        return get(mappingEnum);
+        return Integer.parseInt(getString(mappingEnum));
     }
 
     /**
@@ -112,7 +103,7 @@ public class MappingParser {
      * @param mappingEnum The id of the mapping entry we want to read from.
      * @return Formatted result compiled by Jsoup using the selector tag.
      */
-    private String get(MappingEnum mappingEnum) {
+    private String getString(MappingEnum mappingEnum) {
         for (JsonElement mapping : mappingArray) {
             MappingEntry mappingsEntry = new Gson().fromJson(mapping, MappingEntry.class);
 
