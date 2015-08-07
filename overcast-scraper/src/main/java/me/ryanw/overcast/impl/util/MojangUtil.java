@@ -7,10 +7,7 @@ import com.fasterxml.jackson.databind.node.TextNode;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class MojangUtil {
 
@@ -34,9 +31,9 @@ public class MojangUtil {
      * @param uuid The UUID of the user we want to get the previous username for.
      * @return Previous former username that the player used.
      */
-    public static FormerUsername getFormerUsername(String uuid) {
+    public static FormerUsername getFormerUsername(UUID uuid) {
         List<FormerUsername> formerUsernames;
-        String url = "https://api.mojang.com/user/profiles/" + uuid.replaceAll("-", "") + "/names";
+        String url = "https://api.mojang.com/user/profiles/" + uuid.toString().replaceAll("-", "") + "/names";
         try {
             JsonParser jsonParser = new JsonFactory().createParser(new URL(url).openStream());
             formerUsernames = Arrays.asList(new ObjectMapper().readValue(jsonParser, FormerUsername[].class));
@@ -44,6 +41,23 @@ public class MojangUtil {
         } catch (IOException ignored) {}
         return null;
     }
+
+    /**
+     * Gets the previous username (former) the player has used.
+     * @param username The username of the user we want to get the previous username for.
+     * @return Previous former username that the player used.
+     */
+    public static FormerUsername getFormerUsername(String username) {
+        List<FormerUsername> formerUsernames;
+        String url = "https://api.mojang.com/user/profiles/" + MojangUtil.getUUID(username, true) + "/names";
+        try {
+            JsonParser jsonParser = new JsonFactory().createParser(new URL(url).openStream());
+            formerUsernames = Arrays.asList(new ObjectMapper().readValue(jsonParser, FormerUsername[].class));
+            if (formerUsernames.size() >= 2) return formerUsernames.get(formerUsernames.size() - 2);
+        } catch (IOException ignored) {}
+        return null;
+    }
+
 
     /**
      * Fetches a list of former usernames, in order from oldest to newest.
