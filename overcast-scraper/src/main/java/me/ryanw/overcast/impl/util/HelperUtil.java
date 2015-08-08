@@ -69,4 +69,14 @@ public class HelperUtil {
         for (String match : matches) stringBuilder.append(match);
         return stringBuilder.toString().trim();
     }
+
+    /**
+     * Takes a CSS selection and gets the parent element from it (First element).
+     * @param select The selection statement to get the first element from.
+     * @return The parent element of the selection statement.
+     */
+    public static String getSelectorParent(String select) {
+        String[] cssSelectors = select.split(">");
+        return cssSelectors[0];
+    }
 }
