@@ -24,13 +24,13 @@ public class ParsedPlayer implements OvercastPlayer {
         Map<MappingEnum, String> personalLinks = parser.getMap(MappingEnum.PROFILE_LINKS);
 
         this.username = parser.getString(MappingEnum.USERNAME);
-        this.formerUsername = Optional.fromNullable(MojangUtil.getFormerUsername(MojangUtil.getUUID(username)));
+        this.formerUsername = Optional.fromNullable(MojangUtil.getFormerUsername(username).getName());
 
         this.gender = HelperUtil.determineGender(personalDetails.get(MappingEnum.GENDER));
         this.location = Optional.fromNullable(personalDetails.get(MappingEnum.LOCATION));
         this.occupation = Optional.fromNullable(personalDetails.get(MappingEnum.OCCUPATION));
         this.interests = Optional.fromNullable(personalDetails.get(MappingEnum.INTERESTS));
-        this.biography = Optional.fromNullable(personalDetails.get(MappingEnum.BIOGRAPHY));
+        this.biography = Optional.fromNullable(parser.getString(MappingEnum.BIOGRAPHY));
 
         this.globalKills = parser.getInteger(MappingEnum.GLOBAL_KILLS);
         this.globalDeaths = parser.getInteger(MappingEnum.GLOBAL_DEATHS);
@@ -69,6 +69,7 @@ public class ParsedPlayer implements OvercastPlayer {
         this.monumentsDestroyed = parser.getInteger(MappingEnum.MONUMENTS_DESTROYED);
         this.woolsPlaced = parser.getInteger(MappingEnum.WOOLS_PLACED);
         this.coresLeaked = parser.getInteger(MappingEnum.CORES_LEAKED);
+
         this.friends = HelperUtil.buildFriendObjects(parser.getList(MappingEnum.FRIENDS));
 
         this.skypeHandle = Optional.fromNullable(personalLinks.get(MappingEnum.SKYPE_HANDLE));
@@ -149,58 +150,6 @@ public class ParsedPlayer implements OvercastPlayer {
     private Optional<String> facebookHandle;
     private Optional<String> githubHandle;
     private Optional<String> redditHandle;
-
-    @Override
-    public String toString() {
-        return "Player{" +
-                "username='" + username + '\'' +
-                ", formerUsername='" + formerUsername.orNull() + '\'' +
-                ", friends=" + friends.size() +
-                ", globalKills=" + globalKills +
-                ", globalDeaths=" + globalDeaths +
-                ", globalKdRatio=" + globalKdRatio +
-                ", globalKkRatio=" + globalKkRatio +
-                ", globalDaysPlayed=" + globalDaysPlayed +
-                ", globalDaysObserved=" + globalDaysObserved +
-                ", projectAresKills=" + projectAresKills +
-                ", projectAresDeaths=" + projectAresDeaths +
-                ", projectAresKd=" + projectAresKdRatio +
-                ", projectAresKk=" + projectAresKkRatio +
-                ", projectAresDaysPlayed=" + projectAresDaysPlayed +
-                ", projectAresDayObserved=" + projectAresDaysObserved +
-                ", blitzKills=" + blitzKills +
-                ", blitzDeaths=" + blitzDeaths +
-                ", blitzKd=" + blitzKdRatio +
-                ", blitzKk=" + blitzKkRatio +
-                ", blitzDaysPlayed=" + blitzDaysPlayed +
-                ", blitzDaysObserved=" + blitzDaysObserved +
-                ", ghostSquadronKills=" + ghostSquadronKills +
-                ", ghostSquadronDeaths=" + ghostSquadronDeaths +
-                ", ghostSquadronKd=" + ghostSquadronKdRatio +
-                ", ghostSquadronKk=" + ghostSquadronKkRatio +
-                ", ghostSquadronDaysPlayed=" + ghostSquadronDaysPlayed +
-                ", ghostSquadronDaysObserved=" + ghostSquadronDaysObserved +
-                ", serverJoins=" + serverJoins +
-                ", raindrops=" + raindrops +
-                ", forumPosts=" + forumPosts +
-                ", forumTopics=" + forumTopics +
-                ", monumentsDestroyed=" + monumentsDestroyed +
-                ", woolsPlaced=" + woolsPlaced +
-                ", coresLeaked=" + coresLeaked +
-                ", gender=" + gender +
-                ", location=" + location.orNull() +
-                ", occupation=" + occupation.orNull() +
-                ", interests=" + interests.orNull() +
-                ", biography=" + biography.orNull() +
-                ", skypeHandle=" + skypeHandle.orNull() +
-                ", steamHandle=" + steamHandle.orNull() +
-                ", twitterHandle=" + twitterHandle.orNull() +
-                ", twitchHandle=" + twitchHandle.orNull() +
-                ", facebookHandle=" + facebookHandle.orNull() +
-                ", githubHandle=" + githubHandle.orNull() +
-                ", redditHandle=" + redditHandle.orNull() +
-                '}';
-    }
 
     @Override
     public String getUsername() {
@@ -436,5 +385,22 @@ public class ParsedPlayer implements OvercastPlayer {
     public Optional<OvercastTeam> getTeam() {
         //TODO: implement
         return Optional.absent();
+    }
+
+    @Override
+    public String toString() {
+        return "ParsedPlayer{" + "username='" + username + '\'' + ", formerUsername=" + formerUsername + ", friends=" + friends +
+                ", globalKills=" + globalKills + ", globalDeaths=" + globalDeaths + ", globalKdRatio=" + globalKdRatio +
+                ", globalKkRatio=" + globalKkRatio + ", globalDaysPlayed=" + globalDaysPlayed + ", globalDaysObserved=" + globalDaysObserved +
+                ", projectAresKills=" + projectAresKills + ", projectAresDeaths=" + projectAresDeaths + ", projectAresKdRatio=" + projectAresKdRatio +
+                ", projectAresKkRatio=" + projectAresKkRatio + ", projectAresDaysPlayed=" + projectAresDaysPlayed + ", projectAresDaysObserved=" + projectAresDaysObserved +
+                ", blitzKills=" + blitzKills + ", blitzDeaths=" + blitzDeaths + ", blitzKdRatio=" + blitzKdRatio + ", blitzKkRatio=" + blitzKkRatio +
+                ", blitzDaysPlayed=" + blitzDaysPlayed + ", blitzDaysObserved=" + blitzDaysObserved + ", ghostSquadronKills=" + ghostSquadronKills +
+                ", ghostSquadronDeaths=" + ghostSquadronDeaths + ", ghostSquadronKdRatio=" + ghostSquadronKdRatio + ", ghostSquadronKkRatio=" + ghostSquadronKkRatio +
+                ", ghostSquadronDaysPlayed=" + ghostSquadronDaysPlayed + ", ghostSquadronDaysObserved=" + ghostSquadronDaysObserved + ", serverJoins=" + serverJoins +
+                ", raindrops=" + raindrops + ", forumPosts=" + forumPosts + ", forumTopics=" + forumTopics + ", monumentsDestroyed=" + monumentsDestroyed +
+                ", woolsPlaced=" + woolsPlaced + ", coresLeaked=" + coresLeaked + ", gender=" + gender + ", location=" + location + ", occupation=" + occupation +
+                ", interests=" + interests + ", biography=" + biography + ", skypeHandle=" + skypeHandle + ", steamHandle=" + steamHandle + ", twitterHandle=" + twitterHandle +
+                ", twitchHandle=" + twitchHandle + ", facebookHandle=" + facebookHandle + ", githubHandle=" + githubHandle + ", redditHandle=" + redditHandle + '}';
     }
 }
