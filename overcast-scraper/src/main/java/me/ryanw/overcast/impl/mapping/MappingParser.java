@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.ryanw.overcast.impl.util.HelperUtil;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -17,10 +19,9 @@ public class MappingParser {
 
     private final Document doc;
     private List<MappingEntry> mappingEntries;
-
     public MappingParser(Document doc, String fileName) {
         this.doc = doc;
-        String url = "https://bitbucket.org/ryanw-se/mappings/raw/master/OvercastAPI/" + fileName + ".json";
+        String url = "https://raw.githubusercontent.com/SunsetAPI/mappings/master/" + fileName + ".json";
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
@@ -28,7 +29,7 @@ public class MappingParser {
             JsonParser jsonParser = new JsonFactory().createParser(new URL(url).openStream());
             mappingEntries = Arrays.asList(mapper.readValue(jsonParser, MappingEntry[].class));
         } catch (MalformedURLException e) {
-            throw new NullPointerException("Cannot fetch latest mappings file from BitBucket: " + e.getMessage());
+            throw new NullPointerException("Cannot fetch latest mappings file from Github: " + e.getMessage());
         } catch (JsonParseException e) {
             throw new NullPointerException("Error occured while attempting to parse mappings file.");
         } catch (IOException e) {
@@ -155,13 +156,48 @@ public class MappingParser {
     public Map<MappingEnum, String> getMap(MappingEnum mappingEnum) {
         for (MappingEntry entry : mappingEntries) {
             Map<MappingEnum, String> resultMap = new HashMap<MappingEnum, String>();
-            if (entry.getId().equalsIgnoreCase(mappingEnum.name())) {
+            if (entry.getId().equalsIgnoreCase(mappingEnum.getId())) {
                 if (entry.getType().equalsIgnoreCase(MappingEnum.Types.MAP.name())) {
-                    /**
-                     * Need to write a proper implementation that can handle the mapping type "map".
-                     */
+                    for (MappingEntry.Cases entryCase : entry.getCases()) {
+                        MappingEnum name = HelperUtil.getEnumById(entryCase.getName());
+                        List<Element> matchingElements = new ArrayList<Element>();
+                        Elements parentElements = doc.select(entry.getParent());
+                        for (Element parentElement : parentElements) {
+                            for (Element matchingElement : parentElement.getElementsMatchingOwnText(entryCase.getIdentifiedByText())) {
+                                matchingElements.add(matchingElement);
+                            }
+                        }
+                        Element targetElement = matchingElements.get(0);
+                        if (entryCase.getIdentifiedByIndex() != null) targetElement = matchingElements.get(entryCase.getIdentifiedByIndex());
+                        if (targetElement.lastElementSibling() != null && targetElement.lastElementSibling().getElementById(entry.getTarget()) != null) {
+                            String payload = targetElement.lastElementSibling().ownText();
+                            if (entryCase.getAttribute() != null)
+                                payload = targetElement.lastElementSibling().attr(entryCase.getAttribute());
+                            if (entryCase.getFilter() != null) payload = HelperUtil.runRegex(entryCase, payload);
+                            resultMap.put(name, payload);
+                            break;
+                        }
+                        if (targetElement.firstElementSibling() != null && targetElement.firstElementSibling().getElementById(entry.getTarget()) != null) {
+                            String payload = targetElement.firstElementSibling().ownText();
+                            if (entryCase.getAttribute() != null)
+                                payload = targetElement.firstElementSibling().attr(entryCase.getAttribute());
+                            if (entryCase.getFilter() != null) payload = HelperUtil.runRegex(entryCase, payload);
+                            resultMap.put(name, payload);
+                            break;
+                        }
+                        String elementName = entry.getParent();
+                        if (entry.getTarget() != null) elementName = entry.getTarget();
+                        if (targetElement.parent().nodeName().equalsIgnoreCase(elementName)) {
+                            String payload = targetElement.parent().ownText();
+                            if (entryCase.getAttribute() != null) payload = targetElement.parent().attr(entryCase.getAttribute());
+                            if (entryCase.getFilter() != null) payload = HelperUtil.runRegex(entryCase, payload);
+                            resultMap.put(name, payload);
+                        }
+                    }
+                    return resultMap;
+                } else {
+                    throw new NullPointerException("Invalid call, expected type map, received type " + entry.getType());
                 }
-                throw new NullPointerException("Invalid call, expected type map, received type " + entry.getType());
             }
         }
         return null;

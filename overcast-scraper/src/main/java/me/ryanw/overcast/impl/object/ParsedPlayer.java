@@ -66,32 +66,32 @@ public class ParsedPlayer implements OvercastPlayer {
         /**
          * Player profile information
          */
-        Map<MappingEnum, String> personalDetails = parser.getMap(MappingEnum.PROFILE_INFO);
-        this.gender = HelperUtil.determineGender(personalDetails.get(MappingEnum.GENDER));
-        this.location = Optional.fromNullable(personalDetails.get(MappingEnum.LOCATION));
-        this.occupation = Optional.fromNullable(personalDetails.get(MappingEnum.OCCUPATION));
-        this.interests = Optional.fromNullable(personalDetails.get(MappingEnum.INTERESTS));
+        //Map<MappingEnum, String> personalDetails = parser.getMap(MappingEnum.PROFILE_INFO);
+        //this.gender = HelperUtil.determineGender(personalDetails.get(MappingEnum.GENDER));
+        //this.location = Optional.fromNullable(personalDetails.get(MappingEnum.LOCATION));
+        //this.occupation = Optional.fromNullable(personalDetails.get(MappingEnum.OCCUPATION));
+        //this.interests = Optional.fromNullable(personalDetails.get(MappingEnum.INTERESTS));
         this.biography = Optional.fromNullable(parser.getString(MappingEnum.BIOGRAPHY));
 
         /**
          * Player objectives statistics
          */
-        Map<MappingEnum, String> playerObjectives = parser.getMap(MappingEnum.OBJETIVES);
-        this.monumentsDestroyed = parser.getInteger(MappingEnum.MONUMENTS_DESTROYED);
-        this.woolsPlaced = parser.getInteger(MappingEnum.WOOLS_PLACED);
-        this.coresLeaked = parser.getInteger(MappingEnum.CORES_LEAKED);
+        Map<MappingEnum, String> playerObjectives = parser.getMap(MappingEnum.OBJECTIVES);
+        this.monuments = Integer.parseInt(playerObjectives.get(MappingEnum.MONUMENTS));
+        this.wools = Integer.parseInt(playerObjectives.get(MappingEnum.WOOLS));
+        this.cores = Integer.parseInt(playerObjectives.get(MappingEnum.CORES));
 
         /**
          * Player profile social networking information
          */
-        Map<MappingEnum, String> personalLinks = parser.getMap(MappingEnum.PROFILE_LINKS);
-        this.skypeHandle = Optional.fromNullable(personalLinks.get(MappingEnum.SKYPE_HANDLE));
-        this.steamHandle = Optional.fromNullable(personalLinks.get(MappingEnum.STEAM_HANDLE));
-        this.twitterHandle = Optional.fromNullable(personalLinks.get(MappingEnum.TWITTER_HANDLE));
-        this.twitchHandle = Optional.fromNullable(personalLinks.get(MappingEnum.TWITCH_HANDLE));
-        this.facebookHandle = Optional.fromNullable(personalLinks.get(MappingEnum.FACEBOOK_HANDLE));
-        this.githubHandle = Optional.fromNullable(personalLinks.get(MappingEnum.GITHUB_HANDLE));
-        this.redditHandle = Optional.fromNullable(personalLinks.get(MappingEnum.REDDIT_HANDLE));
+        //Map<MappingEnum, String> personalLinks = parser.getMap(MappingEnum.PROFILE_LINKS);
+        //this.skypeHandle = Optional.fromNullable(personalLinks.get(MappingEnum.SKYPE_HANDLE));
+        //this.steamHandle = Optional.fromNullable(personalLinks.get(MappingEnum.STEAM_HANDLE));
+        //this.twitterHandle = Optional.fromNullable(personalLinks.get(MappingEnum.TWITTER_HANDLE));
+        //this.twitchHandle = Optional.fromNullable(personalLinks.get(MappingEnum.TWITCH_HANDLE));
+        //this.facebookHandle = Optional.fromNullable(personalLinks.get(MappingEnum.FACEBOOK_HANDLE));
+        //this.githubHandle = Optional.fromNullable(personalLinks.get(MappingEnum.GITHUB_HANDLE));
+        //this.redditHandle = Optional.fromNullable(personalLinks.get(MappingEnum.REDDIT_HANDLE));
     }
 
     /**
@@ -140,9 +140,9 @@ public class ParsedPlayer implements OvercastPlayer {
     /**
      * Objective Details
      */
-    private int monumentsDestroyed;
-    private int woolsPlaced;
-    private int coresLeaked;
+    private int monuments;
+    private int wools;
+    private int cores;
 
     /**
      * Personal Details
@@ -320,18 +320,18 @@ public class ParsedPlayer implements OvercastPlayer {
     }
 
     @Override
-    public int getMonumentsDestroyed() {
-        return monumentsDestroyed;
+    public int getMonuments() {
+        return monuments;
     }
 
     @Override
-    public int getWoolsPlaced() {
-        return woolsPlaced;
+    public int getWools() {
+        return wools;
     }
 
     @Override
-    public int getCoresLeaked() {
-        return coresLeaked;
+    public int getCores() {
+        return cores;
     }
 
     @Override
@@ -402,7 +402,7 @@ public class ParsedPlayer implements OvercastPlayer {
 
     @Override
     public String toString() {
-        return "ParsedPlayer{" + "username='" + username + '\'' + ", formerUsername=" + formerUsername + ", friends=" + friends +
+        return "ParsedPlayer{" + "username='" + username + '\'' + ", formerUsername=" + formerUsername.orNull() + ", friends=" + friends.size() +
                 ", globalKills=" + globalKills + ", globalDeaths=" + globalDeaths + ", globalKdRatio=" + globalKdRatio +
                 ", globalKkRatio=" + globalKkRatio + ", globalDaysPlayed=" + globalDaysPlayed + ", globalDaysObserved=" + globalDaysObserved +
                 ", projectAresKills=" + projectAresKills + ", projectAresDeaths=" + projectAresDeaths + ", projectAresKdRatio=" + projectAresKdRatio +
@@ -411,9 +411,9 @@ public class ParsedPlayer implements OvercastPlayer {
                 ", blitzDaysPlayed=" + blitzDaysPlayed + ", blitzDaysObserved=" + blitzDaysObserved + ", ghostSquadronKills=" + ghostSquadronKills +
                 ", ghostSquadronDeaths=" + ghostSquadronDeaths + ", ghostSquadronKdRatio=" + ghostSquadronKdRatio + ", ghostSquadronKkRatio=" + ghostSquadronKkRatio +
                 ", ghostSquadronDaysPlayed=" + ghostSquadronDaysPlayed + ", ghostSquadronDaysObserved=" + ghostSquadronDaysObserved + ", serverJoins=" + serverJoins +
-                ", raindrops=" + raindrops + ", forumPosts=" + forumPosts + ", forumTopics=" + forumTopics + ", monumentsDestroyed=" + monumentsDestroyed +
-                ", woolsPlaced=" + woolsPlaced + ", coresLeaked=" + coresLeaked + ", gender=" + gender + ", location=" + location + ", occupation=" + occupation +
-                ", interests=" + interests + ", biography=" + biography + ", skypeHandle=" + skypeHandle + ", steamHandle=" + steamHandle + ", twitterHandle=" + twitterHandle +
+                ", raindrops=" + raindrops + ", forumPosts=" + forumPosts + ", forumTopics=" + forumTopics + ", monumentsDestroyed=" + monuments +
+                ", woolsPlaced=" + wools + ", coresLeaked=" + cores + ", gender=" + gender + ", location=" + location + ", occupation=" + occupation +
+                ", interests=" + interests + ", biography=" + biography.orNull() + ", skypeHandle=" + skypeHandle + ", steamHandle=" + steamHandle + ", twitterHandle=" + twitterHandle +
                 ", twitchHandle=" + twitchHandle + ", facebookHandle=" + facebookHandle + ", githubHandle=" + githubHandle + ", redditHandle=" + redditHandle + '}';
     }
 }

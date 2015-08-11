@@ -45,7 +45,7 @@ public class HelperUtil {
      */
     public static MappingEnum getEnumById(String id) {
         for (MappingEnum mappingEnum : MappingEnum.values()) {
-            if (mappingEnum.name().equals(id)) return mappingEnum;
+            if (mappingEnum.getId().equalsIgnoreCase(id)) return mappingEnum;
         }
         return null;
     }
