@@ -4,30 +4,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MappingEntry {
+
     private String id;
-    private String selector;
-    private String filter;
+    private String type;
+    private String parent;
+    private String target;
     private String attribute;
-    private Integer target;
-    private List<Conditions> conditions = new ArrayList<Conditions>();
-    private String targetElement;
+    private String filter;
+
+    private List<Cases> cases = new ArrayList<Cases>();
 
     public String getId() { return id; }
-    public String getSelector() { return selector; }
-    public String getFilter() { return filter; }
+    public String getTarget() { return target; }
+    public String getParent() { return parent; }
+    public String getType() { return type; }
     public String getAttribute() { return attribute; }
-    public Integer getTarget() { return target; }
-    public List<Conditions> getConditions() { return conditions; }
-    public String getTargetElement() { return targetElement; }
+    public String getFilter() { return filter; }
+    public List<Cases> getCases() { return cases; }
 
-    public class Conditions {
-        private String contains;
+    public static class Cases {
         private String name;
-        private String filter;
+        private String select;
+        private String identifiedByText;
+        private Integer identifiedByIndex;
         private String attribute;
-        public String getContains() { return contains; }
+        private String filter;
+
         public String getName() { return name; }
-        public String getFilter() { return filter; }
+        public String getSelect() { return select; }
+        public String getIdentifiedByText() { return identifiedByText; }
+        public Integer getIdentifiedByIndex() { return identifiedByIndex; }
         public String getAttribute() { return attribute; }
+        public String getFilter() { return filter; }
     }
 }

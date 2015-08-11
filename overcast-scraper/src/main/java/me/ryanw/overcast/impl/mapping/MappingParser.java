@@ -1,37 +1,39 @@
 package me.ryanw.overcast.impl.mapping;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import me.ryanw.overcast.impl.util.HelperUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.*;
 
 public class MappingParser {
 
-    private final Document document;
-    private final JsonArray mappingArray;
-
-    public MappingParser(Document document, String fileName) throws IOException {
-        this.document = document;
-        String url = "https://bitbucket.org/ryanw-se/mappings/raw/master/OvercastAPI/" + fileName + ".json";
+    private final Document doc;
+    private List<MappingEntry> mappingEntries;
+    public MappingParser(Document doc, String fileName) {
+        this.doc = doc;
+        String url = "https://raw.githubusercontent.com/SunsetAPI/mappings/master/" + fileName + ".json";
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         try {
-            mappingArray = new JsonParser().parse(new InputStreamReader(new URL(url).openStream())).getAsJsonArray();
+            JsonParser jsonParser = new JsonFactory().createParser(new URL(url).openStream());
+            mappingEntries = Arrays.asList(mapper.readValue(jsonParser, MappingEntry[].class));
+        } catch (MalformedURLException e) {
+            throw new NullPointerException("Cannot fetch latest mappings file from Github: " + e.getMessage());
+        } catch (JsonParseException e) {
+            throw new NullPointerException("Error occured while attempting to parse mappings file.");
         } catch (IOException e) {
-            throw new NullPointerException("Cannot fetch the latest mapping file from BitBucket: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -103,39 +105,16 @@ public class MappingParser {
      * @param mappingEnum The id of the mapping entry we want to read from.
      * @return Formatted result compiled by Jsoup using the selector tag.
      */
-    private String getString(MappingEnum mappingEnum) {
-        for (JsonElement mapping : mappingArray) {
-            MappingEntry mappingsEntry = new Gson().fromJson(mapping, MappingEntry.class);
-
-            // Verifies that the entry ID matches the one we want to get.
-            if (mappingsEntry.getId().equals(mappingEnum.getEntryName())) {
-
-                // Make sure that people aren't using getContent() to get list results
-                if (mappingsEntry.getTarget() == null) return null;
-
-                // Gets the target content inside of the element.
-                String payload = document.select(mappingsEntry.getSelector()).get(mappingsEntry.getTarget()).ownText();
-
-                // If it exists get the target from the specified attribute instead.
-                if (mappingsEntry.getAttribute() != null) {
-                    payload = document.select(mappingsEntry.getSelector()).get(mappingsEntry.getTarget()).attr(mappingsEntry.getAttribute());
+    public String getString(MappingEnum mappingEnum) {
+        for (MappingEntry entry : mappingEntries) {
+            if (entry.getId().equalsIgnoreCase(mappingEnum.name())) {
+                if (entry.getType().equalsIgnoreCase(MappingEnum.Types.SINGLE.name())) {
+                    String result = doc.select(entry.getTarget()).first().ownText();
+                    if (entry.getAttribute() != null) result = doc.select(entry.getTarget()).first().attr(entry.getAttribute());
+                    if (entry.getFilter() != null) result = HelperUtil.runRegex(entry, result);
+                    return result;
                 }
-
-                // It there is a regex filter tag, filter the content and set the result to return.
-                if (mappingsEntry.getFilter() != null) {
-                    List<String> matches = new ArrayList<String>();
-                    Pattern regex = Pattern.compile(mappingsEntry.getFilter());
-                    Matcher matcher = regex.matcher(payload);
-
-                    while (matcher.find()) {
-                        matches.add(matcher.group().trim());
-                    }
-
-                    StringBuilder matchBuilder = new StringBuilder(matches.size());
-                    for (String match : matches) matchBuilder.append(match);
-                    payload = matchBuilder.toString().trim();
-                }
-                return payload;
+                throw new NullPointerException("Invalid call, expected type single, received type " + entry.getType());
             }
         }
         return null;
@@ -148,45 +127,20 @@ public class MappingParser {
      * @return Formatted list of results.
      */
     public List<String> getList(MappingEnum mappingEnum) {
-        for (JsonElement mapping : mappingArray) {
-            MappingEntry mappingEntry = new Gson().fromJson(mapping, MappingEntry.class);
+        for (MappingEntry entry : mappingEntries) {
             List<String> resultList = new ArrayList<String>();
-
-            // Verifies that the entry ID matches the one we want to get.
-            if (mappingEntry.getId().equals(mappingEnum.getEntryName())) {
-
-                // Verifies that the requested entry is either a list or map result.
-                if (mappingEntry.getTarget() != null) return null;
-                int listSize = document.select(mappingEntry.getSelector()).size();
-
-                for (int i = 0; i < listSize; i++) {
-
-                    // Gets the target content inside of the element.
-                    String payload = document.select(mappingEntry.getSelector()).get(i).ownText();
-
-                    // If it exists get the target from the specified attribute instead.
-                    if (mappingEntry.getAttribute() != null) {
-                        payload = document.select(mappingEntry.getSelector()).get(i).attr(mappingEntry.getAttribute());
+            if (entry.getId().equalsIgnoreCase(mappingEnum.name())) {
+                if (entry.getType().equalsIgnoreCase(MappingEnum.Types.LIST.name())) {
+                    int amountOfResults = doc.select(entry.getTarget()).size();
+                    for (int i = 0; i < amountOfResults; i++) {
+                        String result = doc.select(entry.getTarget()).get(i).ownText();
+                        if (entry.getAttribute() != null) result = doc.select(entry.getTarget()).get(i).attr(entry.getAttribute());
+                        if (entry.getFilter() != null) result = HelperUtil.runRegex(entry, result);
+                        resultList.add(result);
                     }
-
-                    // It there is a regex filter tag, filter the content and set the result to return.
-                    if (mappingEntry.getFilter() != null) {
-                        List<String> matches = new ArrayList<String>();
-                        Pattern regex = Pattern.compile(mappingEntry.getFilter());
-                        Matcher matcher = regex.matcher(payload);
-
-                        while (matcher.find()) {
-                            matches.add(matcher.group().trim());
-                        }
-
-                        StringBuilder matchBuilder = new StringBuilder(matches.size());
-                        for (String match : matches) matchBuilder.append(match);
-                        payload = matchBuilder.toString().trim();
-                    }
-
-                    resultList.add(payload);
+                    return resultList;
                 }
-                return resultList;
+                throw new NullPointerException("Invalid call, expected type list, received type " + entry.getType());
             }
         }
         return null;
@@ -200,76 +154,50 @@ public class MappingParser {
      * @return Formatted map of results.
      */
     public Map<MappingEnum, String> getMap(MappingEnum mappingEnum) {
-        for (JsonElement mapping : mappingArray) {
-            MappingEntry mappingEntry = new Gson().fromJson(mapping, MappingEntry.class);
+        for (MappingEntry entry : mappingEntries) {
             Map<MappingEnum, String> resultMap = new HashMap<MappingEnum, String>();
-
-            // Verifies that the entry ID matches the one we want to get.
-            if (mappingEntry.getId().equalsIgnoreCase(mappingEnum.getEntryName())) {
-
-                // Verifies that the requested entry is either a list or map result.
-                if (mappingEntry.getTarget() != null) return null;
-                Elements targetElements = document.select(mappingEntry.getSelector());
-
-                for (Element targetElement : targetElements) {
-
-                    // Gets the element we are using to identify the target element.
-                    String identifier = targetElement.ownText().toLowerCase();
-
-                    // If it exists, get the information inside of the attribute of the element we are using to identify sub-elements with.
-                    if (mappingEntry.getAttribute() != null) {
-                        identifier = targetElement.attr(mappingEntry.getAttribute()).toLowerCase();
-                    }
-
-                    // If it exists, get the filter tag and filter the identifier element before checking conditions.
-                    if (mappingEntry.getFilter() != null) {
-                        List<String> matches = new ArrayList<String>();
-                        Pattern regex = Pattern.compile(mappingEntry.getFilter());
-                        Matcher matcher = regex.matcher(identifier);
-
-                        while (matcher.find()) {
-                            matches.add(matcher.group().trim());
+            if (entry.getId().equalsIgnoreCase(mappingEnum.getId())) {
+                if (entry.getType().equalsIgnoreCase(MappingEnum.Types.MAP.name())) {
+                    for (MappingEntry.Cases entryCase : entry.getCases()) {
+                        MappingEnum name = HelperUtil.getEnumById(entryCase.getName());
+                        List<Element> matchingElements = new ArrayList<Element>();
+                        Elements parentElements = doc.select(entry.getParent());
+                        for (Element parentElement : parentElements) {
+                            for (Element matchingElement : parentElement.getElementsMatchingOwnText(entryCase.getIdentifiedByText())) {
+                                matchingElements.add(matchingElement);
+                            }
                         }
-
-                        StringBuilder matchBuilder = new StringBuilder(matches.size());
-                        for (String match : matches) matchBuilder.append(match);
-                        identifier = matchBuilder.toString().trim();
-                    }
-
-                    /**
-                     * We've gotten the identifier element, we've cleaned it up by filtering it and getting the attribute if it exists.
-                     * Now lets get the target element, which is the first element by the specified id after the identifier element. Then,
-                     * run the same logic as before (filter, attribute) just this time with the result. Put the result in a map and once
-                     * done building the map, return it as the result.
-                     */
-                    for (MappingEntry.Conditions condition : mappingEntry.getConditions()) {
-                        if (identifier.equalsIgnoreCase(condition.getContains())) {
-                            MappingEnum entryKey = HelperUtil.getEnumById(condition.getName());
-                            String entryValue = targetElement.siblingElements().select(mappingEntry.getTargetElement()).first().ownText();
-
-                            if (condition.getAttribute() != null) {
-                                entryValue = targetElement.siblingElements().select(mappingEntry.getTargetElement()).attr(condition.getAttribute());
-                            }
-
-                            if (condition.getFilter() != null) {
-                                List<String> matches = new ArrayList<String>();
-                                Pattern regex = Pattern.compile(condition.getFilter());
-                                Matcher matcher = regex.matcher(entryValue);
-
-                                while (matcher.find()) {
-                                    matches.add(matcher.group().trim());
-                                }
-
-                                StringBuilder matchBuilder = new StringBuilder(matches.size());
-                                for (String match : matches) matchBuilder.append(match);
-                                entryValue = matchBuilder.toString().trim();
-                            }
-
-                            resultMap.put(entryKey, entryValue);
+                        Element targetElement = matchingElements.get(0);
+                        if (entryCase.getIdentifiedByIndex() != null) targetElement = matchingElements.get(entryCase.getIdentifiedByIndex());
+                        if (targetElement.lastElementSibling() != null && targetElement.lastElementSibling().getElementById(entry.getTarget()) != null) {
+                            String payload = targetElement.lastElementSibling().ownText();
+                            if (entryCase.getAttribute() != null)
+                                payload = targetElement.lastElementSibling().attr(entryCase.getAttribute());
+                            if (entryCase.getFilter() != null) payload = HelperUtil.runRegex(entryCase, payload);
+                            resultMap.put(name, payload);
+                            break;
+                        }
+                        if (targetElement.firstElementSibling() != null && targetElement.firstElementSibling().getElementById(entry.getTarget()) != null) {
+                            String payload = targetElement.firstElementSibling().ownText();
+                            if (entryCase.getAttribute() != null)
+                                payload = targetElement.firstElementSibling().attr(entryCase.getAttribute());
+                            if (entryCase.getFilter() != null) payload = HelperUtil.runRegex(entryCase, payload);
+                            resultMap.put(name, payload);
+                            break;
+                        }
+                        String elementName = entry.getParent();
+                        if (entry.getTarget() != null) elementName = entry.getTarget();
+                        if (targetElement.parent().nodeName().equalsIgnoreCase(elementName)) {
+                            String payload = targetElement.parent().ownText();
+                            if (entryCase.getAttribute() != null) payload = targetElement.parent().attr(entryCase.getAttribute());
+                            if (entryCase.getFilter() != null) payload = HelperUtil.runRegex(entryCase, payload);
+                            resultMap.put(name, payload);
                         }
                     }
+                    return resultMap;
+                } else {
+                    throw new NullPointerException("Invalid call, expected type map, received type " + entry.getType());
                 }
-                return resultMap;
             }
         }
         return null;

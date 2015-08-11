@@ -70,11 +70,11 @@ public interface OvercastPlayer {
 
     int getForumTopics();
 
-    int getMonumentsDestroyed();
+    int getMonuments();
 
-    int getWoolsPlaced();
+    int getWools();
 
-    int getCoresLeaked();
+    int getCores();
 
     Gender getGender();
 

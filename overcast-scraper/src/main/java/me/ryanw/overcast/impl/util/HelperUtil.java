@@ -2,11 +2,14 @@ package me.ryanw.overcast.impl.util;
 
 import me.ryanw.overcast.api.OvercastFriend;
 import me.ryanw.overcast.api.util.Gender;
+import me.ryanw.overcast.impl.mapping.MappingEntry;
 import me.ryanw.overcast.impl.mapping.MappingEnum;
 import me.ryanw.overcast.impl.object.ParsedFriend;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class HelperUtil {
 
@@ -42,8 +45,58 @@ public class HelperUtil {
      */
     public static MappingEnum getEnumById(String id) {
         for (MappingEnum mappingEnum : MappingEnum.values()) {
-            if (mappingEnum.getEntryName().equals(id)) return mappingEnum;
+            if (mappingEnum.getId().equalsIgnoreCase(id)) return mappingEnum;
         }
         return null;
+    }
+
+    /**
+     * Applies a regex statement to text and compiles the result as a string.
+     * @param entry The mapping entry to get the regex statement to be applied from.
+     * @param resultToFilter The result we want to apply the regex statement to
+     * @return filtered result that we applied the regex statement to.
+     */
+    public static String runRegex(MappingEntry entry, String resultToFilter) {
+        List<String> matches = new ArrayList<String>();
+        Pattern regularExp = Pattern.compile(entry.getFilter());
+        Matcher matcher = regularExp.matcher(resultToFilter);
+
+        while (matcher.find()) {
+            matches.add(matcher.group().trim());
+        }
+
+        StringBuilder stringBuilder = new StringBuilder(matches.size());
+        for (String match : matches) stringBuilder.append(match);
+        return stringBuilder.toString().trim();
+    }
+
+    /**
+     * Applies a regex statement to text and compiles the result as a string.
+     * @param entryCase The mapping entry to get the regex statement to be applied from.
+     * @param resultToFilter The result we want to apply the regex statement to
+     * @return filtered result that we applied the regex statement to.
+     */
+    public static String runRegex(MappingEntry.Cases entryCase, String resultToFilter) {
+        List<String> matches = new ArrayList<String>();
+        Pattern regularExp = Pattern.compile(entryCase.getFilter());
+        Matcher matcher = regularExp.matcher(resultToFilter);
+
+        while (matcher.find()) {
+            matches.add(matcher.group().trim());
+        }
+
+        StringBuilder stringBuilder = new StringBuilder(matches.size());
+        for (String match : matches) stringBuilder.append(match);
+        return stringBuilder.toString().trim();
+    }
+
+    /**
+     * Takes a CSS selection and gets the parent element from it (First element).
+     * @param select The selection statement to get the first element from.
+     * @return The parent element of the selection statement.
+     */
+    public static String getSelectorParent(String select) {
+        String[] cssSelectors = select.split(">");
+        return cssSelectors[0];
     }
 }
