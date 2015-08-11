@@ -20,58 +20,71 @@ public class ParsedPlayer implements OvercastPlayer {
 
     public ParsedPlayer(Document doc) throws IOException {
         MappingParser parser = new MappingParser(doc, "player");
-        Map<MappingEnum, String> personalDetails = parser.getMap(MappingEnum.PROFILE_INFO);
-        Map<MappingEnum, String> personalLinks = parser.getMap(MappingEnum.PROFILE_LINKS);
-
         this.username = parser.getString(MappingEnum.USERNAME);
         this.formerUsername = Optional.fromNullable(MojangUtil.getFormerUsername(username).getName());
+        this.friends = HelperUtil.buildFriendObjects(parser.getList(MappingEnum.FRIENDS));
 
+        /**
+         * Basic player statistics
+         */
+        Map<MappingEnum, String> playerStats = parser.getMap(MappingEnum.STATS);
+        this.globalKills = Integer.parseInt(playerStats.get(MappingEnum.GLOBAL_KILLS));
+        this.globalDeaths = Integer.parseInt(playerStats.get(MappingEnum.GLOBAL_DEATHS));
+        this.globalKdRatio = Double.parseDouble(playerStats.get(MappingEnum.GLOBAL_KD_RATIO));
+        this.globalKkRatio = Double.parseDouble(playerStats.get(MappingEnum.GLOBAL_KK_RATIO));
+        this.globalDaysPlayed = Double.parseDouble(playerStats.get(MappingEnum.GLOBAL_DAYS_PLAYED));
+        this.serverJoins = Integer.parseInt(playerStats.get(MappingEnum.SERVER_JOINS));
+        this.raindrops = Integer.parseInt(playerStats.get(MappingEnum.RAINDROPS));
+
+        /**
+         * Advanced player statistics
+         */
+        Map<MappingEnum, String> playerStatsDetailed = parser.getMap(MappingEnum.STATS_PAGE);
+        this.forumPosts = Integer.parseInt(playerStatsDetailed.get(MappingEnum.FORUM_POSTS));
+        this.forumTopics = Integer.parseInt(playerStatsDetailed.get(MappingEnum.FORUM_TOPICS));
+        this.projectAresKills = Integer.parseInt(playerStatsDetailed.get(MappingEnum.PROJECT_ARES_KILLS));
+        this.projectAresDeaths = Integer.parseInt(playerStatsDetailed.get(MappingEnum.PROJECT_ARES_DEATHS));
+        this.projectAresKdRatio = Double.parseDouble(playerStatsDetailed.get(MappingEnum.PROJECT_ARES_KD_RATIO));
+        this.projectAresKkRatio = Double.parseDouble(playerStatsDetailed.get(MappingEnum.PROJECT_ARES_KK_RATIO));
+        this.projectAresDaysPlayed = Double.parseDouble(playerStatsDetailed.get(MappingEnum.PROJECT_ARES_DAYS_PLAYED));
+        this.projectAresDaysObserved = Double.parseDouble(playerStatsDetailed.get(MappingEnum.PROJECT_ARES_DAYS_OBSERVED));
+        this.blitzKills = Integer.parseInt(playerStatsDetailed.get(MappingEnum.BLITZ_KILLS));
+        this.blitzDeaths = Integer.parseInt(playerStatsDetailed.get(MappingEnum.BLITZ_DEATHS));
+        this.blitzKdRatio = Double.parseDouble(playerStatsDetailed.get(MappingEnum.BLITZ_KD_RATIO));
+        this.blitzKkRatio = Double.parseDouble(playerStatsDetailed.get(MappingEnum.BLITZ_KK_RATIO));
+        this.blitzDaysPlayed = Double.parseDouble(playerStatsDetailed.get(MappingEnum.BLITZ_DAYS_PLAYED));
+        this.blitzDaysObserved = Double.parseDouble(playerStatsDetailed.get(MappingEnum.BLITZ_DAYS_OBSERVED));
+        this.ghostSquadronKills = Integer.parseInt(playerStatsDetailed.get(MappingEnum.GHOST_SQUADRON_KILLS));
+        this.ghostSquadronDeaths = Integer.parseInt(playerStatsDetailed.get(MappingEnum.GHOST_SQUADRON_DEATHS));
+        this.ghostSquadronKdRatio = Double.parseDouble(playerStatsDetailed.get(MappingEnum.GHOST_SQUADRON_KD_RATIO));
+        this.ghostSquadronKkRatio = Double.parseDouble(playerStatsDetailed.get(MappingEnum.GHOST_SQUADRON_KK_RATIO));
+        this.ghostSquadronDaysPlayed = Double.parseDouble(playerStatsDetailed.get(MappingEnum.GHOST_SQUADRON_DAYS_PLAYED));
+        this.ghostSquadronDaysObserved = Double.parseDouble(playerStatsDetailed.get(MappingEnum.GHOST_SQUADRON_DAYS_OBSERVED));
+        double globalDaysObservedRaw = projectAresDaysObserved + blitzDaysObserved + ghostSquadronDaysObserved;
+        this.globalDaysObserved = Double.valueOf(new DecimalFormat("#.##").format(globalDaysObservedRaw));
+
+        /**
+         * Player profile information
+         */
+        Map<MappingEnum, String> personalDetails = parser.getMap(MappingEnum.PROFILE_INFO);
         this.gender = HelperUtil.determineGender(personalDetails.get(MappingEnum.GENDER));
         this.location = Optional.fromNullable(personalDetails.get(MappingEnum.LOCATION));
         this.occupation = Optional.fromNullable(personalDetails.get(MappingEnum.OCCUPATION));
         this.interests = Optional.fromNullable(personalDetails.get(MappingEnum.INTERESTS));
         this.biography = Optional.fromNullable(parser.getString(MappingEnum.BIOGRAPHY));
 
-        this.globalKills = parser.getInteger(MappingEnum.GLOBAL_KILLS);
-        this.globalDeaths = parser.getInteger(MappingEnum.GLOBAL_DEATHS);
-        this.globalKdRatio = parser.getDouble(MappingEnum.GLOBAL_KD_RATIO);
-        this.globalKkRatio = parser.getDouble(MappingEnum.GLOBAL_KK_RATIO);
-        this.globalDaysPlayed = parser.getDouble(MappingEnum.GLOBAL_DAYS_PLAYED);
-
-        this.raindrops = parser.getInteger(MappingEnum.RAINDROPS);
-        this.forumPosts = parser.getInteger(MappingEnum.FORUM_POSTS);
-        this.forumTopics = parser.getInteger(MappingEnum.FORUM_TOPICS);
-        this.serverJoins = parser.getInteger(MappingEnum.SERVER_JOINS);
-
-        this.projectAresKills = parser.getInteger(MappingEnum.PROJECT_ARES_KILLS);
-        this.projectAresDeaths = parser.getInteger(MappingEnum.PROJECT_ARES_DEATHS);
-        this.projectAresKdRatio = parser.getDouble(MappingEnum.PROJECT_ARES_KD_RATIO);
-        this.projectAresKkRatio = parser.getDouble(MappingEnum.PROJECT_ARES_KK_RATIO);
-        this.projectAresDaysPlayed = parser.getDouble(MappingEnum.PROJECT_ARES_DAYS_PLAYED);
-        this.projectAresDaysObserved = parser.getDouble(MappingEnum.PROJECT_ARES_DAYS_OBSERVED);
-
-        this.blitzKills = parser.getInteger(MappingEnum.BLITZ_KILLS);
-        this.blitzDeaths = parser.getInteger(MappingEnum.BLITZ_DEATHS);
-        this.blitzKdRatio = parser.getDouble(MappingEnum.BLITZ_KD_RATIO);
-        this.blitzKkRatio = parser.getDouble(MappingEnum.BLITZ_KK_RATIO);
-        this.blitzDaysPlayed = parser.getDouble(MappingEnum.BLITZ_DAYS_PLAYED);
-        this.blitzDaysObserved = parser.getDouble(MappingEnum.BLITZ_DAYS_OBSERVED);
-
-        this.ghostSquadronKills = parser.getInteger(MappingEnum.GHOST_SQUADRON_KILLS);
-        this.ghostSquadronDeaths = parser.getInteger(MappingEnum.GHOST_SQUADRON_DEATHS);
-        this.ghostSquadronKdRatio = parser.getDouble(MappingEnum.GHOST_SQUADRON_KD_RATIO);
-        this.ghostSquadronKkRatio = parser.getDouble(MappingEnum.GHOST_SQUADRON_KK_RATIO);
-        this.ghostSquadronDaysPlayed = parser.getDouble(MappingEnum.GHOST_SQUADRON_DAYS_PLAYED);
-        this.ghostSquadronDaysObserved = parser.getDouble(MappingEnum.GHOST_SQUADRON_DAYS_OBSERVED);
-        double globalDaysObservedRaw = projectAresDaysObserved + blitzDaysObserved + ghostSquadronDaysObserved;
-        this.globalDaysObserved = Double.valueOf(new DecimalFormat("#.##").format(globalDaysObservedRaw));
-
+        /**
+         * Player objectives statistics
+         */
+        Map<MappingEnum, String> playerObjectives = parser.getMap(MappingEnum.OBJETIVES);
         this.monumentsDestroyed = parser.getInteger(MappingEnum.MONUMENTS_DESTROYED);
         this.woolsPlaced = parser.getInteger(MappingEnum.WOOLS_PLACED);
         this.coresLeaked = parser.getInteger(MappingEnum.CORES_LEAKED);
 
-        this.friends = HelperUtil.buildFriendObjects(parser.getList(MappingEnum.FRIENDS));
-
+        /**
+         * Player profile social networking information
+         */
+        Map<MappingEnum, String> personalLinks = parser.getMap(MappingEnum.PROFILE_LINKS);
         this.skypeHandle = Optional.fromNullable(personalLinks.get(MappingEnum.SKYPE_HANDLE));
         this.steamHandle = Optional.fromNullable(personalLinks.get(MappingEnum.STEAM_HANDLE));
         this.twitterHandle = Optional.fromNullable(personalLinks.get(MappingEnum.TWITTER_HANDLE));

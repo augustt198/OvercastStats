@@ -71,6 +71,26 @@ public class HelperUtil {
     }
 
     /**
+     * Applies a regex statement to text and compiles the result as a string.
+     * @param entryCase The mapping entry to get the regex statement to be applied from.
+     * @param resultToFilter The result we want to apply the regex statement to
+     * @return filtered result that we applied the regex statement to.
+     */
+    public static String runRegex(MappingEntry.Cases entryCase, String resultToFilter) {
+        List<String> matches = new ArrayList<String>();
+        Pattern regularExp = Pattern.compile(entryCase.getFilter());
+        Matcher matcher = regularExp.matcher(resultToFilter);
+
+        while (matcher.find()) {
+            matches.add(matcher.group().trim());
+        }
+
+        StringBuilder stringBuilder = new StringBuilder(matches.size());
+        for (String match : matches) stringBuilder.append(match);
+        return stringBuilder.toString().trim();
+    }
+
+    /**
      * Takes a CSS selection and gets the parent element from it (First element).
      * @param select The selection statement to get the first element from.
      * @return The parent element of the selection statement.

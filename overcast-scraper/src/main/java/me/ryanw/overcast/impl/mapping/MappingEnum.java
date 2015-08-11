@@ -16,7 +16,8 @@ public enum MappingEnum {
     MONUMENTS_DESTROYED("monumentsDestroyed"), WOOLS_PLACED("woolsPlaced"), CORES_LEAKED("coresLeaked"), PROFILE_INFO("profileInfo"),
     GENDER("gender"), LOCATION("location"), OCCUPATION("occupation"), INTERESTS("interests"), BIOGRAPHY("biography"),
     PROFILE_LINKS("profileLinks"), SKYPE_HANDLE("skypeHandle"), TWITTER_HANDLE("twitterHandle"), FACEBOOK_HANDLE("facebookHandle"),
-    STEAM_HANDLE("steamHandle"), TWITCH_HANDLE("twitchHandle"), GITHUB_HANDLE("githubHandle"), REDDIT_HANDLE("redditHandle"), FRIENDS_COUNT("friendsCount");
+    STEAM_HANDLE("steamHandle"), TWITCH_HANDLE("twitchHandle"), GITHUB_HANDLE("githubHandle"), REDDIT_HANDLE("redditHandle"), FRIENDS_COUNT("friendsCount"),
+    STATS("stats"), STATS_PAGE("statsPage"), OBJETIVES("objectives");
 
     public enum Types {
         LIST(), MAP(), SINGLE()
