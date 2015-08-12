@@ -1,14 +1,14 @@
-package me.ryanw.overcast.impl.object;
+package me.ryanw.sunset.impl.object;
 
 import com.google.common.base.Optional;
-import me.ryanw.overcast.api.OvercastFriend;
-import me.ryanw.overcast.api.OvercastPlayer;
-import me.ryanw.overcast.api.OvercastTeam;
-import me.ryanw.overcast.api.util.Gender;
-import me.ryanw.overcast.impl.mapping.MappingEnum;
-import me.ryanw.overcast.impl.mapping.MappingParser;
-import me.ryanw.overcast.impl.util.HelperUtil;
-import me.ryanw.overcast.impl.util.MojangUtil;
+import me.ryanw.sunset.api.OvercastFriend;
+import me.ryanw.sunset.api.OvercastPlayer;
+import me.ryanw.sunset.api.OvercastTeam;
+import me.ryanw.sunset.api.util.Gender;
+import me.ryanw.sunset.impl.mapping.MappingEnum;
+import me.ryanw.sunset.impl.mapping.MappingParser;
+import me.ryanw.sunset.impl.util.HelperUtil;
+import me.ryanw.sunset.impl.util.MojangUtil;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;

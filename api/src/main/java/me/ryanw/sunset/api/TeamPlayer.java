@@ -1,6 +1,6 @@
-package me.ryanw.overcast.api;
+package me.ryanw.sunset.api;
 
-import me.ryanw.overcast.api.util.Role;
+import me.ryanw.sunset.api.util.Role;
 
 import java.util.Calendar;
 import java.util.Collection;

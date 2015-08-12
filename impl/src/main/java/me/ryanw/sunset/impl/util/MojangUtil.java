@@ -1,4 +1,4 @@
-package me.ryanw.overcast.impl.util;
+package me.ryanw.sunset.impl.util;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;

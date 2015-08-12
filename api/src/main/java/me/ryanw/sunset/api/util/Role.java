@@ -1,7 +1,9 @@
-package me.ryanw.overcast.api.util;
+package me.ryanw.sunset.api.util;
+
+import me.ryanw.sunset.api.OvercastTeam;
 
 /**
- * Represents the role of a player on an {@link me.ryanw.overcast.api.OvercastTeam}
+ * Represents the role of a player on an {@link OvercastTeam}
  */
 public enum Role {
     /**

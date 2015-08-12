@@ -1,10 +1,10 @@
-package me.ryanw.overcast.impl.util;
+package me.ryanw.sunset.impl.util;
 
-import me.ryanw.overcast.api.OvercastFriend;
-import me.ryanw.overcast.api.util.Gender;
-import me.ryanw.overcast.impl.mapping.MappingEntry;
-import me.ryanw.overcast.impl.mapping.MappingEnum;
-import me.ryanw.overcast.impl.object.ParsedFriend;
+import me.ryanw.sunset.api.OvercastFriend;
+import me.ryanw.sunset.api.util.Gender;
+import me.ryanw.sunset.impl.mapping.MappingEntry;
+import me.ryanw.sunset.impl.mapping.MappingEnum;
+import me.ryanw.sunset.impl.object.ParsedFriend;
 
 import java.util.ArrayList;
 import java.util.List;

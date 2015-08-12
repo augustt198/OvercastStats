@@ -1,7 +1,7 @@
-package me.ryanw.overcast.impl;
+package me.ryanw.sunset.impl;
 
-import me.ryanw.overcast.api.OvercastPlayer;
-import me.ryanw.overcast.impl.object.ParsedPlayer;
+import me.ryanw.sunset.api.OvercastPlayer;
+import me.ryanw.sunset.impl.object.ParsedPlayer;
 import org.jsoup.Connection;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OvercastAPI {
+public class Sunset {
 
     private static String userAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36";
     private static int connectionTimeout = 3000;
