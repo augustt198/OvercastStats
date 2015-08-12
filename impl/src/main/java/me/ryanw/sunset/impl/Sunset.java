@@ -1,5 +1,6 @@
 package me.ryanw.sunset.impl;
 
+import me.ryanw.sunset.api.Overcast;
 import me.ryanw.sunset.api.OvercastPlayer;
 import me.ryanw.sunset.impl.object.ParsedPlayer;
 import org.jsoup.Connection;
@@ -10,12 +11,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sunset {
+public class Sunset implements Overcast {
 
-    private static String userAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36";
-    private static int connectionTimeout = 3000;
+    private String userAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36";
+    private int connectionTimeout;
 
-    public static OvercastPlayer getPlayer(String username) {
+    public Sunset(int connectionTimeout, String userAgent) {
+        this.connectionTimeout = connectionTimeout;
+        if (userAgent != null) this.userAgent = userAgent;
+    }
+
+    @Override
+    public OvercastPlayer getPlayer(String username) {
         String url = "https://oc.tc/users/" + username;
         try {
             Connection.Response response = Jsoup.connect(url).method(Connection.Method.GET).userAgent(userAgent).timeout(connectionTimeout).execute();
@@ -24,7 +31,8 @@ public class Sunset {
         return null;
     }
 
-    public static OvercastPlayer getPlayerByUrl(String url)  {
+    @Override
+    public OvercastPlayer getPlayerByUrl(String url)  {
         try {
             Connection.Response response = Jsoup.connect(url).method(Connection.Method.GET).userAgent(userAgent).timeout(connectionTimeout).execute();
             return new ParsedPlayer(response.parse());
@@ -32,7 +40,8 @@ public class Sunset {
         return null;
     }
 
-    public static List<OvercastPlayer> getPlayers(List<String> usernames) {
+    @Override
+    public List<OvercastPlayer> getPlayers(List<String> usernames) {
         List<OvercastPlayer> playerList = new ArrayList<OvercastPlayer>();
         for (String username : usernames) {
             String url = "https://oc.tc/users/" + username;
@@ -46,7 +55,8 @@ public class Sunset {
         return playerList;
     }
 
-    public static List<OvercastPlayer> getPlayersByUrl(List<String> urls) {
+    @Override
+    public List<OvercastPlayer> getPlayersByUrl(List<String> urls) {
         List<OvercastPlayer> playerList = new ArrayList<OvercastPlayer>();
         for (String url : urls) {
             try {
