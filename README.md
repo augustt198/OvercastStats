@@ -1,4 +1,4 @@
-# OvercastAPI [![Build Status](http://ci.ryan-w.me/buildStatus/icon?job=OvercastAPI)](http://ci.ryan-w.me/job/OvercastAPI/) [![license](http://img.shields.io/:license-Mozilla Public License v2-blue.svg)](https://github.com/ryanw-se/OvercastAPI/blob/master/LICENSE)
+# OvercastAPI [![Build Status](http://ci.twizmwaz.in/job/OvercastStats/badge/icon)](http://ci.twizmwaz.in/job/OvercastStats) [![license](http://img.shields.io/:license-Mozilla Public License v2-blue.svg)](https://github.com/ryanw-se/OvercastAPI/blob/master/LICENSE)
 The goal of this project is to provide a solid API for the Overcast Network website, written in Java. 
 
 You are welcome to contribute code or even just help out with issues, all contributions help further the project and are appreciated equally.
