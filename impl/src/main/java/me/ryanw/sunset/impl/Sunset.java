@@ -23,11 +23,6 @@ public class Sunset implements Overcast {
         sunset = this;
     }
 
-    public static void main(String[] args) {
-        Sunset sunset = new Sunset(3000, null);
-        System.out.println(sunset.getPlayer("rockymma"));
-    }
-
     @Override
     public OvercastPlayer getPlayer(String username) {
         String url = "https://oc.tc/users/" + username;
