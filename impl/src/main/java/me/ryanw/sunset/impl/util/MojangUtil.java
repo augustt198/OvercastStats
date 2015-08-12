@@ -17,7 +17,7 @@ public class MojangUtil {
      * @param uuid Trimmed or full UUID of the user whose username we want to fetch.
      * @return The current username of the UUID provided.
      */
-    public static String getUsername(String uuid) {
+    public String getUsername(String uuid) {
         String url = "https://sessionserver.mojang.com/session/minecraft/profile/" + uuid.replace("-", "");
         try {
             JsonParser jsonParser = new JsonFactory().createParser(new URL(url).openStream());
@@ -31,7 +31,7 @@ public class MojangUtil {
      * @param uuid The UUID of the user we want to get the previous username for.
      * @return Previous former username that the player used.
      */
-    public static FormerUsername getFormerUsername(UUID uuid) {
+    public FormerUsername getFormerUsername(UUID uuid) {
         List<FormerUsername> formerUsernames;
         String url = "https://api.mojang.com/user/profiles/" + uuid.toString().replaceAll("-", "") + "/names";
         try {
@@ -47,9 +47,9 @@ public class MojangUtil {
      * @param username The username of the user we want to get the previous username for.
      * @return Previous former username that the player used.
      */
-    public static FormerUsername getFormerUsername(String username) {
+    public FormerUsername getFormerUsername(String username) {
         List<FormerUsername> formerUsernames;
-        String url = "https://api.mojang.com/user/profiles/" + MojangUtil.getUUID(username, true) + "/names";
+        String url = "https://api.mojang.com/user/profiles/" + new MojangUtil().getUUID(username, true) + "/names";
         try {
             JsonParser jsonParser = new JsonFactory().createParser(new URL(url).openStream());
             formerUsernames = Arrays.asList(new ObjectMapper().readValue(jsonParser, FormerUsername[].class));
@@ -64,7 +64,7 @@ public class MojangUtil {
      * @param uuid The UUID of the user we want to get username history for.
      * @return List of former usernames in order from oldest to newest.
      */
-    public static List<FormerUsername> getFormerUsernames(String uuid) {
+    public List<FormerUsername> getFormerUsernames(String uuid) {
         List<FormerUsername> formerUsernames;
         String url = "https://api.mojang.com/user/profiles/" + uuid.replace("-", "") + "/names";
         try {
@@ -81,7 +81,7 @@ public class MojangUtil {
      * @param currentUsername The username to return the uuid of.
      * @return The uuid owner of the username provided.
      */
-    public static String getUUID(String currentUsername, boolean trimmed) {
+    public String getUUID(String currentUsername, boolean trimmed) {
         String url = "https://api.mojang.com/users/profiles/minecraft/" + currentUsername;
         try {
             JsonParser jsonParser = new JsonFactory().createParser(new URL(url).openStream());
