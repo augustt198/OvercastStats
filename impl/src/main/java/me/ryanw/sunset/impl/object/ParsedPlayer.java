@@ -21,7 +21,7 @@ public class ParsedPlayer implements OvercastPlayer {
     public ParsedPlayer(Document doc) throws IOException {
         MappingParser parser = new MappingParser(doc, "player");
         this.username = parser.getString(MappingEnum.USERNAME);
-        this.formerUsername = Optional.fromNullable(new MojangUtil().getFormerUsername(username).getName());
+        this.formerUsername = Optional.fromNullable(MojangUtil.getFormerUsername(username));
         this.friends = HelperUtil.buildFriendObjects(parser.getList(MappingEnum.FRIENDS));
 
         /**
