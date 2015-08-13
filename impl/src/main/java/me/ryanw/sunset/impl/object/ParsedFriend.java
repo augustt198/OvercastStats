@@ -20,7 +20,7 @@ public class ParsedFriend implements OvercastFriend {
     }
 
     @Override
-    public OvercastPlayer getAsPlayerObject() throws IOException {
+    public OvercastPlayer getAsPlayerObject() {
         return Sunset.getSunset().getPlayer(username);
     }
 }
