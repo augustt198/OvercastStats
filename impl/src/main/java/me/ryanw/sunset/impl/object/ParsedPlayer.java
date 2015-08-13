@@ -66,11 +66,11 @@ public class ParsedPlayer implements OvercastPlayer {
         /**
          * Player profile information
          */
-        //Map<MappingEnum, String> personalDetails = parser.getMap(MappingEnum.PROFILE_INFO);
-        //this.gender = HelperUtil.determineGender(personalDetails.get(MappingEnum.GENDER));
-        //this.location = Optional.fromNullable(personalDetails.get(MappingEnum.LOCATION));
-        //this.occupation = Optional.fromNullable(personalDetails.get(MappingEnum.OCCUPATION));
-        //this.interests = Optional.fromNullable(personalDetails.get(MappingEnum.INTERESTS));
+        Map<MappingEnum, String> personalDetails = parser.getMap(MappingEnum.PROFILE_INFO);
+        this.gender = HelperUtil.determineGender(personalDetails.get(MappingEnum.GENDER));
+        this.location = Optional.fromNullable(personalDetails.get(MappingEnum.LOCATION));
+        this.occupation = Optional.fromNullable(personalDetails.get(MappingEnum.OCCUPATION));
+        this.interests = Optional.fromNullable(personalDetails.get(MappingEnum.INTERESTS));
         this.biography = Optional.fromNullable(parser.getString(MappingEnum.BIOGRAPHY));
 
         /**
@@ -84,14 +84,14 @@ public class ParsedPlayer implements OvercastPlayer {
         /**
          * Player profile social networking information
          */
-        //Map<MappingEnum, String> personalLinks = parser.getMap(MappingEnum.PROFILE_LINKS);
-        //this.skypeHandle = Optional.fromNullable(personalLinks.get(MappingEnum.SKYPE_HANDLE));
-        //this.steamHandle = Optional.fromNullable(personalLinks.get(MappingEnum.STEAM_HANDLE));
-        //this.twitterHandle = Optional.fromNullable(personalLinks.get(MappingEnum.TWITTER_HANDLE));
-        //this.twitchHandle = Optional.fromNullable(personalLinks.get(MappingEnum.TWITCH_HANDLE));
-        //this.facebookHandle = Optional.fromNullable(personalLinks.get(MappingEnum.FACEBOOK_HANDLE));
-        //this.githubHandle = Optional.fromNullable(personalLinks.get(MappingEnum.GITHUB_HANDLE));
-        //this.redditHandle = Optional.fromNullable(personalLinks.get(MappingEnum.REDDIT_HANDLE));
+        Map<MappingEnum, String> personalLinks = parser.getMap(MappingEnum.PROFILE_LINKS);
+        this.skypeHandle = Optional.fromNullable(personalLinks.get(MappingEnum.SKYPE_HANDLE));
+        this.steamHandle = Optional.fromNullable(personalLinks.get(MappingEnum.STEAM_HANDLE));
+        this.twitterHandle = Optional.fromNullable(personalLinks.get(MappingEnum.TWITTER_HANDLE));
+        this.twitchHandle = Optional.fromNullable(personalLinks.get(MappingEnum.TWITCH_HANDLE));
+        this.facebookHandle = Optional.fromNullable(personalLinks.get(MappingEnum.FACEBOOK_HANDLE));
+        this.githubHandle = Optional.fromNullable(personalLinks.get(MappingEnum.GITHUB_HANDLE));
+        this.redditHandle = Optional.fromNullable(personalLinks.get(MappingEnum.REDDIT_HANDLE));
     }
 
     /**
@@ -438,16 +438,16 @@ public class ParsedPlayer implements OvercastPlayer {
                 ", woolsPlaced=" + wools +
                 ", coresLeaked=" + cores +
                 ", gender=" + gender +
-                ", location=" + location +
-                ", occupation=" + occupation +
-                ", interests=" + interests +
+                ", location=" + location.orNull() +
+                ", occupation=" + occupation.orNull() +
+                ", interests=" + interests.orNull() +
                 ", biography=" + biography.orNull() +
-                ", skypeHandle=" + skypeHandle +
-                ", steamHandle=" + steamHandle +
-                ", twitterHandle=" + twitterHandle +
-                ", twitchHandle=" + twitchHandle +
-                ", facebookHandle=" + facebookHandle +
-                ", githubHandle=" + githubHandle +
-                ", redditHandle=" + redditHandle + '}';
+                ", skypeHandle=" + skypeHandle.orNull() +
+                ", steamHandle=" + steamHandle.orNull() +
+                ", twitterHandle=" + twitterHandle.orNull() +
+                ", twitchHandle=" + twitchHandle.orNull() +
+                ", facebookHandle=" + facebookHandle.orNull() +
+                ", githubHandle=" + githubHandle.orNull() +
+                ", redditHandle=" + redditHandle.orNull() + '}';
     }
 }

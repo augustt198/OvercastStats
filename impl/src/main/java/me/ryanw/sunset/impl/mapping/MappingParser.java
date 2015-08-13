@@ -163,35 +163,39 @@ public class MappingParser {
                         List<Element> matchingElements = new ArrayList<Element>();
                         Elements parentElements = doc.select(entry.getParent());
                         for (Element parentElement : parentElements) {
-                            for (Element matchingElement : parentElement.getElementsMatchingOwnText(entryCase.getIdentifiedByText())) {
+                            for (Element matchingElement : parentElement.getElementsContainingOwnText(entryCase.getIdentifiedByText())) {
                                 matchingElements.add(matchingElement);
                             }
                         }
-                        Element targetElement = matchingElements.get(0);
-                        if (entryCase.getIdentifiedByIndex() != null) targetElement = matchingElements.get(entryCase.getIdentifiedByIndex());
-                        if (targetElement.lastElementSibling() != null && targetElement.lastElementSibling().getElementById(entry.getTarget()) != null) {
-                            String payload = targetElement.lastElementSibling().ownText();
-                            if (entryCase.getAttribute() != null)
-                                payload = targetElement.lastElementSibling().attr(entryCase.getAttribute());
-                            if (entryCase.getFilter() != null) payload = HelperUtil.runRegex(entryCase, payload);
-                            resultMap.put(name, payload);
-                            break;
-                        }
-                        if (targetElement.firstElementSibling() != null && targetElement.firstElementSibling().getElementById(entry.getTarget()) != null) {
-                            String payload = targetElement.firstElementSibling().ownText();
-                            if (entryCase.getAttribute() != null)
-                                payload = targetElement.firstElementSibling().attr(entryCase.getAttribute());
-                            if (entryCase.getFilter() != null) payload = HelperUtil.runRegex(entryCase, payload);
-                            resultMap.put(name, payload);
-                            break;
-                        }
-                        String elementName = entry.getParent();
-                        if (entry.getTarget() != null) elementName = entry.getTarget();
-                        if (targetElement.parent().nodeName().equalsIgnoreCase(elementName)) {
-                            String payload = targetElement.parent().ownText();
-                            if (entryCase.getAttribute() != null) payload = targetElement.parent().attr(entryCase.getAttribute());
-                            if (entryCase.getFilter() != null) payload = HelperUtil.runRegex(entryCase, payload);
-                            resultMap.put(name, payload);
+                        if (matchingElements.size() > 0) {
+                            Element targetElement = matchingElements.get(0);
+                            if (entryCase.getIdentifiedByIndex() != null)
+                                targetElement = matchingElements.get(entryCase.getIdentifiedByIndex());
+                            String elementName = entry.getParent();
+                            if (entry.getTarget() != null) elementName = entry.getTarget();
+                            if (targetElement.lastElementSibling() != null && targetElement.lastElementSibling().getElementById(entry.getTarget()) != null) {
+                                String payload = targetElement.lastElementSibling().ownText();
+                                if (entryCase.getAttribute() != null)
+                                    payload = targetElement.lastElementSibling().attr(entryCase.getAttribute());
+                                if (entryCase.getFilter() != null) payload = HelperUtil.runRegex(entryCase, payload);
+                                resultMap.put(name, payload);
+                                continue;
+                            }
+                            if (targetElement.siblingElements().select(elementName).first() != null) {
+                                String payload = targetElement.siblingElements().select(elementName).first().ownText();
+                                if (entryCase.getAttribute() != null)
+                                    payload = targetElement.siblingElements().select(elementName).attr(entryCase.getAttribute());
+                                if (entryCase.getFilter() != null) payload = HelperUtil.runRegex(entryCase, payload);
+                                resultMap.put(name, payload);
+                                continue;
+                            }
+                            if (targetElement.parent().nodeName().equalsIgnoreCase(elementName)) {
+                                String payload = targetElement.parent().ownText();
+                                if (entryCase.getAttribute() != null)
+                                    payload = targetElement.parent().attr(entryCase.getAttribute());
+                                if (entryCase.getFilter() != null) payload = HelperUtil.runRegex(entryCase, payload);
+                                resultMap.put(name, payload);
+                            }
                         }
                     }
                     return resultMap;
