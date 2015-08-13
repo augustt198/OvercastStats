@@ -77,9 +77,9 @@ public class ParsedPlayer implements OvercastPlayer {
          * Player objectives statistics
          */
         Map<MappingEnum, String> playerObjectives = parser.getMap(MappingEnum.OBJECTIVES);
-        this.monuments = Integer.parseInt(playerObjectives.get(MappingEnum.MONUMENTS));
-        this.wools = Integer.parseInt(playerObjectives.get(MappingEnum.WOOLS));
-        this.cores = Integer.parseInt(playerObjectives.get(MappingEnum.CORES));
+        if (playerObjectives.get(MappingEnum.MONUMENTS) != null) this.monuments = Integer.parseInt(playerObjectives.get(MappingEnum.MONUMENTS));
+        if (playerObjectives.get(MappingEnum.WOOLS) != null) this.wools = Integer.parseInt(playerObjectives.get(MappingEnum.WOOLS));
+        if (playerObjectives.get(MappingEnum.CORES) != null) this.cores = Integer.parseInt(playerObjectives.get(MappingEnum.CORES));
 
         /**
          * Player profile social networking information
