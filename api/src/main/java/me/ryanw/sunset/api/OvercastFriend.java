@@ -7,5 +7,5 @@ public interface OvercastFriend {
 
     String getUsername();
 
-    OvercastPlayer getAsPlayerObject() throws IOException;
+    OvercastPlayer getAsPlayerObject();
 }
