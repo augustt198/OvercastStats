@@ -402,18 +402,52 @@ public class ParsedPlayer implements OvercastPlayer {
 
     @Override
     public String toString() {
-        return "ParsedPlayer{" + "username='" + username + '\'' + ", formerUsername=" + formerUsername.orNull() + ", friends=" + friends.size() +
-                ", globalKills=" + globalKills + ", globalDeaths=" + globalDeaths + ", globalKdRatio=" + globalKdRatio +
-                ", globalKkRatio=" + globalKkRatio + ", globalDaysPlayed=" + globalDaysPlayed + ", globalDaysObserved=" + globalDaysObserved +
-                ", projectAresKills=" + projectAresKills + ", projectAresDeaths=" + projectAresDeaths + ", projectAresKdRatio=" + projectAresKdRatio +
-                ", projectAresKkRatio=" + projectAresKkRatio + ", projectAresDaysPlayed=" + projectAresDaysPlayed + ", projectAresDaysObserved=" + projectAresDaysObserved +
-                ", blitzKills=" + blitzKills + ", blitzDeaths=" + blitzDeaths + ", blitzKdRatio=" + blitzKdRatio + ", blitzKkRatio=" + blitzKkRatio +
-                ", blitzDaysPlayed=" + blitzDaysPlayed + ", blitzDaysObserved=" + blitzDaysObserved + ", ghostSquadronKills=" + ghostSquadronKills +
-                ", ghostSquadronDeaths=" + ghostSquadronDeaths + ", ghostSquadronKdRatio=" + ghostSquadronKdRatio + ", ghostSquadronKkRatio=" + ghostSquadronKkRatio +
-                ", ghostSquadronDaysPlayed=" + ghostSquadronDaysPlayed + ", ghostSquadronDaysObserved=" + ghostSquadronDaysObserved + ", serverJoins=" + serverJoins +
-                ", raindrops=" + raindrops + ", forumPosts=" + forumPosts + ", forumTopics=" + forumTopics + ", monumentsDestroyed=" + monuments +
-                ", woolsPlaced=" + wools + ", coresLeaked=" + cores + ", gender=" + gender + ", location=" + location + ", occupation=" + occupation +
-                ", interests=" + interests + ", biography=" + biography.orNull() + ", skypeHandle=" + skypeHandle + ", steamHandle=" + steamHandle + ", twitterHandle=" + twitterHandle +
-                ", twitchHandle=" + twitchHandle + ", facebookHandle=" + facebookHandle + ", githubHandle=" + githubHandle + ", redditHandle=" + redditHandle + '}';
+        return "ParsedPlayer{" +
+                "username=" + username +
+                ", formerUsername=" + formerUsername.orNull() +
+                ", friends=" + friends.size() +
+                ", globalKills=" + globalKills +
+                ", globalDeaths=" + globalDeaths +
+                ", globalKdRatio=" + globalKdRatio +
+                ", globalKkRatio=" + globalKkRatio +
+                ", globalDaysPlayed=" + globalDaysPlayed +
+                ", globalDaysObserved=" + globalDaysObserved +
+                ", projectAresKills=" + projectAresKills +
+                ", projectAresDeaths=" + projectAresDeaths +
+                ", projectAresKdRatio=" + projectAresKdRatio +
+                ", projectAresKkRatio=" + projectAresKkRatio +
+                ", projectAresDaysPlayed=" + projectAresDaysPlayed +
+                ", projectAresDaysObserved=" + projectAresDaysObserved +
+                ", blitzKills=" + blitzKills +
+                ", blitzDeaths=" + blitzDeaths +
+                ", blitzKdRatio=" + blitzKdRatio +
+                ", blitzKkRatio=" + blitzKkRatio +
+                ", blitzDaysPlayed=" + blitzDaysPlayed +
+                ", blitzDaysObserved=" + blitzDaysObserved +
+                ", ghostSquadronKills=" + ghostSquadronKills +
+                ", ghostSquadronDeaths=" + ghostSquadronDeaths +
+                ", ghostSquadronKdRatio=" + ghostSquadronKdRatio +
+                ", ghostSquadronKkRatio=" + ghostSquadronKkRatio +
+                ", ghostSquadronDaysPlayed=" + ghostSquadronDaysPlayed +
+                ", ghostSquadronDaysObserved=" + ghostSquadronDaysObserved +
+                ", serverJoins=" + serverJoins +
+                ", raindrops=" + raindrops +
+                ", forumPosts=" + forumPosts +
+                ", forumTopics=" + forumTopics +
+                ", monumentsDestroyed=" + monuments +
+                ", woolsPlaced=" + wools +
+                ", coresLeaked=" + cores +
+                ", gender=" + gender +
+                ", location=" + location +
+                ", occupation=" + occupation +
+                ", interests=" + interests +
+                ", biography=" + biography.orNull() +
+                ", skypeHandle=" + skypeHandle +
+                ", steamHandle=" + steamHandle +
+                ", twitterHandle=" + twitterHandle +
+                ", twitchHandle=" + twitchHandle +
+                ", facebookHandle=" + facebookHandle +
+                ", githubHandle=" + githubHandle +
+                ", redditHandle=" + redditHandle + '}';
     }
 }
