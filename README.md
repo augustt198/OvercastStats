@@ -1,4 +1,4 @@
-## java-wrapper [![license](http://img.shields.io/:license-MIT-blue.svg)](https://github.com/ryanw-se/OvercastAPI/blob/master/LICENSE)
+## java-wrapper [![Build Status](https://travis-ci.org/SunsetAPI/java-wrapper.svg)](https://travis-ci.org/SunsetAPI/java-wrapper) [![license](http://img.shields.io/:license-MIT-blue.svg)](https://github.com/ryanw-se/OvercastAPI/blob/master/LICENSE)
 A wrapper written in Java, for the SunsetAPI.
 
 ### Issue Reporting - Guidelines
