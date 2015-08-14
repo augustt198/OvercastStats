@@ -15,7 +15,7 @@ A wrapper written in Java, for the SunsetAPI.
 * When creating commit messages, always use present tense. If you have commits that aren't present tense, they won't be accepted.
 * Always use a proper IDE, never edit code in browser, get a proper development environment (IDE, Java, Maven).
 * Test your code, its always good to run several tests before creating a pull request.
-* If you're pull request is a work in progress, then simply mention that in your pull request description.
+* If your pull request is a work in progress, then simply mention that in your pull request description.
 * Do not add tags to your pull requests, such as WIP, DONE, a collaborator will add tags where they are needed.
 *
 
@@ -25,15 +25,15 @@ To compile this wrapper, you will need to have Maven, Java, Git and a optionally
 or higher, you will need the JDK installed in order to compile using Maven. Once you have installed a JDK that is at least running version
 Java 6 or higher, you will need to download and install apache maven.
 
-If you are on a mac, its as simple as installing brew and running the command ```brew install maven```. Linux users typically have a package
+If you're on a mac, its as simple as installing brew and running the command ```brew install maven```. Linux users typically have a package
 that they can install from, Windows users have plenty of tutorials showing you how to install maven on your specific version of Windows.
 
-Git is very simple to install, if you are on Mac simply open up terminal and type git, an Xcode package installer will launch, simply install
+Git is very simple to install, if you're on Mac simply open up terminal and type git, an Xcode package installer will launch, simply install
 the git package and you have git installed. On Linux, you should have a git package and windows users can download git from here, https://git-scm.com/.
 
 After you have installed maven, you will want to clone the latest version if this repository. You can do so by navigating to the directory
 that you wish to download the files into and typing ```git clone https://github.com/SunsetAPI/java-wrapper.git```. Open up a terminal or
-Command Prompt if your on Windows, and type ls. This will list all of your directories, if you downloaded java-wrapper in your documents folder,
+Command Prompt if your on Windows, and type ```ls```. This will list all of your directories, if you downloaded java-wrapper in your documents folder,
 you would typically type ```cd Documents``` followed by ```cd java-wrapper```.
 
 The first command will vary depending on where you downloaded the files, but the second command is always the same after you get into the directory.
