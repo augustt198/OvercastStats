@@ -1,4 +1,4 @@
-## java-wrapper [![Build Status](http://ci.twizmwaz.in/job/SunsetAPI/badge/icon)](http://ci.twizmwaz.in/job/SunsetAPI/) [![license](http://img.shields.io/:license-MIT-blue.svg)](https://github.com/ryanw-se/OvercastAPI/blob/master/LICENSE)
+## java-wrapper [![license](http://img.shields.io/:license-MIT-blue.svg)](https://github.com/ryanw-se/OvercastAPI/blob/master/LICENSE)
 A wrapper written in Java, for the SunsetAPI.
 
 ### Issue Reporting - Guidelines
