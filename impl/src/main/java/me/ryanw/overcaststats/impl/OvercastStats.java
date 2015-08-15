@@ -59,7 +59,6 @@ public class OvercastStats implements Overcast {
             String url = "https://oc.tc/users/" + username;
             try {
                 Connection.Response response = Jsoup.connect(url).method(Connection.Method.GET).userAgent(userAgent).timeout(connectionTimeout).execute();
-                System.out.println(username + " - " + response.statusCode());
                 playerList.add(new ParsedPlayer(response.parse()));
 
             } catch (HttpStatusException ignored) {} catch (NullPointerException ignored) {} catch (IOException ignored) {}
