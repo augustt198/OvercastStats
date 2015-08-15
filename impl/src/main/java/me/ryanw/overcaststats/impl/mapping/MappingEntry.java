@@ -1,4 +1,4 @@
-package me.ryanw.sunset.impl.mapping;
+package me.ryanw.overcaststats.impl.mapping;
 
 import java.util.ArrayList;
 import java.util.List;

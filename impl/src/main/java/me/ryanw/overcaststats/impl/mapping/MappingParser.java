@@ -1,11 +1,11 @@
-package me.ryanw.sunset.impl.mapping;
+package me.ryanw.overcaststats.impl.mapping;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import me.ryanw.sunset.impl.util.HelperUtil;
+import me.ryanw.overcaststats.impl.util.HelperUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;

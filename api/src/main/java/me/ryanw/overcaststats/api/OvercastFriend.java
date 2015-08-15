@@ -1,6 +1,4 @@
-package me.ryanw.sunset.api;
-
-import java.io.IOException;
+package me.ryanw.overcaststats.api;
 
 //TODO: javadoc
 public interface OvercastFriend {

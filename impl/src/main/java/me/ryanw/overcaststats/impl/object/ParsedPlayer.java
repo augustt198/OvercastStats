@@ -1,14 +1,13 @@
-package me.ryanw.sunset.impl.object;
+package me.ryanw.overcaststats.impl.object;
 
 import com.google.common.base.Optional;
-import me.ryanw.sunset.api.OvercastFriend;
-import me.ryanw.sunset.api.OvercastPlayer;
-import me.ryanw.sunset.api.OvercastTeam;
-import me.ryanw.sunset.api.util.Gender;
-import me.ryanw.sunset.impl.mapping.MappingEnum;
-import me.ryanw.sunset.impl.mapping.MappingParser;
-import me.ryanw.sunset.impl.util.HelperUtil;
-import me.ryanw.sunset.impl.util.MojangUtil;
+import me.ryanw.overcaststats.api.OvercastFriend;
+import me.ryanw.overcaststats.api.OvercastPlayer;
+import me.ryanw.overcaststats.api.util.Gender;
+import me.ryanw.overcaststats.impl.mapping.MappingEnum;
+import me.ryanw.overcaststats.impl.mapping.MappingParser;
+import me.ryanw.overcaststats.impl.util.HelperUtil;
+import me.ryanw.overcaststats.impl.util.MojangUtil;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
@@ -392,12 +391,6 @@ public class ParsedPlayer implements OvercastPlayer {
     @Override
     public Optional<String> getRedditHandle() {
         return redditHandle;
-    }
-
-    @Override
-    public Optional<OvercastTeam> getTeam() {
-        //TODO: implement
-        return Optional.absent();
     }
 
     @Override

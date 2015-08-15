@@ -1,4 +1,4 @@
-package me.ryanw.sunset.api;
+package me.ryanw.overcaststats.api;
 
 import java.util.List;
 

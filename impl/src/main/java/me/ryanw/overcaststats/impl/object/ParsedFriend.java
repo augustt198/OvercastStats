@@ -1,10 +1,8 @@
-package me.ryanw.sunset.impl.object;
+package me.ryanw.overcaststats.impl.object;
 
-import me.ryanw.sunset.api.OvercastFriend;
-import me.ryanw.sunset.api.OvercastPlayer;
-import me.ryanw.sunset.impl.Sunset;
-
-import java.io.IOException;
+import me.ryanw.overcaststats.api.OvercastFriend;
+import me.ryanw.overcaststats.api.OvercastPlayer;
+import me.ryanw.overcaststats.impl.OvercastStats;
 
 public class ParsedFriend implements OvercastFriend {
 
@@ -21,6 +19,6 @@ public class ParsedFriend implements OvercastFriend {
 
     @Override
     public OvercastPlayer getAsPlayerObject() {
-        return Sunset.getSunset().getPlayer(username);
+        return OvercastStats.getOvercastStats().getPlayer(username);
     }
 }

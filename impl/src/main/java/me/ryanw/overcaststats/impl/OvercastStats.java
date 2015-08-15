@@ -1,8 +1,8 @@
-package me.ryanw.sunset.impl;
+package me.ryanw.overcaststats.impl;
 
-import me.ryanw.sunset.api.Overcast;
-import me.ryanw.sunset.api.OvercastPlayer;
-import me.ryanw.sunset.impl.object.ParsedPlayer;
+import me.ryanw.overcaststats.api.Overcast;
+import me.ryanw.overcaststats.api.OvercastPlayer;
+import me.ryanw.overcaststats.impl.object.ParsedPlayer;
 import org.jsoup.Connection;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
@@ -11,16 +11,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sunset implements Overcast {
+public class OvercastStats implements Overcast {
 
     private String userAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36";
-    private static Sunset sunset;
+    private static OvercastStats overcastStats;
     private int connectionTimeout;
 
-    public Sunset(int connectionTimeout, String userAgent) {
+    public OvercastStats(int connectionTimeout, String userAgent) {
         this.connectionTimeout = connectionTimeout;
         if (userAgent != null) this.userAgent = userAgent;
-        sunset = this;
+        overcastStats = this;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class Sunset implements Overcast {
         return playerList;
     }
 
-    public static Sunset getSunset() {
-        return sunset;
+    public static OvercastStats getOvercastStats() {
+        return overcastStats;
     }
 }

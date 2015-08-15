@@ -1,7 +1,7 @@
-package me.ryanw.sunset.api;
+package me.ryanw.overcaststats.api;
 
 import com.google.common.base.Optional;
-import me.ryanw.sunset.api.util.Gender;
+import me.ryanw.overcaststats.api.util.Gender;
 
 import java.util.List;
 
@@ -99,6 +99,4 @@ public interface OvercastPlayer {
     Optional<String> getGithubHandle();
 
     Optional<String> getRedditHandle();
-
-    Optional<OvercastTeam> getTeam();
 }

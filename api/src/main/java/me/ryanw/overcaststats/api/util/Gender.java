@@ -1,4 +1,4 @@
-package me.ryanw.sunset.api.util;
+package me.ryanw.overcaststats.api.util;
 
 public enum Gender {
 

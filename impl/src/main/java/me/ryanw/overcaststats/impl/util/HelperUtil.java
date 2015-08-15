@@ -1,10 +1,10 @@
-package me.ryanw.sunset.impl.util;
+package me.ryanw.overcaststats.impl.util;
 
-import me.ryanw.sunset.api.OvercastFriend;
-import me.ryanw.sunset.api.util.Gender;
-import me.ryanw.sunset.impl.mapping.MappingEntry;
-import me.ryanw.sunset.impl.mapping.MappingEnum;
-import me.ryanw.sunset.impl.object.ParsedFriend;
+import me.ryanw.overcaststats.api.OvercastFriend;
+import me.ryanw.overcaststats.api.util.Gender;
+import me.ryanw.overcaststats.impl.mapping.MappingEntry;
+import me.ryanw.overcaststats.impl.mapping.MappingEnum;
+import me.ryanw.overcaststats.impl.object.ParsedFriend;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,15 +88,5 @@ public class HelperUtil {
         StringBuilder stringBuilder = new StringBuilder(matches.size());
         for (String match : matches) stringBuilder.append(match);
         return stringBuilder.toString().trim();
-    }
-
-    /**
-     * Takes a CSS selection and gets the parent element from it (First element).
-     * @param select The selection statement to get the first element from.
-     * @return The parent element of the selection statement.
-     */
-    public static String getSelectorParent(String select) {
-        String[] cssSelectors = select.split(">");
-        return cssSelectors[0];
     }
 }

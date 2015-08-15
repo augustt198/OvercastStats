@@ -1,4 +1,4 @@
-package me.ryanw.sunset.impl.mapping;
+package me.ryanw.overcaststats.impl.mapping;
 
 public enum MappingEnum {
 
