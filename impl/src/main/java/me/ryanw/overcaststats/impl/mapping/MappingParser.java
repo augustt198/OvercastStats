@@ -19,11 +19,11 @@ public class MappingParser {
 
     private final Document doc;
     private List<MappingEntry> mappingEntries;
+
     public MappingParser(Document doc, String fileName) {
         this.doc = doc;
-        String url = "https://raw.githubusercontent.com/SunsetAPI/mappings/master/" + fileName + ".json";
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        String url = "https://raw.githubusercontent.com/ryanw-se/mappings/master/" + fileName + ".json";
+        ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         try {
             JsonParser jsonParser = new JsonFactory().createParser(new URL(url).openStream());
@@ -31,74 +31,22 @@ public class MappingParser {
         } catch (MalformedURLException e) {
             throw new NullPointerException("Cannot fetch latest mappings file from Github: " + e.getMessage());
         } catch (JsonParseException e) {
-            throw new NullPointerException("Error occured while attempting to parse mappings file.");
+            throw new NullPointerException("Error occurred while attempting to parse mappings file.");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Sends a call to {@link #getString(MappingEnum)} (MappingEnum)} and returns the result.
-     * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Filtered byte result of a {@link #getString(MappingEnum)} (MappingEnum)}
+     * Primitive type calls, takes a mappings result and converts it to the called type.
      */
-    public byte getByte(MappingEnum mappingEnum) {
-        return Byte.parseByte(getString(mappingEnum));
-    }
-
-    /**
-     * Sends a call to {@link #getString(MappingEnum)} (MappingEnum)} and returns the result.
-     * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Short result of a {@link #getString(MappingEnum)} (MappingEnum)}
-     */
-    public short getShort(MappingEnum mappingEnum) {
-        return Short.parseShort(getString(mappingEnum));
-    }
-
-    /**
-     * Sends a call to {@link #getString(MappingEnum)} (MappingEnum)} and returns the result.
-     * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Long result of a {@link #getString(MappingEnum)} (MappingEnum)}
-     */
-    public long getLong(MappingEnum mappingEnum) {
-        return Long.parseLong(getString(mappingEnum));
-    }
-
-    /**
-     * Sends a call to {@link #getString(MappingEnum)} (MappingEnum)} and returns the result.
-     * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Float result of a {@link #getString(MappingEnum)} (MappingEnum)}
-     */
-    public float getFloat(MappingEnum mappingEnum) {
-        return Float.parseFloat(getString(mappingEnum));
-    }
-
-    /**
-     * Sends a call to {@link #getString(MappingEnum)} (MappingEnum)} and returns the result.
-     * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Double result of a {@link #getString(MappingEnum)} (MappingEnum)}
-     */
-    public double getDouble(MappingEnum mappingEnum) {
-        return Double.parseDouble(getString(mappingEnum));
-    }
-
-    /**
-     * Sends a call to {@link #getString(MappingEnum)} (MappingEnum)} and returns the result.
-     * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Boolean result of a {@link #getString(MappingEnum)} (MappingEnum)}
-     */
-    public boolean getBoolean(MappingEnum mappingEnum) {
-        return Boolean.parseBoolean(getString(mappingEnum));
-    }
-
-    /**
-     * Sends a call to {@link #getString(MappingEnum)} and returns the result.
-     * @param mappingEnum The id of the mapping entry we want to read from.
-     * @return Integer result of a {@link #getString(MappingEnum)}
-     */
-    public int getInteger(MappingEnum mappingEnum) {
-        return Integer.parseInt(getString(mappingEnum));
-    }
+    public byte getByte(MappingEnum mappingEnum) { return Byte.parseByte(getString(mappingEnum)); }
+    public short getShort(MappingEnum mappingEnum) { return Short.parseShort(getString(mappingEnum)); }
+    public long getLong(MappingEnum mappingEnum) { return Long.parseLong(getString(mappingEnum)); }
+    public float getFloat(MappingEnum mappingEnum) { return Float.parseFloat(getString(mappingEnum)); }
+    public double getDouble(MappingEnum mappingEnum) { return Double.parseDouble(getString(mappingEnum)); }
+    public boolean getBoolean(MappingEnum mappingEnum) { return Boolean.parseBoolean(getString(mappingEnum)); }
+    public int getInteger(MappingEnum mappingEnum) { return Integer.parseInt(getString(mappingEnum)); }
 
     /**
      * Gets an entry from the mapping file, passes it through Jsoup and returns the result as a String.

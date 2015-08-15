@@ -12,4 +12,8 @@ public interface Overcast {
     List<OvercastPlayer> getPlayers(List<String> usernames);
 
     List<OvercastPlayer> getPlayersByUrl(List<String> urls);
+
+    void setConnectionTimeout(int timeout);
+
+    void setUserAgent(String userAgent);
 }
