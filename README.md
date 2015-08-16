@@ -1,6 +1,47 @@
 ## OvercastStats [![Build Status](https://travis-ci.org/ryanw-se/OvercastStats.svg?branch=master)](https://travis-ci.org/ryanw-se/OvercastStats) [![license](http://img.shields.io/:license-MIT-blue.svg)](https://github.com/ryanw-se/OvercastAPI/blob/master/LICENSE)
 A lightweight player statistics parsing API, written in Java.
 
+### Dependency Usage
+
+Adding OvercastStats to your maven or gradle project is super painless and takes less than a minute. This snippet of code below
+demonstrates how simple it is to add this API to your project. Chances are you only need to add a new maven repository and dependency.
+
+```gradle
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "repo.ryan-w.me"
+            url = "http://repo.ryan-w.me/nexus/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        classpath 'me.ryanw.overcaststats:overcast-scraper:1.0-SNAPSHOT'
+    }
+}
+```
+
+Here is how you would do so a Maven based project, please keep in mind that you should always check the build server or nexus
+and change the 1.0-SNAPSHOT version, to what ever is the latest. Its always recommended to be on the latest version.
+
+```maven
+    <repositories>
+        <repository>
+            <id>repo.ryan-w.me</id>
+            <url>http://repo.ryan-w.me/nexus/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
+    <dependencies>
+        <dependency>
+            <groupId>me.ryanw.overcaststats</groupId>
+            <artifactId>overcast-scraper</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+```
+
+You can check out the Sonatype Nexus server here, http://repo.ryan-w.me/nexus/.
+
 ### Issue Reporting - Guidelines
 
 * Verify that the issue hasn't already been reported, if it has add onto that issue rather than creating a new one.
@@ -40,4 +81,4 @@ The first command will vary depending on where you downloaded the files, but the
 Now that we have gotten into the directory, its time to build the project. Simply type the command ```mvn clean install``` to build the project
 (create a jar) and install it to your local maven repository. (For reference in your projects).
 
-The end result should be stored inside the ```target``` folder, as a jar file called ```impl-1.0-SNAPSHOT.jar``` and ```api-1.0-SNAPSHOT.jar```.
+The end result should be stored inside the ```target``` folder, as a jar file called ```overcast-scraper-<version>-SNAPSHOT.jar``` and ```api-<version>-SNAPSHOT.jar```.
