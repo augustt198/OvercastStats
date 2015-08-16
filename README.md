@@ -1,6 +1,8 @@
 ## OvercastStats [![Build Status](https://travis-ci.org/ryanw-se/OvercastStats.svg?branch=master)](https://travis-ci.org/ryanw-se/OvercastStats) [![license](http://img.shields.io/:license-MIT-blue.svg)](https://github.com/ryanw-se/OvercastAPI/blob/master/LICENSE)
 A lightweight player statistics parsing API, written in Java.
 
+You can check out the in-depth documentation and javadoc here, http://ryanw-se.github.io/OvercastStats/.
+
 ### Dependency Usage
 
 Adding OvercastStats to your maven or gradle project is super painless and takes less than a minute. This snippet of code below

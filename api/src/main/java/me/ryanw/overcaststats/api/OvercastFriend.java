@@ -1,9 +1,14 @@
 package me.ryanw.overcaststats.api;
 
-//TODO: javadoc
 public interface OvercastFriend {
 
+    /**
+     * Gets the username of the player
+     */
     String getUsername();
 
+    /**
+     * Converts the friend object into a player one.
+     */
     OvercastPlayer getAsPlayerObject();
 }
