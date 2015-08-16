@@ -3,6 +3,14 @@ A lightweight player statistics parsing API, written in Java.
 
 You can check out the docs and javadoc here, http://ryanw-se.github.io/OvercastStats/.
 
+### Contributors
+
+Special thanks to the following contributors for their feedback, time, suggestions and more.
+
+ - Aaron1011 (Feedback, Suggestions for improving the mappings url system)
+ - skipperguy12 (Feedback, Helped me setup the maven server)
+ - twiz_mwazin (Feedback, Suggestions, Most of the architectural decisions, Countless hours of hard work)
+
 ### Dependency Usage
 
 Adding OvercastStats to your maven or gradle project is super painless and takes less than a minute. This snippet of code below
