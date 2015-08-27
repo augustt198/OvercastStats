@@ -22,14 +22,13 @@ package me.ryanw.overcaststats.api;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-public interface OvercastFriend {
-    /**
-     * Gets the username of the player
-     */
-    String getUsername();
+public enum Gender {
 
-    /**
-     * Converts the friend object into a player one.
-     */
-    OvercastPlayer getAsPlayerObject();
+    MALE, FEMALE, UNKNOWN;
+
+    public static Gender determineGender(String gender) {
+        if (gender.equalsIgnoreCase(MALE.name())) return MALE;
+        if (gender.equalsIgnoreCase(FEMALE.name())) return FEMALE;
+        return Gender.UNKNOWN;
+    }
 }
