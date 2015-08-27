@@ -26,13 +26,13 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'me.ryanw.overcaststats:overcast-scraper:1.0-SNAPSHOT'
+        classpath 'me.ryanw.overcaststats:overcast-scraper:1.1-SNAPSHOT'
     }
 }
 ```
 
 Here is how you would do so a Maven based project, please keep in mind that you should always check the build server or nexus
-and change the 1.0-SNAPSHOT version, to what ever is the latest. Its always recommended to be on the latest version.
+and change the 1.1-SNAPSHOT version, to what ever is the latest. Its always recommended to be on the latest version.
 
 ```maven
     <repositories>
@@ -45,7 +45,7 @@ and change the 1.0-SNAPSHOT version, to what ever is the latest. Its always reco
         <dependency>
             <groupId>me.ryanw.overcaststats</groupId>
             <artifactId>overcast-scraper</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 ```
