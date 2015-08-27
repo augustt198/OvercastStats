@@ -782,7 +782,7 @@ public class ParsedPlayer implements OvercastPlayer {
 
     public double calculateGlobalKkRatio() {
         int blitzKilled = (int) (blitzStats.getBlitzKkRatio() * blitzStats.getBlitzKills());
-        int ghostKilled = (int) (ghostSquadronStats.getGhostSquadronKdRatio() * ghostSquadronStats.getGhostSquadronKills());
+        int ghostKilled = (int) (ghostSquadronStats.getGhostSquadronKkRatio() * ghostSquadronStats.getGhostSquadronKills());
         int paresKilled = (int) (projectAresStats.getProjectAresKkRatio() * projectAresStats.getProjectAresKills());
 
         double killed = blitzKilled + ghostKilled + paresKilled;
