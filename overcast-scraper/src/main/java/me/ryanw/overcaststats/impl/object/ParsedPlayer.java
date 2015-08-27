@@ -101,6 +101,7 @@ public class ParsedPlayer implements OvercastPlayer {
         globalStats.setGlobalDaysObserved(Double.valueOf(new DecimalFormat("#.##").format(calculateTotalObservedTime())));
         globalStats.setGlobalDaysPlayed(Double.valueOf(new DecimalFormat("#.##").format(calculateTotalPlayedTime())));
         globalStats.setGlobalKdRatio(Double.valueOf(new DecimalFormat("#.##").format(calculateGlobalKdRatio())));
+        globalStats.setGlobalKkRatio(Double.valueOf(new DecimalFormat("#.##").format(calculateGlobalKkRatio())));
         
         personalInfo.setGender(Gender.determineGender(playerDetailsMap.get(DataType.GENDER)));
         personalInfo.setLocation(playerDetailsMap.get(DataType.LOCATION));
@@ -778,4 +779,15 @@ public class ParsedPlayer implements OvercastPlayer {
         double totalDeaths = projectAresStats.getProjectAresDeaths() + ghostSquadronStats.getGhostSquadronDeaths() + blitzStats.getBlitzDeaths();
         return totalKills / totalDeaths;
     }
+
+    public double calculateGlobalKkRatio() {
+        int blitzKilled = (int) (blitzStats.getBlitzKkRatio() * blitzStats.getBlitzKills());
+        int ghostKilled = (int) (ghostSquadronStats.getGhostSquadronKkRatio() * ghostSquadronStats.getGhostSquadronKills());
+        int paresKilled = (int) (projectAresStats.getProjectAresKkRatio() * projectAresStats.getProjectAresKills());
+
+        double killed = blitzKilled + ghostKilled + paresKilled;
+        double kills = blitzStats.getBlitzKills() + ghostSquadronStats.getGhostSquadronKills() + projectAresStats.getProjectAresKills();
+        return kills / killed;
+    }
+
 }
