@@ -26,9 +26,14 @@ public enum Gender {
 
     MALE, FEMALE, UNKNOWN;
 
-    public static Gender determineGender(String gender) {
-        if (gender.equalsIgnoreCase(MALE.name())) return MALE;
-        if (gender.equalsIgnoreCase(FEMALE.name())) return FEMALE;
+    public static Gender determineGender(String input) {
+        for (Gender gender : values()) {
+            if (gender.name().equalsIgnoreCase(input)) {
+                return gender;
+            }
+        }
+
         return Gender.UNKNOWN;
     }
+
 }
