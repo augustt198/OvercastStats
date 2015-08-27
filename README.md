@@ -9,7 +9,12 @@ Special thanks to the following contributors for their feedback, time, suggestio
 
  - Aaron1011 (Feedback, Suggestions for improving the mappings url system)
  - skipperguy12 (Feedback, Helped me setup the maven server)
- - twiz_mwazin (Feedback, Suggestions, Most of the architectural decisions, Countless hours of hard work)
+ - twiz_mwazin (Feedback, Suggestions, Original architectural decisions)
+ - parapenguin (Feedback, Suggestions)
+ - molenzwiebl (Feedback, Suggestions)
+ - augustt198 (Feedback, Suggestions)
+ - kblanks (Feedback, Suggestions)
+ - gcflames5 (Feedback, Suggestions)
 
 ### Dependency Usage
 

@@ -81,7 +81,7 @@ public enum DataType {
     private String id;
 
     public enum Types {
-        LIST(), MAP(), SINGLE()
+        LIST, MAP, SINGLE
     }
 
     DataType(String id) {
