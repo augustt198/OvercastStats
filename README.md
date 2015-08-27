@@ -10,7 +10,7 @@ Special thanks to the following contributors for their feedback, time, suggestio
  - Aaron1011 (Feedback, Suggestions for improving the mappings url system)
  - skipperguy12 (Feedback, Helped me setup the maven server)
  - twiz_mwazin (Feedback, Suggestions, Original architectural decisions)
- - parapenguin (Feedback, Suggestions)
+ - parapenguin (Feedback, Suggestions, work on KK)
  - molenzwiebl (Feedback, Suggestions)
  - augustt198 (Feedback, Suggestions)
  - kblanks (Feedback, Suggestions)
@@ -39,20 +39,20 @@ buildscript {
 Here is how you would do so a Maven based project, please keep in mind that you should always check the build server or nexus
 and change the 1.1-SNAPSHOT version, to what ever is the latest. Its always recommended to be on the latest version.
 
-```maven
-    <repositories>
-        <repository>
-            <id>repo.ryan-w.me</id>
-            <url>http://repo.ryan-w.me/nexus/content/repositories/snapshots/</url>
-        </repository>
-    </repositories>
-    <dependencies>
-        <dependency>
-            <groupId>me.ryanw.overcaststats</groupId>
-            <artifactId>overcast-scraper</artifactId>
-            <version>1.1-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
+```xml
+<repositories>
+    <repository>
+        <id>repo.ryan-w.me</id>
+        <url>http://repo.ryan-w.me/nexus/content/repositories/snapshots/</url>
+    </repository>
+</repositories>
+<dependencies>
+    <dependency>
+        <groupId>me.ryanw.overcaststats</groupId>
+        <artifactId>overcast-scraper</artifactId>
+        <version>1.1-SNAPSHOT</version>
+    </dependency>
+</dependencies>
 ```
 
 You can check out the Sonatype Nexus server here, http://repo.ryan-w.me/nexus/.
