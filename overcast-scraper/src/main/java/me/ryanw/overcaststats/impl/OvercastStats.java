@@ -25,14 +25,13 @@ package me.ryanw.overcaststats.impl;
 
 import me.ryanw.overcaststats.api.Overcast;
 import me.ryanw.overcaststats.api.OvercastPlayer;
-import me.ryanw.overcaststats.impl.object.ParsedPlayer;
 import me.ryanw.overcaststats.api.util.Callback;
+import me.ryanw.overcaststats.impl.object.ParsedPlayer;
 import me.ryanw.overcaststats.impl.util.MojangUtil;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;

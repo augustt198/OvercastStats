@@ -22,9 +22,9 @@ package me.ryanw.overcaststats.impl.object;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 import me.ryanw.overcaststats.api.OvercastFriend;
 import me.ryanw.overcaststats.api.OvercastPlayer;
-import me.ryanw.overcaststats.api.util.Callback;
 import me.ryanw.overcaststats.impl.OvercastStats;
 
 public class ParsedFriend implements OvercastFriend {

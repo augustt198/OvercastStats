@@ -2,7 +2,7 @@ package me.ryanw.overcaststats.api.util;
 /*
  * This file is part of OvercastStats, licensed under the MIT License (MIT).
  *
- * Copyright (c) Ryan Warsaw
+ * Copyright (c) Ryan W
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
