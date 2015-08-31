@@ -31,13 +31,13 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'me.ryanw.overcaststats:overcast-scraper:1.1-SNAPSHOT'
+        classpath 'me.ryanw.overcaststats:overcast-scraper:1.2-SNAPSHOT'
     }
 }
 ```
 
 Here is how you would do so a Maven based project, please keep in mind that you should always check the build server or nexus
-and change the 1.1-SNAPSHOT version, to what ever is the latest. Its always recommended to be on the latest version.
+and change the 1.2-SNAPSHOT version, to what ever is the latest. Its always recommended to be on the latest version.
 
 ```xml
 <repositories>
@@ -50,12 +50,51 @@ and change the 1.1-SNAPSHOT version, to what ever is the latest. Its always reco
     <dependency>
         <groupId>me.ryanw.overcaststats</groupId>
         <artifactId>overcast-scraper</artifactId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.2-SNAPSHOT</version>
     </dependency>
 </dependencies>
 ```
 
 You can check out the Sonatype Nexus server here, http://repo.ryan-w.me/nexus/.
+
+### Callbacks - Async usage
+
+OvercastStats provides methods that allow you to make calls to the Overcast Network website async. This means, your free to run code on your main thread
+while OvercastStats is getting the result of your request to the Overcast Network website. This is done with a system called callbacks. You can use the 
+integrated callback system or write your own to wrap around the API. 
+
+Here is what usage would look like for your standard call for a user, by username.
+
+```java
+    overcast.getPlayerByNameAsync("rockymma", new Callback<OvercastPlayer>() {
+        @Override
+        public void call(OvercastPlayer result) {
+            // Do something with the result.
+        }
+    });
+```
+
+Here is what the usage would look like for a call for a user, by url.
+
+```java
+    overcast.getPlayerByUrlAsync(new URL("http://oc.tc/users/rockymma"), new Callback<OvercastPlayer>() {
+        @Override
+        public void call(OvercastPlayer result) {
+            // Do something with the result.
+        }
+    });
+```
+
+And to finish things up, this is what the usage would look like for a call by uuid.
+
+```java
+    overcast.getPlayerByUuidAsync(UUID.fromString("add997bc-d38e-4571-af8d-9cd0e0e905c5"), new Callback<OvercastPlayer>() {
+        @Override
+        public void call(OvercastPlayer result) {
+            // Do something with the result.
+        }
+    });
+```
 
 ### Issue Reporting - Guidelines
 

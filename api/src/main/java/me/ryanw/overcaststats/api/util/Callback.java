@@ -1,8 +1,8 @@
-package me.ryanw.overcaststats.impl.object;
+package me.ryanw.overcaststats.api.util;
 /*
  * This file is part of OvercastStats, licensed under the MIT License (MIT).
  *
- * Copyright (c) Ryan W
+ * Copyright (c) Ryan Warsaw
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,27 +22,7 @@ package me.ryanw.overcaststats.impl.object;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-import me.ryanw.overcaststats.api.OvercastFriend;
-import me.ryanw.overcaststats.api.OvercastPlayer;
-import me.ryanw.overcaststats.api.util.Callback;
-import me.ryanw.overcaststats.impl.OvercastStats;
 
-public class ParsedFriend implements OvercastFriend {
-    private String username;
-    private OvercastStats overcastStats;
-
-    public ParsedFriend(OvercastStats overcastStats, String username) {
-        this.username = username;
-        this.overcastStats = overcastStats;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    @Override
-    public OvercastPlayer getAsPlayerObject() {
-        return overcastStats.getPlayerByName(username);
-    }
+public interface Callback<T> {
+    void call(T result);
 }

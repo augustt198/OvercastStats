@@ -26,11 +26,14 @@ package me.ryanw.overcaststats.impl;
 import me.ryanw.overcaststats.api.Overcast;
 import me.ryanw.overcaststats.api.OvercastPlayer;
 import me.ryanw.overcaststats.impl.object.ParsedPlayer;
+import me.ryanw.overcaststats.api.util.Callback;
 import me.ryanw.overcaststats.impl.util.MojangUtil;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -53,7 +56,52 @@ public class OvercastStats implements Overcast {
     }
 
     @Override
-    public OvercastPlayer getPlayerByUrl(String url)  {
+    public void getPlayerByNameAsync(final String username, final Callback<OvercastPlayer> callback) {
+        final OvercastStats overcastStats = this;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String url = "https://oc.tc/users/" + username;
+                try {
+                    Connection.Response response = Jsoup.connect(url).method(Connection.Method.GET).userAgent(userAgent).timeout(connectionTimeout).execute();
+                    callback.call(new ParsedPlayer(overcastStats, response.parse()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    @Override
+    public OvercastPlayer getPlayerByUrl(URL url)  {
+        try {
+            Connection.Response response = Jsoup.connect(url.toString()).method(Connection.Method.GET).userAgent(userAgent).timeout(connectionTimeout).execute();
+            return new ParsedPlayer(this, response.parse());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public void getPlayerByUrlAsync(final URL url, final Callback<OvercastPlayer> callback) {
+        final OvercastStats overcastStats = this;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Connection.Response response = Jsoup.connect(url.toString()).method(Connection.Method.GET).userAgent(userAgent).timeout(connectionTimeout).execute();
+                    callback.call(new ParsedPlayer(overcastStats, response.parse()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    @Override
+    public OvercastPlayer getPlayerByUuid(UUID uuid) {
+        String url = "https://oc.tc/users/" + MojangUtil.getUsername(String.valueOf(uuid));
         try {
             Connection.Response response = Jsoup.connect(url).method(Connection.Method.GET).userAgent(userAgent).timeout(connectionTimeout).execute();
             return new ParsedPlayer(this, response.parse());
@@ -64,15 +112,20 @@ public class OvercastStats implements Overcast {
     }
 
     @Override
-    public OvercastPlayer getPlayerByUUID(UUID uuid) {
-        String url = "https://oc.tc/users/" + MojangUtil.getUsername(String.valueOf(uuid));
-        try {
-            Connection.Response response = Jsoup.connect(url).method(Connection.Method.GET).userAgent(userAgent).timeout(connectionTimeout).execute();
-            return new ParsedPlayer(this, response.parse());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public void getPlayerByUuidAsync(final UUID uuid, final Callback<OvercastPlayer> callback) {
+        final OvercastStats overcastStats = this;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String url = "https://oc.tc/users/" + MojangUtil.getUsername(String.valueOf(uuid));
+                try {
+                    Connection.Response response = Jsoup.connect(url).method(Connection.Method.GET).userAgent(userAgent).timeout(connectionTimeout).execute();
+                    callback.call(new ParsedPlayer(overcastStats, response.parse()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -92,11 +145,32 @@ public class OvercastStats implements Overcast {
     }
 
     @Override
-    public List<OvercastPlayer> getPlayersByUrl(List<String> urls) {
+    public void getPlayersByNameAsync(final List<String> usernames, final Callback<List<OvercastPlayer>> callback) {
+        final OvercastStats overcastStats = this;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<OvercastPlayer> playerList = new ArrayList<OvercastPlayer>();
+                for (String username : usernames) {
+                    String url = "https://oc.tc/users/" + username;
+                    try {
+                        Connection.Response response = Jsoup.connect(url).method(Connection.Method.GET).userAgent(userAgent).timeout(connectionTimeout).execute();
+                        playerList.add(new ParsedPlayer(overcastStats, response.parse()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                callback.call(playerList);
+            }
+        }).start();
+    }
+
+    @Override
+    public List<OvercastPlayer> getPlayersByUrl(List<URL> urls) {
         List<OvercastPlayer> playerList = new ArrayList<OvercastPlayer>();
-        for (String url : urls) {
+        for (URL url : urls) {
             try {
-                Connection.Response response = Jsoup.connect(url).method(Connection.Method.GET).userAgent(userAgent).timeout(connectionTimeout).execute();
+                Connection.Response response = Jsoup.connect(url.toString()).method(Connection.Method.GET).userAgent(userAgent).timeout(connectionTimeout).execute();
                 playerList.add(new ParsedPlayer(this, response.parse()));
             } catch (IOException e) {
                 e.printStackTrace();
@@ -106,7 +180,27 @@ public class OvercastStats implements Overcast {
     }
 
     @Override
-    public List<OvercastPlayer> getPlayersByUUID(List<UUID> uuids) {
+    public void getPlayersByUrlAsync(final List<URL> urls, final Callback<List<OvercastPlayer>> callback) {
+        final OvercastStats overcastStats = this;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<OvercastPlayer> playerList = new ArrayList<OvercastPlayer>();
+                for (URL url : urls) {
+                    try {
+                        Connection.Response response = Jsoup.connect(url.toString()).method(Connection.Method.GET).userAgent(userAgent).timeout(connectionTimeout).execute();
+                        playerList.add(new ParsedPlayer(overcastStats, response.parse()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                callback.call(playerList);
+            }
+        }).start();
+    }
+
+    @Override
+    public List<OvercastPlayer> getPlayersByUuid(List<UUID> uuids) {
         List<OvercastPlayer> playerList = new ArrayList<OvercastPlayer>();
         for (UUID uuid : uuids) {
             String url = "https://oc.tc/users/" + MojangUtil.getUsername(String.valueOf(uuid));
@@ -119,6 +213,27 @@ public class OvercastStats implements Overcast {
             }
         }
         return playerList;
+    }
+
+    @Override
+    public void getPlayersByUuidAsync(final List<UUID> uuids, final Callback<List<OvercastPlayer>> callback) {
+        final OvercastStats overcastStats = this;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<OvercastPlayer> playerList = new ArrayList<OvercastPlayer>();
+                for (UUID uuid : uuids) {
+                    String url = "https://oc.tc/users/" + MojangUtil.getUsername(String.valueOf(uuid));
+                    try {
+                        Connection.Response response = Jsoup.connect(url).method(Connection.Method.GET).userAgent(userAgent).timeout(connectionTimeout).execute();
+                        playerList.add(new ParsedPlayer(overcastStats, response.parse()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                callback.call(playerList);
+            }
+        }).start();
     }
 
     @Override

@@ -22,52 +22,110 @@ package me.ryanw.overcaststats.api;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+import me.ryanw.overcaststats.api.util.Callback;
+
+import java.net.URL;
 import java.util.List;
 import java.util.UUID;
 
 public interface Overcast {
 
     /**
-     * Gets an overcast player by username and parses the profile page for that user.
+     * Gets an {@link me.ryanw.overcaststats.api.OvercastPlayer} by username and parses the profile page for that user.
+     * Runs logic and returns on the main thread, not recommended for production environments.
      * @param username The username of the profile page to parse.
      * @return Parsed {@link me.ryanw.overcaststats.api.OvercastPlayer} object.
      */
     OvercastPlayer getPlayerByName(String username);
 
     /**
-     * Gets an overcast player by their profile page url and parses the contents of that url.
+     * Gets an {@link me.ryanw.overcaststats.api.OvercastPlayer} by username and parses the profile page for that user.
+     * Runs logic and returns a callback on a separate thread, recommended for production environments.
+     * @param username The username of the profile page to parse.
+     * @param callback Parsed {@link me.ryanw.overcaststats.api.OvercastPlayer} object from the other thread.
+     */
+    void getPlayerByNameAsync(String username, Callback<OvercastPlayer> callback);
+
+
+    /**
+     * Gets an {@link me.ryanw.overcaststats.api.OvercastPlayer} by their profile page url and parses the contents of that url.
+     * Runs logic and returns on the main thread, not recommended for production environments.
      * @param url The url to parse and identify the user by.
      * @return Parsed {@link me.ryanw.overcaststats.api.OvercastPlayer} object.
      */
-    OvercastPlayer getPlayerByUrl(String url);
+    OvercastPlayer getPlayerByUrl(URL url);
 
     /**
-     * Gets an overcast player by their uuid and parses the profile page for that user.
+     * Gets an {@link me.ryanw.overcaststats.api.OvercastPlayer} by their profile page url and parses the contents of that url.
+     * Runs logic and returns a callback on a separate thread, recommended for production environments.
+     * @param url The url to parse and identify the user by.
+     * @param callback Parsed {@link me.ryanw.overcaststats.api.OvercastPlayer} object from the other thread.
+     */
+    void getPlayerByUrlAsync(URL url, Callback<OvercastPlayer> callback);
+
+    /**
+     * Gets an {@link me.ryanw.overcaststats.api.OvercastPlayer} by their uuid and parses the profile page for that user.
+     * Runs logic and returns on the main thread, not recommended for production environments.
      * @param uuid The uuid of the player page to parse.
      * @return Parsed {@link me.ryanw.overcaststats.api.OvercastPlayer} object.
      */
-    OvercastPlayer getPlayerByUUID(UUID uuid);
+    OvercastPlayer getPlayerByUuid(UUID uuid);
 
     /**
-     * Gets a list of overcast players by their usernames and parses their profile pages.
+     * Gets an {@link me.ryanw.overcaststats.api.OvercastPlayer} by their uuid and parses the profile page for that user.
+     * Runs logic and returns a callback on a separate thread, recommended for production environments.
+     * @param uuid The uuid of the player page to parse.
+     * @param callback Parsed {@link me.ryanw.overcaststats.api.OvercastPlayer} object from the other thread.
+     */
+    void getPlayerByUuidAsync(UUID uuid, Callback<OvercastPlayer> callback);
+
+    /**
+     * Gets a list of {@link me.ryanw.overcaststats.api.OvercastPlayer} by their usernames and parses their profile pages.
+     * Runs logic and returns on the main thread, not recommended for production environments.
      * @param usernames The usernames of the players whoms profile pages we want to parse.
      * @return List of parsed {@link me.ryanw.overcaststats.api.OvercastPlayer} objects.
      */
     List<OvercastPlayer> getPlayersByName(List<String> usernames);
 
     /**
-     * Gets a list of overcast players by their player page urls and parses their profile pages.
+     * Gets a list of {@link me.ryanw.overcaststats.api.OvercastPlayer} by their usernames and parses their profile pages.
+     * Runs logic and returns a callback on a separate thread, recommended for production environments.
+     * @param usernames The usernames of the players whom profile pages we want to parse.
+     * @param callback List of parsed {@link me.ryanw.overcaststats.api.OvercastPlayer} objects from the other thread.
+     */
+    void getPlayersByNameAsync(List<String> usernames, Callback<List<OvercastPlayer>> callback);
+
+    /**
+     * Gets a list of {@link me.ryanw.overcaststats.api.OvercastPlayer} by their player page urls and parses their profile pages.
+     * Runs logic and returns on main thread, not recommended for production environments.
      * @param urls The urls that we want to identify each user by and parse.
      * @return List of parsed {@link me.ryanw.overcaststats.api.OvercastPlayer} objects.
      */
-    List<OvercastPlayer> getPlayersByUrl(List<String> urls);
+    List<OvercastPlayer> getPlayersByUrl(List<URL> urls);
 
     /**
-     * Gets a list of overcast players by their uuids and parses their profile pages.
+     * Gets a list of {@link me.ryanw.overcaststats.api.OvercastPlayer} by their usernames and parses their profile pages.
+     * Runs logic and returns a callback on a separate thread, recommended for production environments.
+     * @param urls The urls that we want to identify each user by and parse.
+     * @param callback List of parsed {@link me.ryanw.overcaststats.api.OvercastPlayer} objects from the other thread.
+     */
+    void getPlayersByUrlAsync(List<URL> urls, Callback<List<OvercastPlayer>> callback);
+
+    /**
+     * Gets a list of {@link me.ryanw.overcaststats.api.OvercastPlayer} by their uuids and parses their profile pages.
+     * Runs logic and returns on main thread, not recommended for production environments.
      * @param uuids The uuids of the players whoms profile pages we want to parse.
      * @return List of parsed {@link me.ryanw.overcaststats.api.OvercastPlayer} objects.
      */
-    List<OvercastPlayer> getPlayersByUUID(List<UUID> uuids);
+    List<OvercastPlayer> getPlayersByUuid(List<UUID> uuids);
+
+    /**
+     * Gets a list of {@link me.ryanw.overcaststats.api.OvercastPlayer} by their uuids and parses their profile pages.
+     * Runs logic and returns a callback on a separate thread, recommended for production environments.
+     * @param uuids The uuids of the players whoms profile pages we want to parse.
+     * @param callback List of parsed {@link me.ryanw.overcaststats.api.OvercastPlayer} objects from the other thread.
+     */
+    void getPlayersByUuidAsync(List<UUID> uuids, Callback<List<OvercastPlayer>> callback);
 
     /**
      * Sets JSoups connection timeout time, if none is set it will default to 3000.
