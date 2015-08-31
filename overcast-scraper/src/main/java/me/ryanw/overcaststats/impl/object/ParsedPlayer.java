@@ -766,21 +766,21 @@ public class ParsedPlayer implements OvercastPlayer {
                 '}';
     }
 
-    public double calculateTotalObservedTime() {
+    private double calculateTotalObservedTime() {
         return projectAresStats.getProjectAresDaysObserved() + ghostSquadronStats.getGhostSquadronDaysObserved() + blitzStats.getBlitzDaysObserved();
     }
 
-    public double calculateTotalPlayedTime() {
+    private double calculateTotalPlayedTime() {
         return projectAresStats.getProjectAresDaysPlayed() + ghostSquadronStats.getGhostSquadronDaysPlayed() + blitzStats.getBlitzDaysPlayed();
     }
 
-    public double calculateGlobalKdRatio() {
+    private double calculateGlobalKdRatio() {
         double totalKills = projectAresStats.getProjectAresKills() + ghostSquadronStats.getGhostSquadronKills() + blitzStats.getBlitzKills();
         double totalDeaths = projectAresStats.getProjectAresDeaths() + ghostSquadronStats.getGhostSquadronDeaths() + blitzStats.getBlitzDeaths();
         return totalKills / totalDeaths;
     }
 
-    public double calculateGlobalKkRatio() {
+    private double calculateGlobalKkRatio() {
         int blitzKilled = (int) (blitzStats.getBlitzKkRatio() * blitzStats.getBlitzKills());
         int ghostKilled = (int) (ghostSquadronStats.getGhostSquadronKkRatio() * ghostSquadronStats.getGhostSquadronKills());
         int paresKilled = (int) (projectAresStats.getProjectAresKkRatio() * projectAresStats.getProjectAresKills());
